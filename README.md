@@ -32,3 +32,11 @@ After GitHub Pages finishes publishing:
 2. Confirm the launcher appears.
 3. Tap Radio.
 4. Confirm all station names are white and the Podcasts section has four entries.
+
+
+## Final UI color update
+- Disney word: `#F2C94C`
+- Disney divider: `#D65A54`
+- Play button: `#F2C94C`
+- Volume slider: `#F2C94C`
+- Cache version bumped to `4.0.2`
