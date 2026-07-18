@@ -1,30 +1,22 @@
-COACHDON CARPLAY v9 — SURGICAL UPDATE
+COACHDON CARPLAY — COMPLETE v10
 
-This package was built directly from the good index.html you uploaded.
+This ZIP is a complete, matching project. Do not mix it with older files.
 
-UPLOAD / REPLACE:
-- index.html
-- flexmls.svg
-- showingtime.svg
-- dotloop.svg
-- forewarn.svg
-- zillow.svg
-- exit-connect.svg
+GITHUB SAFARI UPLOAD
+1. In the TeslaPage repository, click Add file → Upload files.
+2. Open this ZIP on your Mac.
+3. Select every file inside the unzipped folder and drag them onto GitHub.
+4. GitHub will show replacements for existing files and new files for the missing icons.
+5. Scroll down and click Commit changes.
+6. Wait about 1–2 minutes, then reload your GitHub Pages address with ?v=10.
 
-DO NOT REPLACE:
-- styles.css
-- app.js
-- radio.html
-- any of your existing approved icon files
-
-Changes made:
-- Existing Home, Restaurants, and Entertainment pages were preserved.
-- Existing icon filenames and links were preserved.
-- LTE was removed.
-- Weather now sits immediately beside the page title.
-- Clock is at the far right and vertically centered.
-- Real Estate was added as the fourth swipe page.
-- A fourth page dot was added.
-
-After GitHub Pages republishes, open with:
-?v=9
+Included:
+- Complete Home page with direct app links only
+- Restaurants page
+- Entertainment page
+- Real Estate page
+- CoachDonXM radio page
+- All CSS, JavaScript, and icon files
+- Weather beside the page title
+- Clock far right
+- No LTE indicator
