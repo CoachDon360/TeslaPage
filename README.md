@@ -1,56 +1,33 @@
-# CoachDon Radio — Tesla QA Prototype
+# CoachDon Radio — Tesla QA v3
 
-This is a single-page, Tesla-browser-friendly radio interface based on the approved mockup.
+This revision implements the finalized three-section visual system:
 
-## What is included
-- Vertical station menu
-- One consistent font family
-- Colored station names
-- No channel numbers or 181.FM branding
-- Separate Disney section
-- Large, clean station panel
-- Minimal now-playing area
-- Bottom playback controls
-- Larger Tesla-friendly station touch targets
-- Favorites stored from the bottom player heart
-- Responsive layout for desktop and Tesla browser sizes
-- Clear on-screen message when a stream URL fails or still needs to be added
+- **Music ♪** in 2004 iPod blue
+- **Disney** in a soft red script with a Mickey-button yellow divider
+- **Podcasts** in purple with a simple podcast glyph
+- No channel numbers
+- No station clip art
+- White station names
+- Black station-list background
+- Large Tesla-friendly touch rows
+- A small play marker on the selected row
+- No animated equalizer bars
 
-## Important QA note
-The interface is ready to test. Live-stream URLs can change, and some providers block browser playback or require a different HTTPS endpoint. The Disney entries are intentionally marked for stream setup until the exact current URLs are confirmed.
+## Podcasts included
+- The Ramsey Show
+- Insight for Living
+- Southeast Christian
+- Brian Buffini
 
-## GitHub Pages deployment
-1. Open your Radio repository on GitHub.
-2. Remove old prototype files if this is a replacement.
-3. Upload `index.html`, `styles.css`, and `app.js` into the repository root.
-4. Open **Settings → Pages**.
-5. Select **Deploy from a branch**, branch **main**, folder **/(root)**.
-6. Save and wait for the published link.
-7. Open the link in the Tesla browser while parked.
+The podcast entries are visually complete but intentionally marked `SETUP NEEDED` until their preferred direct episode feeds or destinations are connected.
 
-## Tesla QA checklist
-- Confirm the entire page fits without browser zoom.
-- Scroll the station menu.
-- Tap every station.
-- Check that station changes are immediate.
-- Test Play/Pause.
-- Test Next/Previous.
-- Test volume.
-- Favorite two stations, reload the page, and confirm hearts remain.
-- Note every station that says `COULD NOT CONNECT`.
-- Check whether the Home button returns to CoachDon CarPlay.
-- Test in both daylight and darkness.
+## Upload
+Replace the existing `index.html`, `styles.css`, and `app.js` in the repository root.
 
-## Editing a stream
-Open `app.js`, find the station, and replace its `stream` value.
-
-Example:
-```js
-{"id":"soul","name":"Soul", ... ,"stream":"https://new-stream-address.mp3"}
-```
-
-## QA revision 2
-- Removed the animated equalizer bars.
-- Increased each station row to a larger touch target.
-- Removed hearts from the station list so the whole row is easier to tap.
-- Slightly increased station-name size.
+## Tesla QA
+1. Allow GitHub Pages a minute or two to update.
+2. Refresh the page in a regular browser first.
+3. In the Tesla, reload the page while parked.
+4. Confirm all three section headings appear correctly.
+5. Confirm rows are easy to tap and the selected row displays a small triangle.
+6. Test Music playback and note any streams showing `COULD NOT CONNECT`.
