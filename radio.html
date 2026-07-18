@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#000000">
 <title>CoachDon Radio</title>
-<link rel="stylesheet" href="radio-v4.css?v=5.0.1">
+<link rel="stylesheet" href="radio-v4.css?v=5.0.2">
 </head>
 <body>
 <div class="radio-shell">
@@ -18,30 +18,26 @@
   <main class="radio-layout">
     <aside class="station-panel">
       <section>
-        <div class="section-title music-title"><span>Music ♪</span><i></i></div>
+        <div class="section-title music-title"><span>Music <span class="header-icon music-note" aria-hidden="true">♪</span></span></div>
         <div id="musicStations" class="station-list"></div>
       </section>
 
       <section>
         <div class="section-title disney-title">
-          <span>
-            Disney
-            <svg class="disney-hat" viewBox="0 0 64 64" aria-hidden="true">
+          <span>Disney
+            <svg class="disney-hat header-icon" viewBox="0 0 64 64" aria-hidden="true">
               <path class="hat-main" d="M13 47c9-5 17-18 20-34 8 10 13 21 14 34H13z"/>
               <path class="hat-band" d="M10 45h41l5 9H6z"/>
               <circle class="hat-star" cx="34" cy="27" r="2.5"/>
               <path class="hat-star" d="M40 35l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z"/>
             </svg>
           </span>
-          <i></i>
         </div>
         <div id="disneyStations" class="station-list"></div>
       </section>
 
       <section>
-        <div class="section-title podcast-title">
-          <span>🎙 Podcasts</span><b class="podcast-mark" aria-hidden="true"></b><i></i>
-        </div>
+        <div class="section-title podcast-title"><span>Podcasts <span class="header-icon microphone" aria-hidden="true">🎙</span></span></div>
         <div id="podcastStations" class="station-list"></div>
       </section>
     </aside>
@@ -79,6 +75,6 @@
   </footer>
 </div>
 <audio id="radioAudio" preload="none"></audio>
-<script src="radio-v4.js?v=5.0.1"></script>
+<script src="radio-v4.js?v=5.0.2"></script>
 </body>
 </html>
