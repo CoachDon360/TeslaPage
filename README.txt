@@ -1,16 +1,20 @@
-COACHDON CARPLAY — TWO-FILE FINAL BUILD
+COACHDON CARPLAY — REAL ESTATE PAGE v7
 
-Upload only:
-- index.html
-- radio.html
+NEW FOURTH PAGE
+- Flexmls -> https://imagine.flexmls.com
+- ShowingTime -> https://agent.showingtime.com/
+- Dotloop -> https://www.dotloop.com/
+- FOREWARN -> https://app.forewarn.com/
+- Zillow -> https://www.zillow.com/
+- EXIT Connect -> https://exitrealty.com/
 
-Before uploading, delete every old file in the GitHub repository.
-This build has:
-- no LTE or signal artwork
-- no CSS file
-- no JavaScript file
-- no icon files
-- every icon embedded directly
-- all links and swipe code embedded directly
+DEPLOYMENT
+1. Open your TeslaPage GitHub repository.
+2. Replace index.html with the new index.html.
+3. radio.html is unchanged, but it is included for convenience.
+4. Commit the change.
+5. Wait 1–2 minutes.
+6. Open the site once with ?v=7.
 
-After committing, open the Pages URL once with ?v=6.
+The icons are embedded directly inside index.html, so there are no icon files
+or folders to upload and no old icon cache to fight.
