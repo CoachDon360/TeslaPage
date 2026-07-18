@@ -8,7 +8,6 @@ const previousButton = document.getElementById('previousButton');
 const nextButton = document.getElementById('nextButton');
 const favoriteButton = document.getElementById('favoriteButton');
 const volumeSlider = document.getElementById('volumeSlider');
-const equalizer = document.querySelector('.equalizer');
 let selectedIndex = Math.max(0, stations.findIndex(s => s.id === 'soul'));
 let favorites = new Set(JSON.parse(localStorage.getItem('radioFavorites') || '[]'));
 let isPlaying = false;
@@ -23,11 +22,8 @@ function renderLists(){
   stations.forEach((station,index)=>{
     const row=document.createElement('button');
     row.className='station-row'+(index===selectedIndex?' active':'');
-    row.innerHTML=`<span class="station-name" style="color:${station.accent}">${station.name}</span><span class="heart ${favorites.has(station.id)?'saved':''}" style="color:${favorites.has(station.id)?station.accent:'#fff'}">${favorites.has(station.id)?'♥':'♡'}</span>`;
-    row.addEventListener('click',e=>{
-      if(e.target.classList.contains('heart')) toggleFavorite(station.id);
-      else selectStation(index, true);
-    });
+    row.innerHTML=`<span class="station-name" style="color:${station.accent}">${station.name}</span>`;
+    row.addEventListener('click',()=>selectStation(index, true));
     (station.group==='disney'?disneyList:musicList).appendChild(row);
   });
 }
@@ -50,19 +46,19 @@ function selectStation(index, autoplay=false){
 async function playSelected(){
   const s=stations[selectedIndex];
   if(!s.stream){
-    isPlaying=false; playButton.textContent='▶'; equalizer.classList.remove('playing');
+    isPlaying=false; playButton.textContent='▶';
     document.getElementById('liveState').innerHTML='<span style="background:#ff9f1a;box-shadow:0 0 14px #ff9f1a"></span> STREAM URL NEEDED';
     return;
   }
   if(audio.src!==s.stream) audio.src=s.stream;
   try{
     await audio.play();
-    isPlaying=true; playButton.textContent='Ⅱ'; equalizer.classList.add('playing');
+    isPlaying=true; playButton.textContent='Ⅱ';
     document.getElementById('trackTitle').textContent='Playing Live';
     document.getElementById('liveState').innerHTML='<span></span> LIVE';
     document.getElementById('miniSubtitle').textContent='Playing live';
   }catch(err){
-    isPlaying=false; playButton.textContent='▶'; equalizer.classList.remove('playing');
+    isPlaying=false; playButton.textContent='▶';
     document.getElementById('trackTitle').textContent='Station unavailable';
     document.getElementById('liveState').innerHTML='<span style="background:#ff3b4e;box-shadow:0 0 14px #ff3b4e"></span> COULD NOT CONNECT';
     document.getElementById('miniSubtitle').textContent='Try again or update stream URL';
@@ -75,14 +71,14 @@ function toggleFavorite(id){
   renderLists();
 }
 playButton.addEventListener('click',()=>{
-  if(isPlaying){audio.pause();isPlaying=false;playButton.textContent='▶';equalizer.classList.remove('playing');document.getElementById('liveState').innerHTML='<span style="background:#aab2bf;box-shadow:none"></span> PAUSED';}
+  if(isPlaying){audio.pause();isPlaying=false;playButton.textContent='▶';document.getElementById('liveState').innerHTML='<span style="background:#aab2bf;box-shadow:none"></span> PAUSED';}
   else playSelected();
 });
 previousButton.addEventListener('click',()=>{selectStation(selectedIndex-1,false);playSelected();});
 nextButton.addEventListener('click',()=>{selectStation(selectedIndex+1,false);playSelected();});
 favoriteButton.addEventListener('click',()=>toggleFavorite(stations[selectedIndex].id));
 volumeSlider.addEventListener('input',()=>audio.volume=Number(volumeSlider.value));
-audio.addEventListener('error',()=>{isPlaying=false;playButton.textContent='▶';equalizer.classList.remove('playing');});
+audio.addEventListener('error',()=>{isPlaying=false;playButton.textContent='▶';});
 document.getElementById('homeButton').addEventListener('click',()=>{ if(history.length>1) history.back(); });
 function updateClock(){document.getElementById('clock').textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});}
 setInterval(updateClock,30000); updateClock(); audio.volume=.75; selectStation(selectedIndex);

@@ -11,7 +11,8 @@ This is a single-page, Tesla-browser-friendly radio interface based on the appro
 - Large, clean station panel
 - Minimal now-playing area
 - Bottom playback controls
-- Favorites stored in the browser
+- Larger Tesla-friendly station touch targets
+- Favorites stored from the bottom player heart
 - Responsive layout for desktop and Tesla browser sizes
 - Clear on-screen message when a stream URL fails or still needs to be added
 
@@ -47,3 +48,9 @@ Example:
 ```js
 {"id":"soul","name":"Soul", ... ,"stream":"https://new-stream-address.mp3"}
 ```
+
+## QA revision 2
+- Removed the animated equalizer bars.
+- Increased each station row to a larger touch target.
+- Removed hearts from the station list so the whole row is easier to tap.
+- Slightly increased station-name size.
