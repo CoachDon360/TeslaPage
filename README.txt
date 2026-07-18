@@ -1,20 +1,30 @@
-COACHDON CARPLAY — REAL ESTATE PAGE v7
+COACHDON CARPLAY v9 — SURGICAL UPDATE
 
-NEW FOURTH PAGE
-- Flexmls -> https://imagine.flexmls.com
-- ShowingTime -> https://agent.showingtime.com/
-- Dotloop -> https://www.dotloop.com/
-- FOREWARN -> https://app.forewarn.com/
-- Zillow -> https://www.zillow.com/
-- EXIT Connect -> https://exitrealty.com/
+This package was built directly from the good index.html you uploaded.
 
-DEPLOYMENT
-1. Open your TeslaPage GitHub repository.
-2. Replace index.html with the new index.html.
-3. radio.html is unchanged, but it is included for convenience.
-4. Commit the change.
-5. Wait 1–2 minutes.
-6. Open the site once with ?v=7.
+UPLOAD / REPLACE:
+- index.html
+- flexmls.svg
+- showingtime.svg
+- dotloop.svg
+- forewarn.svg
+- zillow.svg
+- exit-connect.svg
 
-The icons are embedded directly inside index.html, so there are no icon files
-or folders to upload and no old icon cache to fight.
+DO NOT REPLACE:
+- styles.css
+- app.js
+- radio.html
+- any of your existing approved icon files
+
+Changes made:
+- Existing Home, Restaurants, and Entertainment pages were preserved.
+- Existing icon filenames and links were preserved.
+- LTE was removed.
+- Weather now sits immediately beside the page title.
+- Clock is at the far right and vertically centered.
+- Real Estate was added as the fourth swipe page.
+- A fourth page dot was added.
+
+After GitHub Pages republishes, open with:
+?v=9
