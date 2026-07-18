@@ -1,0 +1,67 @@
+:root{--bg:#05070a;--text:#f7f9fc;--muted:#a9b4c1;--blue:#138fea}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text);background:var(--bg)}
+body{background:radial-gradient(circle at 82% 0,#293a51 0,#101720 36%,#05070a 76%)}
+.shell{height:100%;display:flex;flex-direction:column;padding:14px 18px 9px}
+.top{min-height:86px;display:flex;justify-content:space-between;align-items:center;padding:3px 8px 12px;gap:28px}
+.header-left{min-width:0}
+.greeting{font-size:29px;font-weight:770;letter-spacing:-.6px;white-space:nowrap}
+.page-row{display:flex;align-items:center;gap:16px;margin-top:7px;min-height:28px}
+.page-name{font-size:18px;font-weight:760;color:#fff;white-space:nowrap}
+.weather-glance{display:inline-flex;align-items:center;gap:7px;color:#d9eafa;font-size:17px;font-weight:700;text-decoration:none;white-space:nowrap}
+.weather-glance .wxicon{font-size:21px}
+#wxtext{color:var(--muted);font-weight:650}
+.datetime{margin-left:auto;text-align:right;align-self:center;white-space:nowrap}
+.time{font-size:30px;font-weight:780;font-variant-numeric:tabular-nums}
+.date{font-size:15px;color:var(--muted);margin-top:3px}
+
+.carousel{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;gap:14px;overscroll-behavior-x:contain}
+.carousel::-webkit-scrollbar{display:none}
+.page{flex:0 0 100%;scroll-snap-align:start;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:13px;padding:2px 4px 7px;align-content:center}
+.app{min-width:0;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;border:0;background:none;font:inherit;cursor:pointer}
+.icon{width:min(11.2vw,105px);height:min(11.2vw,105px);min-width:76px;min-height:76px;border-radius:24%;display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 13px 27px rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.13);overflow:hidden;position:relative}
+.icon:after{content:"";position:absolute;inset:0;background:linear-gradient(155deg,rgba(255,255,255,.18),transparent 43%);pointer-events:none}
+.app:active .icon{transform:scale(.955)}
+.label{font-size:16px;font-weight:680;margin-top:7px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+
+/* Launcher icons */
+.nav{font-size:min(4.7vw,46px)}
+.radio{background:linear-gradient(145deg,#1ba1ff,#075fa4)}
+.food{background:linear-gradient(145deg,#f15a50,#a3262f)}
+.realestate{background:linear-gradient(145deg,#4fc777,#1e7b45);font-size:54px;font-weight:800}
+.favorites{background:linear-gradient(145deg,#e9bb51,#9c6515)}
+
+/* Brand tiles */
+.brand{font-weight:800;letter-spacing:-.4px}
+.cfa{background:#e51636}.brand-script{font:italic 800 58px Georgia;color:#fff}
+.culvers{background:#005696}.culvers .brand-word{font:italic 800 21px Georgia;color:#fff}
+.wawa{background:#f5d328}.bird{font:italic 900 25px Arial;color:#c62033}
+.jersey{background:#d71920}.brand-word.two{font:800 19px/1 Arial;color:#fff;text-transform:uppercase}
+.tropical{background:linear-gradient(145deg,#78bf43,#0b8a63)}.palm{font:900 28px Arial;color:#fff}
+.mcd{background:#da291c}.arches{font:900 64px Arial;color:#ffbc0d;transform:scaleX(1.25)}
+.starbucks{background:#00754a}.brand-round{width:72%;height:72%;border:4px solid #fff;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:30px}
+
+.flex{background:linear-gradient(145deg,#34a8cf,#1673a2)}
+.flex-mark{font:800 27px Arial;color:#fff;letter-spacing:-1.5px}.flex-mark span{font-weight:500}
+.showing{background:linear-gradient(145deg,#2f80c3,#164e86)}
+.showing-mark{font:650 20px/1 Arial;color:#fff;text-align:left}.showing-mark b{font-size:25px}
+.dotloop{background:#fff}.loop-mark{font:700 24px Arial;color:#2c9fd6;letter-spacing:-1.4px}
+.forewarn{background:linear-gradient(145deg,#f39b2f,#c95a17)}.fw-mark{font:900 34px Arial;color:#fff;letter-spacing:-2px;border:3px solid #fff;border-radius:12px;padding:8px 6px}
+.zillow{background:#006aff}.z-mark{font:italic 900 58px Georgia;color:#fff}
+.exit{background:#fff}.exit-mark{font:900 31px Arial;color:#d71920;border-top:6px solid #1976b9;border-bottom:6px solid #1976b9;padding:4px 0;letter-spacing:-1px}
+
+.empty-note{grid-column:1/-1;align-self:center;justify-self:center;text-align:center;color:var(--muted);font-size:22px;line-height:1.45;max-width:620px}
+.dots{height:25px;display:flex;justify-content:center;align-items:center;gap:9px}
+.dot{width:9px;height:9px;border:0;border-radius:99px;background:#596472;padding:0}
+.dot.active{width:27px;background:#31a7ff}
+.swipe{text-align:center;color:#7e8b99;font-size:12px;margin-top:-2px}
+
+@media(max-width:850px){
+ .shell{padding:9px 11px 6px}.top{min-height:72px;padding-bottom:8px}.greeting{font-size:22px}
+ .page-row{gap:10px;margin-top:4px}.page-name{font-size:15px}.weather-glance{font-size:14px}.weather-glance .wxicon{font-size:18px}
+ .time{font-size:24px}.date{font-size:12px}.page{gap:8px}.label{font-size:13px}.icon{min-width:62px;min-height:62px}
+ .flex-mark{font-size:22px}.showing-mark{font-size:16px}.showing-mark b{font-size:20px}.loop-mark{font-size:19px}.exit-mark{font-size:24px}
+}
+@media(max-width:620px){
+ #wxtext,.date{display:none}.greeting{font-size:18px}.top{gap:12px}.time{font-size:21px}.page-row{gap:8px}
+}
