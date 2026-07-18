@@ -1,22 +1,18 @@
-COACHDON CARPLAY — COMPLETE v10
+COACHDON CARPLAY v11 — FAMILIAR ICON BUILD
 
-This ZIP is a complete, matching project. Do not mix it with older files.
+This build keeps the complete v10 layout, links, pages, header, radio page,
+weather placement, clock placement, and swipe behavior unchanged.
 
-GITHUB SAFARI UPLOAD
-1. In the TeslaPage repository, click Add file → Upload files.
-2. Open this ZIP on your Mac.
-3. Select every file inside the unzipped folder and drag them onto GitHub.
-4. GitHub will show replacements for existing files and new files for the missing icons.
-5. Scroll down and click Commit changes.
-6. Wait about 1–2 minutes, then reload your GitHub Pages address with ?v=10.
+WHAT CHANGED
+- Restored the familiar approved icon artwork from the earlier good build.
+- Used the same familiar-source treatment for:
+  Flexmls, ShowingTime, Dotloop, FOREWARN, Zillow, and EXIT Connect.
+- No Home-screen navigation tiles were added.
+- No pages were removed or rearranged.
 
-Included:
-- Complete Home page with direct app links only
-- Restaurants page
-- Entertainment page
-- Real Estate page
-- CoachDonXM radio page
-- All CSS, JavaScript, and icon files
-- Weather beside the page title
-- Clock far right
-- No LTE indicator
+UPLOAD
+1. Unzip this package.
+2. In the TeslaPage GitHub repository choose Add file > Upload files.
+3. Upload every loose file from inside this folder.
+4. Commit the changes.
+5. After deployment, refresh with ?v=11

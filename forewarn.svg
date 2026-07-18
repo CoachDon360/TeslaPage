@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" rx="54" fill="#e87922"/><path d="M128 43l74 29v52c0 48-29 76-74 92-45-16-74-44-74-92V72z" fill="none" stroke="white" stroke-width="13"/><text x="128" y="151" text-anchor="middle" font-family="Arial" font-size="57" font-weight="900" fill="white">FW</text></svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+ <rect width="512" height="512" rx="112" fill="#fff"/>
+ <path d="M256 91l125 44v104c0 91-48 148-125 188-77-40-125-97-125-188V135z" fill="#222"/>
+ <path d="M256 118v278c61-36 94-84 94-157v-81z" fill="#e31b2d"/>
+ <path d="M175 188h162v34H175zm0 63h162v34H175z" fill="#fff"/>
+</svg>
