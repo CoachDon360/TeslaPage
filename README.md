@@ -40,3 +40,11 @@ After GitHub Pages finishes publishing:
 - Play button: `#F2C94C`
 - Volume slider: `#F2C94C`
 - Cache version bumped to `4.0.2`
+
+
+## Mint Disney UI update
+- Disney label and divider: `#3DD9C5`
+- Disney label uses a Walt-inspired script fallback stack
+- Disney label font size: `21px`, matching Music
+- Gold play button and volume slider remain unchanged
+- Cache version bumped to `4.0.3`
