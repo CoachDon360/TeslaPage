@@ -1,16 +1,20 @@
-COACHDON CARPLAY v15 — 4×3 + NO PEEKABOO
+COACHDON CARPLAY v16 — CACHE-BUSTED ICON FIX
 
-Changes:
-- Every launcher page now reserves a true 4-column × 3-row grid.
-- Empty cells remain invisible and available for future apps.
-- Rebuilt Flexmls, Dotloop, FOREWARN, Zillow, and EXIT Connect from exact square crops.
-- Removed the damaged partial-icon PNGs that caused the peekaboo effect.
-- Kept all existing links and features.
-- EXIT Connect remains linked to https://be.exitrealty.com/
+The corrected Real Estate PNGs were already good, but the Tesla browser was
+continuing to display older cached copies with the same filenames.
 
-Deployment:
-1. Unzip this package.
-2. Upload every loose file to the root of the TeslaPage repository.
-3. Replace the existing files and commit.
-4. After GitHub Pages republishes, open:
-   https://coachdon360.github.io/TeslaPage/?v=15
+This build:
+- Renames the five corrected icons with new v16 filenames.
+- Adds ?v=16 to every PNG reference.
+- Keeps the true 4×3 layout.
+- Keeps all existing links and features.
+
+Upload every loose file and delete the five older files if they remain:
+flexmls.png
+dotloop.png
+forewarn.png
+zillow.png
+exit-connect.png
+
+Then open:
+https://coachdon360.github.io/TeslaPage/?v=16

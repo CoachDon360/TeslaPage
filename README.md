@@ -1,33 +1,34 @@
-# CoachDon Radio — Tesla QA v3
+# CoachDon CarPlay 1.0 Beta
 
-This revision implements the finalized three-section visual system:
+This is a complete replacement package for the existing GitHub Pages repository.
 
-- **Music ♪** in 2004 iPod blue
-- **Disney** in a soft red script with a Mickey-button yellow divider
-- **Podcasts** in purple with a simple podcast glyph
-- No channel numbers
-- No station clip art
-- White station names
-- Black station-list background
-- Large Tesla-friendly touch rows
-- A small play marker on the selected row
-- No animated equalizer bars
+## What is preserved
+- CoachDon CarPlay remains the home launcher (`index.html`)
+- Existing Home, Restaurants, Entertainment, and Real Estate pages remain intact
+- Existing icon files remain included
 
-## Podcasts included
-- The Ramsey Show
-- Insight for Living
-- Southeast Christian
-- Brian Buffini
+## What changed
+- `radio.html` is now the redesigned CoachDon Radio app
+- All station names are white
+- Music uses 2004 iPod blue
+- Disney uses soft red script and a yellow divider
+- Podcasts use purple and include only:
+  - The Ramsey Show
+  - Insight for Living
+  - Southeast Christian
+  - Brian Buffini
+- The Radio Home button returns to CoachDon CarPlay
+- Radio uses new cache-busted filenames:
+  - `radio-v4.css?v=4.0.1`
+  - `radio-v4.js?v=4.0.1`
 
-The podcast entries are visually complete but intentionally marked `SETUP NEEDED` until their preferred direct episode feeds or destinations are connected.
+## Upload instructions
+Delete the existing repository files, then upload every file from this package into the repository root.
 
-## Upload
-Replace the existing `index.html`, `styles.css`, and `app.js` in the repository root.
+Do not create or upload an `apps` folder. This package intentionally uses a flat structure because it is easier to upload through GitHub.
 
-## Tesla QA
-1. Allow GitHub Pages a minute or two to update.
-2. Refresh the page in a regular browser first.
-3. In the Tesla, reload the page while parked.
-4. Confirm all three section headings appear correctly.
-5. Confirm rows are easy to tap and the selected row displays a small triangle.
-6. Test Music playback and note any streams showing `COULD NOT CONNECT`.
+After GitHub Pages finishes publishing:
+1. Open the normal CoachDon CarPlay URL.
+2. Confirm the launcher appears.
+3. Tap Radio.
+4. Confirm all station names are white and the Podcasts section has four entries.
