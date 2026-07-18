@@ -1,22 +1,13 @@
-COACHDON CARPLAY v12 — PNG-ONLY BUILD
+COACHDON CARPLAY v14 — FINAL POLISH
 
-This build keeps the current working layout and uses PNG files for every launcher icon.
-
-CHANGES
-- All launcher icon references now use .png files only.
-- EXIT Connect now links to:
+Changes:
+- Corrected Flexmls, Dotloop, FOREWARN, Zillow, and EXIT Connect PNGs.
+- Removed the black padding that made those icons play peekaboo.
+- Centered each corrected icon on a transparent square canvas.
+- Changed icon fitting from cover to contain.
+- Tightened the vertical spacing between launcher rows.
+- Kept the icon size and all existing links, including EXIT Connect:
   https://be.exitrealty.com/
-- Home, Restaurants, Entertainment, Real Estate, header, weather, clock,
-  swipe behavior, and radio page remain unchanged.
 
-UPLOAD THROUGH GITHUB IN SAFARI
-1. Unzip this file on your Mac.
-2. Open your TeslaPage repository.
-3. Choose Add file > Upload files.
-4. Upload every loose file from inside the unzipped folder.
-5. Replace existing files when prompted.
-6. Commit the changes.
-7. After GitHub Pages republishes, open the site with ?v=12
-
-IMPORTANT
-Upload all files together so index.html and the PNG filenames stay matched.
+Upload every loose file from this folder to the root of TeslaPage, replacing existing files.
+After GitHub Pages publishes, refresh with ?v=14.
