@@ -48,3 +48,12 @@ After GitHub Pages finishes publishing:
 - Disney label font size: `21px`, matching Music
 - Gold play button and volume slider remain unchanged
 - Cache version bumped to `4.0.3`
+
+
+## Mint UI refinement
+- Play button: mint `#3DD9C5`
+- Volume slider: mint `#3DD9C5`
+- Album holding slot accents and mini artwork: mint `#3DD9C5`
+- Section labels increased to `25px`, slightly larger than the `23px` station names
+- Small inline Sorcerer hat added beside the Disney label
+- Cache version bumped to `4.0.4`
