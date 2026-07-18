@@ -1,74 +1,73 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#02050a">
-<title>CoachDon CarPlay</title>
-<link rel="stylesheet" href="styles.css?v=15">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05080d">
+  <title>Radio</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="shell">
-<header class="topbar">
-  <div class="leftStatus">
-    <button class="brand" id="homeBtn" aria-label="Go to Home page"><span class="house">⌂</span><span id="pageTitle">Home</span></button>
-    <a class="weather" href="https://forecast.weather.gov/MapClick.php?lat=38.2004&lon=-84.8776" rel="noopener">
-      <span id="weatherIcon">☀️</span><span id="temperature">Forecast</span>
-    </a>
-  </div>
-  <div id="clock">--:--</div>
-</header>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="home-button" id="homeButton" aria-label="Return home">⌂</button>
+      <h1>RADIO</h1>
+      <div class="status">
+        <span id="clock">9:41</span>
+        <span class="battery">▰</span>
+      </div>
+    </header>
 
-<main id="viewport"><div id="pages" class="pages">
-<section class="page" data-title="Home">
-  <a class="app" href="radio.html"><img src="radio.png"><span>Radio</span></a>
-  <a class="app" href="https://www.bible.com/"><img src="bible.png"><span>Bible</span></a>
-  <a class="app" href="https://www.ramseysolutions.com/shows/the-ramsey-show"><img src="ramsey.png"><span>Ramsey</span></a>
-  <a class="app" href="https://www.iheart.com/"><img src="iheart.png"><span>iHeartRadio</span></a>
-  <a class="app" href="https://www.google.com/maps/dir/"><img src="maps.png"><span>Google Maps</span></a>
-  <a class="app" href="https://earth.google.com/web/"><img src="earth.png"><span>Google Earth</span></a>
-  <a class="app" href="https://app.rightnowmedia.org/"><img src="rightnow-media.png"><span>RightNow Media</span></a>
-  <a class="app" href="https://www.tesla.com/"><img src="tesla.png"><span>Tesla</span></a>
-  <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-</section>
-<section class="page" data-title="Restaurants">
-  <a class="app" href="https://www.chick-fil-a.com/"><img src="chickfila.png"><span>Chick-fil-A</span></a>
-  <a class="app" href="https://www.culvers.com/"><img src="culvers.png"><span>Culver’s</span></a>
-  <a class="app" href="https://www.wawa.com/"><img src="wawa.png"><span>Wawa</span></a>
-  <a class="app" href="https://www.jerseymikes.com/"><img src="jerseymikes.png"><span>Jersey Mike’s</span></a>
-  <a class="app" href="https://www.tropicalsmoothiecafe.com/"><img src="tropical.png"><span>Tropical Smoothie</span></a>
-  <a class="app" href="https://www.mcdonalds.com/"><img src="mcdonalds.png"><span>McDonald’s</span></a>
-  <a class="app" href="https://www.starbucks.com/"><img src="starbucks.png"><span>Starbucks</span></a>
-  <div class="empty"></div>
-  <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-</section>
-<section class="page" data-title="Entertainment">
-  <a class="app" href="https://www.disneyplus.com/"><img src="disney.png"><span>Disney+</span></a>
-  <a class="app" href="https://www.netflix.com/"><img src="netflix.png"><span>Netflix</span></a>
-  <a class="app" href="https://www.primevideo.com/"><img src="prime.png"><span>Prime Video</span></a>
-  <a class="app" href="https://www.youtube.com/"><img src="youtube.png"><span>YouTube</span></a>
-  <a class="app" href="https://dparkradio.com/"><img src="dpark-radio.png"><span>DParkRadio</span></a>
-  <a class="app" href="https://srsounds.com/"><img src="sorcerer-radio.png"><span>Sorcerer Radio</span></a>
-  <a class="app" href="https://www.hoopladigital.com/"><img src="hoopla.png"><span>Hoopla</span></a>
-  <a class="app" href="https://libbyapp.com/"><img src="libby.png"><span>Libby</span></a>
-  <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-</section>
-<section class="page" data-title="Real Estate">
-  <a class="app" href="https://imagine.flexmls.com/"><img src="flexmls.png"><span>Flexmls</span></a>
-  <a class="app" href="https://agent.showingtime.com/"><img src="showingtime.png"><span>ShowingTime</span></a>
-  <a class="app" href="https://www.dotloop.com/"><img src="dotloop.png"><span>Dotloop</span></a>
-  <a class="app" href="https://app.forewarn.com/"><img src="forewarn.png"><span>FOREWARN</span></a>
-  <a class="app" href="https://www.zillow.com/"><img src="zillow.png"><span>Zillow</span></a>
-  <a class="app" href="https://be.exitrealty.com/"><img src="exit-connect.png"><span>EXIT Connect</span></a>
-  <div class="empty"></div><div class="empty"></div>
-  <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-</section>
-</div></main>
-<footer>
-<button id="prevBtn" aria-label="Previous page">‹</button>
-<div class="dots"><button class="dot active" data-page="0"></button><button class="dot" data-page="1"></button><button class="dot" data-page="2"></button><button class="dot" data-page="3"></button></div>
-<button id="nextBtn" aria-label="Next page">›</button>
-</footer>
-</div>
-<script src="app.js?v=15"></script>
-</body></html>
+    <main class="main-layout">
+      <aside class="station-pane">
+        <div class="section-label">MUSIC</div>
+        <div id="musicList" class="station-list"></div>
+        <div class="section-divider"><span>●● DISNEY</span></div>
+        <div id="disneyList" class="station-list"></div>
+      </aside>
+
+      <section class="now-pane">
+        <div class="station-card" id="stationCard">
+          <div class="station-monogram" id="stationMonogram">SOUL</div>
+          <div class="station-tagline" id="stationTagline">Classic soul. Timeless groove.</div>
+          <div class="signal-rings"></div>
+        </div>
+
+        <div class="metadata">
+          <div class="eyebrow">NOW PLAYING</div>
+          <h2 id="trackTitle">Live Radio</h2>
+          <div class="rule"></div>
+          <p id="artistName">Soul</p>
+          <div class="live-state" id="liveState"><span></span> READY</div>
+        </div>
+
+        <div class="equalizer" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+      </section>
+    </main>
+
+    <footer class="playerbar">
+      <div class="mini-card" id="miniCard">S</div>
+      <div class="mini-meta">
+        <strong id="miniTitle">Soul</strong>
+        <span id="miniSubtitle">Tap play to listen</span>
+      </div>
+      <div class="controls">
+        <button id="previousButton" aria-label="Previous station">◀</button>
+        <button id="playButton" class="play-button" aria-label="Play">▶</button>
+        <button id="nextButton" aria-label="Next station">▶</button>
+      </div>
+      <div class="volume">
+        <span>🔊</span>
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.75">
+      </div>
+      <button id="favoriteButton" class="favorite-main" aria-label="Favorite">♡</button>
+    </footer>
+  </div>
+  <audio id="audio" preload="none"></audio>
+  <script src="app.js"></script>
+</body>
+</html>
