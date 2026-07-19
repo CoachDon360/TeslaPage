@@ -1,20 +1,11 @@
-COACHDON CARPLAY v16 — CACHE-BUSTED ICON FIX
+COACHDON RADIO — DISNEY KISS BUILD
 
-The corrected Real Estate PNGs were already good, but the Tesla browser was
-continuing to display older cached copies with the same filenames.
+Upload these three files to the ROOT of the GitHub repository:
+- radio.html
+- radio-v6.js
+- radio-v6.css
 
-This build:
-- Renames the five corrected icons with new v16 filenames.
-- Adds ?v=16 to every PNG reference.
-- Keeps the true 4×3 layout.
-- Keeps all existing links and features.
-
-Upload every loose file and delete the five older files if they remain:
-flexmls.png
-dotloop.png
-forewarn.png
-zillow.png
-exit-connect.png
-
-Then open:
-https://coachdon360.github.io/TeslaPage/?v=16
+Replace radio.html. The new v6 filenames force a clean browser load.
+This build adds a clean text-only Disney menu with no station numbers,
+no source names, and descriptive right-panel copy.
+Disney stream URLs remain unassigned pending verification.
