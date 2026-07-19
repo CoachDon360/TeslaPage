@@ -1,36 +1,33 @@
-COACHDONXM v11.1 — CACHE-PROOF RELAY BUILD
+COACHDONXM VERSION 1.0 — SPLIT-SCREEN RELAY EDITION
 
-WHY THIS EXISTS
-Your console proved the site was still loading the old metadata.js.
-That old file still calls player.181fm.com and status-json.xsl directly.
+DESIGN
+- No channel numbers
+- No duplicate white station names
+- Colorful station name with its description directly underneath
+- Split-screen layout
+- Music, Disney and Podcasts categories
+- Current channel list from the uploaded split-screen build
+- WayFM removed
+- Working Super 70s relay metadata
+- Bottom Now Playing controls
 
-This package uses completely new filenames, so Safari/Tesla cannot confuse
-them with the old cached files.
+UPLOAD THESE THREE FILES
+- radio.html
+- coachdonxm-v1.css
+- coachdonxm-v1.js
 
-UPLOAD THESE FIVE FILES TO THE SAME FOLDER:
+Upload them to the same GitHub folder that currently contains radio.html.
 
-radio.html
-coachdon-v11.css
-stations-v11.js
-metadata-relay-v11.js
-app-v11.js
+TEST
+radio.html?v=1.0.0
 
-IMPORTANT
-Do not rename the four uniquely named asset files.
+SUPER 70s TEST
+1. Select Super 70s.
+2. Press Play.
+3. Artist and song should appear.
+4. Metadata refreshes every 20 seconds.
 
-TEST URL
-radio.html?v=11.1.0
-
-WHAT THE CONSOLE SHOULD SHOW
-It should NOT contain:
-player.181fm.com
-status-json.xsl
-icecast181
-
-The metadata request should instead go to:
-https://coachdon-metadata.74p875syc7.workers.dev/metadata?station=181-70s
-
-Expected lower-panel status:
-CHECKING METADATA
-then
-LIVE METADATA
+NOTES
+- Podcast and Disney entries from the current list are preserved.
+- Entries without direct stream URLs display SETUP NEEDED instead of failing.
+- Only Super 70s uses relay metadata in this first deployment.

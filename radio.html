@@ -3,37 +3,99 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#07111d">
-<title>CoachDonXM v11</title>
-<link rel="stylesheet" href="coachdon-v11.css?v=11.1.0">
+<meta name="theme-color" content="#05070a">
+<title>CoachDonXM</title>
+<link rel="stylesheet" href="coachdonxm-v1.css?v=1.0.0">
 </head>
 <body>
-<button id="home" onclick="location.href='index.html'"><span class="homeicon">⌂</span><span class="hometext">HOME</span></button>
-<header class="topbar">
-  <div><div class="brand">Streaming Radio</div><div class="tagline">COACHDONXM • RELAY EDITION</div></div>
-  <div><div class="clock" id="clock">--:--</div><div class="date" id="date"></div></div>
-</header>
-<main><div class="list" id="stationList"></div></main>
-<div class="notice" id="notice"></div>
-<footer class="player">
-  <div class="plogo" id="plogo">’70s</div>
-  <div>
-    <div class="now">NOW PLAYING</div>
-    <div class="pname" id="pname">Super 70s</div>
-    <div class="artist" id="artist">SUPER 70s</div>
-    <div class="track" id="track">Tap play to begin</div>
-    <div class="livebar"><span id="metadataStatus">READY</span><span id="provider">181.FM</span><span id="quality">128 kbps</span></div>
-  </div>
-  <div class="controls">
-    <button class="ctl" id="prev" aria-label="Previous">‹</button>
-    <button class="ctl primary" id="play" aria-label="Play">▶</button>
-    <button class="ctl" id="next" aria-label="Next">›</button>
-  </div>
-  <button class="favorite" id="favorite" aria-label="Favorite">♡</button>
-</footer>
-<audio id="audio" preload="none"></audio>
-<script src="stations-v11.js?v=11.1.0"></script>
-<script src="metadata-relay-v11.js?v=11.1.0"></script>
-<script src="app-v11.js?v=11.1.0"></script>
+<div class="shell">
+  <header class="topbar">
+    <a class="home" href="index.html" aria-label="Home"><span class="home-icon">⌂</span><span>HOME</span></a>
+    <div class="brand-block">
+      <div class="brand">CoachDonXM</div>
+      <div class="tagline">MUSIC • DISNEY • PODCASTS</div>
+    </div>
+    <div class="datetime">
+      <div id="clock" class="clock">--:--</div>
+      <div id="date" class="date"></div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="station-pane">
+      <section>
+        <h2>♪ MUSIC</h2>
+        <div id="musicList" class="station-list"></div>
+      </section>
+      <section>
+        <h2>◉ DISNEY</h2>
+        <div id="disneyList" class="station-list"></div>
+      </section>
+      <section>
+        <h2>🎙 PODCASTS</h2>
+        <div id="podcastList" class="station-list"></div>
+      </section>
+    </aside>
+
+    <section class="now-pane">
+      <div class="now-header">
+        <span>NOW PLAYING</span>
+        <button id="panelFavorite" class="heart" aria-label="Favorite">♡</button>
+      </div>
+
+      <div id="displayStation" class="display-station">SUPER ’70s</div>
+      <div id="displayDescription" class="display-description">The soundtrack of the 70s.</div>
+
+      <div class="feature-grid">
+        <div id="artCard" class="art-card theme-seventies">
+          <div class="record one"></div>
+          <div class="record two"></div>
+          <div id="artTitle" class="art-title">SUPER<br>’70s</div>
+        </div>
+
+        <div class="metadata">
+          <div class="label">ARTIST</div>
+          <div id="artist" class="artist">Choose a station</div>
+          <div class="divider"></div>
+          <div class="label">SONG</div>
+          <div id="song" class="song">Tap play to begin</div>
+          <div class="wave" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span id="statusDot" class="status-dot"></span>
+        <span id="statusText">READY</span>
+        <span class="sep">|</span>
+        <span id="provider">181.FM</span>
+        <span class="sep">|</span>
+        <span id="quality">128 kbps</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="player">
+    <div id="miniArt" class="mini-art">’70s</div>
+    <div class="mini-copy">
+      <div class="mini-label">NOW PLAYING</div>
+      <strong id="miniSong">Tap play to begin</strong>
+      <span id="miniArtist">Super 70s</span>
+    </div>
+
+    <div class="transport">
+      <button id="previousButton" aria-label="Previous">◀</button>
+      <button id="playButton" class="play" aria-label="Play">▶</button>
+      <button id="nextButton" aria-label="Next">▶</button>
+    </div>
+
+    <label class="volume">🔊 <input id="volumeSlider" type="range" min="0" max="1" step=".01" value=".75"></label>
+    <button id="favoriteButton" class="heart" aria-label="Favorite">♡</button>
+  </footer>
+</div>
+
+<audio id="radioAudio" preload="none"></audio>
+<script src="coachdonxm-v1.js?v=1.0.0"></script>
 </body>
 </html>
