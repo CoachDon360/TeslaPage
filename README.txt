@@ -35,3 +35,17 @@ STATUS DISPLAY
 IMPORTANT
 This package preserves the 34-channel Road Trip lineup from the July 17 build.
 Some station endpoints were already placeholders or shared streams in that saved build. This reorganization preserves them rather than inventing replacements.
+
+
+VERSION 1.1 — SUPER 70s TEST
+The player now reports one of these exact outcomes:
+- Metadata received
+- Metadata blocked by station
+- Metadata request timed out
+- Metadata unavailable
+
+Laptop test:
+1. Upload every file.
+2. Hard refresh the page.
+3. Play Channel 7 Super 70s.
+4. Wait up to 20 seconds and read the status beneath the artist line.
