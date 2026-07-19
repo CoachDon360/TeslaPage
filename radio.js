@@ -73,7 +73,8 @@ function choose(index,autoplay=false){
   document.documentElement.style.setProperty("--accent", station.color);
   document.getElementById("displayStation").textContent = labelOf(station);
   document.getElementById("displayDescription").textContent = station.desc;
-  document.getElementById("stationMeta").textContent = labelOf(station);
+  const stationMeta = document.getElementById("stationMeta");
+  if (stationMeta) stationMeta.textContent = labelOf(station);
   document.getElementById("miniArt").textContent =
     labelOf(station).replace(/[^A-Za-z0-9’']/g," ").split(/\s+/).slice(0,2).join(" ");
   render();
