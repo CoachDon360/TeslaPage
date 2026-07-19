@@ -1,38 +1,38 @@
-COACHDON RADIO V10 — SUPER 70s METADATA TEST
+COACHDONXM V10 — JSON METADATA BUILD
 
-This package does NOT replace or redesign the V9 blue-and-white interface.
+This is the complete radio package built from the files you uploaded:
+- the blue channel-list radio styling
+- the 34-channel station lineup
+- Super 70s on 181.FM mount 181-70s
 
-FILES IN THIS ZIP
+UPLOAD THESE FIVE FILES TO THE SAME GITHUB FOLDER:
 1. radio.html
-   - Your uploaded V9 HTML.
-   - Only one line was added: it loads radio-metadata-v10.js after radio-v9.js.
+2. styles.css
+3. stations.js
+4. metadata.js
+5. app.js
 
-2. radio-metadata-v10.js
-   - New metadata engine for Super 70s.
-   - It observes the existing V9 interface instead of rewriting it.
+Replace files with the same names when GitHub asks.
 
-YOU MUST KEEP THESE EXISTING REPOSITORY FILES
-- radio-v9.css
-- radio-v9.js
-- index.html and all other CoachDon CarPlay files
+IMPORTANT:
+Your home-screen Radio link currently includes radio.html?v=1.1.0.
+The new radio page will still open because the filename remains radio.html.
+For the cleanest cache refresh, change that link later to:
+radio.html?v=10.0.0
 
-UPLOAD INSTRUCTIONS
-1. Upload radio.html and replace the current radio.html.
-2. Upload radio-metadata-v10.js into the same repository folder.
-3. Do NOT delete radio-v9.css or radio-v9.js.
-4. Commit both uploaded files.
-5. Hard-refresh the laptop browser.
-6. Select Super 70s and wait up to 20 seconds.
+SUPER 70s TEST:
+1. Open the Radio page.
+2. Tap Channel 7 — Super 70s.
+3. Allow up to 20 seconds.
 
-EXPECTED DISPLAY
-- When successful:
-  Artist name
-  Song title
-  LIVE • METADATA RECEIVED
+Expected result when JSON is accessible:
+Song title
+Artist
+LIVE • METADATA RECEIVED
 
-- When browser access is blocked:
-  Super 70s
-  Live on 181.FM
-  LIVE • METADATA UNAVAILABLE
+Fallback when 181.FM blocks browser access:
+Live on 181.FM
+Super 70s
+LIVE • METADATA UNAVAILABLE
 
-The audio continues even when metadata is unavailable.
+Audio playback is independent from metadata.

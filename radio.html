@@ -1,83 +1,61 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#000000">
-<title>CoachDon Radio</title>
-<!-- V10 adds metadata without changing the V9 interface. -->
-<link rel="stylesheet" href="radio-v9.css?v=9.0.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#050b12">
+  <title>CoachDonXM</title>
+  <link rel="stylesheet" href="styles.css?v=10.0.0">
 </head>
 <body>
-<div class="radio-shell">
-  <header class="radio-topbar">
-    <a class="home-button" href="index.html" aria-label="Back to CoachDon CarPlay">⌂ <span>Home</span></a>
-    <h1>Radio</h1>
-    <div id="radioClock">--:--</div>
+  <button id="home" type="button" aria-label="Return home">
+    <span class="homeicon">⌂</span>
+    <span class="hometext">HOME</span>
+  </button>
+
+  <header class="topbar">
+    <div>
+      <div class="brand">CoachDonXM</div>
+      <div class="tagline">MUSIC • DISNEY • TALK</div>
+    </div>
+    <div>
+      <div id="clock" class="clock">--:--</div>
+      <div id="date" class="date">Loading…</div>
+    </div>
   </header>
 
-  <main class="radio-layout">
-    <aside class="station-panel">
-      <section>
-        <div class="section-title music-title"><span>Music <span class="header-icon music-note" aria-hidden="true">♪</span></span></div>
-        <div id="musicStations" class="station-list"></div>
-      </section>
-
-      <section>
-        <div class="section-title disney-title">
-          <span>Disney
-            <svg class="disney-hat header-icon" viewBox="0 0 64 64" aria-hidden="true">
-              <path class="hat-main" d="M13 47c9-5 17-18 20-34 8 10 13 21 14 34H13z"/>
-              <path class="hat-band" d="M10 45h41l5 9H6z"/>
-              <circle class="hat-star" cx="34" cy="27" r="2.5"/>
-              <path class="hat-star" d="M40 35l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z"/>
-            </svg>
-          </span>
-        </div>
-        <div id="disneyStations" class="station-list"></div>
-      </section>
-
-      <section>
-        <div class="section-title podcast-title"><span>Podcasts <span class="header-icon microphone" aria-hidden="true">🎙</span></span></div>
-        <div id="podcastStations" class="station-list"></div>
-      </section>
-    </aside>
-
-    <section class="now-playing">
-      <div class="art-card">
-        <div id="artName" class="art-name">SOUL</div>
-        <div id="artSubtitle" class="art-subtitle">Classic soul. Timeless groove.</div>
-        <div class="art-rings"></div>
-      </div>
-
-      <div class="metadata">
-        <div id="modeLabel" class="mode-label">NOW PLAYING</div>
-        <div id="metadataArtist" class="metadata-artist">Choose a station</div>
-        <h2 id="trackTitle">Tap a station to begin</h2>
-        <div class="accent-line"></div>
-        <p id="stationTitle">Soul</p>
-        <div id="statusText" class="status"><span></span> READY</div>
-      </div>
-    </section>
+  <main>
+    <div id="stationList" class="list" aria-label="CoachDonXM stations"></div>
   </main>
 
   <footer class="player">
-    <div id="miniArt" class="mini-art">S</div>
-    <div class="mini-copy">
-      <strong id="miniTitle">Soul</strong>
-      <span id="miniSubtitle">Tap play to listen</span>
+    <div id="playerLogo" class="plogo">CD</div>
+
+    <div>
+      <div class="now">NOW PLAYING</div>
+      <div id="playerName" class="pname">Choose a station</div>
+      <div id="trackTitle" class="track">Tap a channel to begin</div>
+      <div id="artistName" class="artist">CoachDonXM</div>
+      <div id="liveBar" class="livebar">
+        <span class="live-dot"></span>
+        <span id="liveText">READY</span>
+        <span class="sep">•</span>
+        <span id="qualityText">—</span>
+      </div>
     </div>
-    <div class="transport">
-      <button id="previousButton" aria-label="Previous station">◀</button>
-      <button id="playButton" class="main-play" aria-label="Play">▶</button>
-      <button id="nextButton" aria-label="Next station">▶</button>
+
+    <div class="controls">
+      <button id="previousButton" class="ctl" type="button" aria-label="Previous station">◀</button>
+      <button id="playButton" class="ctl primary" type="button" aria-label="Play">▶</button>
+      <button id="nextButton" class="ctl" type="button" aria-label="Next station">▶</button>
     </div>
-    <label class="volume">🔊 <input id="volumeSlider" type="range" min="0" max="1" step=".01" value=".75"></label>
-    <button id="favoriteButton" class="favorite" aria-label="Favorite">♡</button>
   </footer>
-</div>
-<audio id="radioAudio" preload="none"></audio>
-<script src="radio-v9.js?v=9.0.0"></script>
-<script src="radio-metadata-v10.js?v=10.0.0"></script>
+
+  <div id="notice" class="notice" role="status"></div>
+  <audio id="audio" preload="none"></audio>
+
+  <script src="stations.js?v=10.0.0"></script>
+  <script src="metadata.js?v=10.0.0"></script>
+  <script src="app.js?v=10.0.0"></script>
 </body>
 </html>

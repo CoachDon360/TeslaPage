@@ -1,24 +1,277 @@
 (() => {
-const C=window.COACHDON_STATIONS,$=id=>document.getElementById(id),app=$("app"),audio=$("audio"),play=$("play"),notice=$("notice");
-let current=-1,playing=false,streamIndex=0,metaTimer=null,lastMeta=0,ageTimer=null;
-const favorites=new Set(JSON.parse(localStorage.getItem("cdxm-favorites")||"[3,6,7,8]"));
-function row(c){const b=document.createElement("button");b.className="channel";b.dataset.n=c.n;b.innerHTML=`<div class="num">${String(c.n).padStart(2,"0")}</div><div class="logo ${c.lc}">${c.logo}</div><div class="info"><div class="name">${c.name}</div><div class="desc">${c.desc}</div></div><span class="fav ${favorites.has(c.n)?"on":""}" data-fav="${c.n}">${favorites.has(c.n)?"★":"☆"}</span><div class="health"><span class="dot"></span><span class="quality">${c.q}</span></div>`;b.onclick=e=>{if(e.target.dataset.fav){e.stopPropagation();toggleFav(c.n,e.target)}else select(C.indexOf(c),true)};return b}
-C.forEach(c=>app.append(row(c)));
-function toggleFav(n,el){favorites.has(n)?favorites.delete(n):favorites.add(n);localStorage.setItem("cdxm-favorites",JSON.stringify([...favorites]));el.classList.toggle("on",favorites.has(n));el.textContent=favorites.has(n)?"★":"☆"}
-function toast(t){notice.textContent=t;notice.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>notice.classList.remove("show"),2500)}
-function status(kind,label,age){const bar=$("livebar");bar.className="livebar "+kind;$("liveState").textContent=label;if(age)$("liveAge").textContent=age}
-function paint(){document.querySelectorAll(".channel").forEach(x=>{x.classList.toggle("active",+x.dataset.n===C[current]?.n);x.classList.toggle("live",playing&&+x.dataset.n===C[current]?.n)});if(current<0)return;const c=C[current];$("pname").textContent=c.name;$("plogo").textContent=c.logo;$("plogo").className="plogo logo "+c.lc;$("liveQuality").textContent=c.q==="AAC"?"AAC":c.q==="POD"?"POD":`${c.q} kbps`;play.textContent=playing?"❚❚":"▶"}
-async function refreshMeta(){if(current<0||!playing)return;const c=C[current],result=await CoachDonMetadata.fetch(c),m=result?.meta;if(m){$("track").textContent=m.title;$("artist").textContent=m.artist;lastMeta=Date.now();status("live","LIVE","Metadata received")}else{const reason=result?.source==="blocked"?"Metadata blocked by station":result?.source==="timeout"?"Metadata request timed out":"Metadata unavailable";status("wait","LIVE",reason);if(!$("track").textContent||$("track").textContent==="Connecting…")$("track").textContent=c.n===7?"Live on 181.FM":c.desc}}
-function beginMeta(){clearInterval(metaTimer);lastMeta=0;refreshMeta();metaTimer=setInterval(refreshMeta,20000)}
-function select(i,autoplay=false){current=(i+C.length)%C.length;streamIndex=0;const c=C[current];$("track").textContent=autoplay?"Connecting…":c.desc;$("artist").textContent="";status("wait","CONNECTING","Waiting for stream");paint();if(autoplay)start()}
-async function start(){const c=C[current];if(!c){select(0,true);return}if(c.podcast){toast("Podcast shortcut is not connected in this build.");return}const streams=c.streams||[];if(!streams.length){status("offline","OFFLINE","No stream configured");return}audio.src=streams[streamIndex];try{await audio.play()}catch(e){status("offline","OFFLINE","Tap station to reconnect")}}
-audio.addEventListener("playing",()=>{playing=true;status("live","LIVE","Checking metadata");paint();beginMeta()});
-audio.addEventListener("waiting",()=>status("wait","BUFFERING","Waiting for stream"));
-audio.addEventListener("stalled",()=>status("wait","BUFFERING","Waiting for stream"));
-audio.addEventListener("pause",()=>{playing=false;status("","PAUSED","Not updating");paint()});
-audio.addEventListener("error",()=>{const c=C[current];if(c?.streams&&streamIndex<c.streams.length-1){streamIndex++;status("wait","CONNECTING","Trying backup stream");start()}else{playing=false;status("offline","OFFLINE","Tap station to reconnect");paint()}});
-play.onclick=()=>{if(current<0)select(0,true);else if(audio.paused)start();else audio.pause()};
-$("prev").onclick=()=>select(current-1,true);$("next").onclick=()=>select(current+1,true);
-function tick(){const d=new Date();$("clock").textContent=d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});$("date").textContent=d.toLocaleDateString([],{weekday:"long",month:"short",day:"numeric"})}tick();setInterval(tick,1000);
-ageTimer=setInterval(()=>{if(!lastMeta)return;const s=Math.floor((Date.now()-lastMeta)/1000);$("liveAge").textContent=s<5?"Updated now":`Updated ${s} sec ago`},1000);
+  "use strict";
+
+  const stations = Array.isArray(window.COACHDON_STATIONS)
+    ? window.COACHDON_STATIONS
+    : [];
+
+  const els = {
+    home: document.getElementById("home"),
+    list: document.getElementById("stationList"),
+    audio: document.getElementById("audio"),
+    play: document.getElementById("playButton"),
+    previous: document.getElementById("previousButton"),
+    next: document.getElementById("nextButton"),
+    playerLogo: document.getElementById("playerLogo"),
+    playerName: document.getElementById("playerName"),
+    track: document.getElementById("trackTitle"),
+    artist: document.getElementById("artistName"),
+    liveBar: document.getElementById("liveBar"),
+    liveText: document.getElementById("liveText"),
+    quality: document.getElementById("qualityText"),
+    clock: document.getElementById("clock"),
+    date: document.getElementById("date"),
+    notice: document.getElementById("notice")
+  };
+
+  let currentIndex = -1;
+  let streamIndex = 0;
+  let metadataTimer = null;
+  let metadataRequest = 0;
+  const favorites = new Set(JSON.parse(localStorage.getItem("coachdonxm-favorites") || "[]"));
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+
+  function renderStations() {
+    els.list.innerHTML = stations.map((station, index) => `
+      <button class="channel" type="button" data-index="${index}" aria-label="Play channel ${station.n}, ${escapeHtml(station.name)}">
+        <span class="num">${station.n}</span>
+        <span class="logo ${escapeHtml(station.lc || "")}">${escapeHtml(station.logo || station.name)}</span>
+        <span class="info">
+          <span class="name">${escapeHtml(station.name)}</span>
+          <span class="desc">${escapeHtml(station.desc || "")}</span>
+        </span>
+        <span class="health"><span class="dot"></span></span>
+        <span class="quality">${escapeHtml(station.q || "")}</span>
+      </button>
+    `).join("");
+
+    els.list.querySelectorAll(".channel").forEach(button => {
+      button.addEventListener("click", () => selectStation(Number(button.dataset.index), true));
+    });
+  }
+
+  function stationButton(index) {
+    return els.list.querySelector(`.channel[data-index="${index}"]`);
+  }
+
+  function markActive() {
+    els.list.querySelectorAll(".channel").forEach((button, index) => {
+      button.classList.toggle("active", index === currentIndex);
+      button.classList.toggle("live", index === currentIndex && !els.audio.paused);
+    });
+  }
+
+  function currentStation() {
+    return stations[currentIndex] || null;
+  }
+
+  function setLiveState(state, text) {
+    els.liveBar.classList.remove("live", "wait", "offline");
+    if (state) els.liveBar.classList.add(state);
+    els.liveText.textContent = text;
+  }
+
+  function updatePlayer(station) {
+    els.playerLogo.textContent = station.logo || station.name;
+    els.playerLogo.className = `plogo ${station.lc || ""}`;
+    els.playerName.textContent = station.name;
+    els.track.textContent = station.mount || station.meta
+      ? "Checking now playing…"
+      : station.desc || "Live radio";
+    els.artist.textContent = station.mount || station.meta
+      ? "Metadata ready"
+      : "Live broadcast";
+    els.quality.textContent = station.q ? `${station.q} kbps` : "LIVE";
+  }
+
+  function stopMetadata() {
+    if (metadataTimer) clearInterval(metadataTimer);
+    metadataTimer = null;
+    metadataRequest++;
+  }
+
+  async function refreshMetadata() {
+    const station = currentStation();
+    if (!station || els.audio.paused || (!station.mount && !station.meta)) return;
+
+    const requestId = ++metadataRequest;
+    setLiveState("wait", "LIVE • CHECKING METADATA");
+
+    try {
+      const metadata = await window.COACHDON_METADATA.get(station);
+      if (requestId !== metadataRequest || station !== currentStation()) return;
+
+      if (metadata?.title) {
+        els.track.textContent = metadata.title;
+        els.artist.textContent = metadata.artist || station.name;
+        setLiveState("live", "LIVE • METADATA RECEIVED");
+      } else {
+        els.track.textContent = station.name === "Super 70s"
+          ? "Live on 181.FM"
+          : station.desc || "Live radio";
+        els.artist.textContent = station.name;
+        setLiveState("live", "LIVE • METADATA UNAVAILABLE");
+      }
+    } catch (error) {
+      if (requestId !== metadataRequest) return;
+      console.warn("Metadata refresh failed:", error);
+      els.track.textContent = station.name === "Super 70s"
+        ? "Live on 181.FM"
+        : station.desc || "Live radio";
+      els.artist.textContent = station.name;
+      setLiveState("live", "LIVE • METADATA UNAVAILABLE");
+    }
+  }
+
+  function beginMetadata() {
+    stopMetadata();
+    refreshMetadata();
+    metadataTimer = setInterval(refreshMetadata, 20000);
+  }
+
+  function playCurrent() {
+    const station = currentStation();
+    if (!station) {
+      selectStation(0, true);
+      return;
+    }
+
+    if (station.podcast) {
+      showNotice(`${station.podcast} opens as a podcast channel.`);
+      return;
+    }
+
+    const streams = station.streams || [];
+    if (!streams.length) {
+      setLiveState("offline", "OFFLINE");
+      return;
+    }
+
+    if (!els.audio.src) {
+      els.audio.src = streams[streamIndex] || streams[0];
+    }
+
+    setLiveState("wait", "CONNECTING");
+    els.audio.play().catch(error => {
+      console.warn("Playback failed:", error);
+      tryNextStream();
+    });
+  }
+
+  function tryNextStream() {
+    const station = currentStation();
+    const streams = station?.streams || [];
+
+    if (streamIndex + 1 < streams.length) {
+      streamIndex++;
+      els.audio.src = streams[streamIndex];
+      els.audio.load();
+      playCurrent();
+      return;
+    }
+
+    setLiveState("offline", "OFFLINE");
+    els.play.textContent = "▶";
+    markActive();
+  }
+
+  function selectStation(index, autoplay = false) {
+    if (!stations[index]) return;
+
+    stopMetadata();
+    currentIndex = index;
+    streamIndex = 0;
+    const station = stations[index];
+
+    els.audio.pause();
+    els.audio.removeAttribute("src");
+    els.audio.load();
+
+    updatePlayer(station);
+    markActive();
+    stationButton(index)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+
+    localStorage.setItem("coachdonxm-last-station", String(index));
+
+    if (autoplay && !station.podcast) {
+      els.audio.src = station.streams?.[0] || "";
+      playCurrent();
+    }
+  }
+
+  function move(direction) {
+    if (!stations.length) return;
+    const start = currentIndex < 0 ? 0 : currentIndex;
+    let next = (start + direction + stations.length) % stations.length;
+
+    for (let tries = 0; tries < stations.length; tries++) {
+      if (!stations[next].podcast) break;
+      next = (next + direction + stations.length) % stations.length;
+    }
+    selectStation(next, true);
+  }
+
+  function showNotice(message) {
+    els.notice.textContent = message;
+    els.notice.classList.add("show");
+    setTimeout(() => els.notice.classList.remove("show"), 2600);
+  }
+
+  function updateClock() {
+    const now = new Date();
+    els.clock.textContent = now.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit"
+    });
+    els.date.textContent = now.toLocaleDateString([], {
+      weekday: "long",
+      month: "short",
+      day: "numeric"
+    });
+  }
+
+  els.home.addEventListener("click", () => {
+    window.location.href = "index.html?v=10.0.0";
+  });
+
+  els.play.addEventListener("click", () => {
+    if (els.audio.paused) playCurrent();
+    else els.audio.pause();
+  });
+
+  els.previous.addEventListener("click", () => move(-1));
+  els.next.addEventListener("click", () => move(1));
+
+  els.audio.addEventListener("playing", () => {
+    els.play.textContent = "❚❚";
+    setLiveState("live", "LIVE");
+    markActive();
+    beginMetadata();
+  });
+
+  els.audio.addEventListener("pause", () => {
+    els.play.textContent = "▶";
+    stopMetadata();
+    if (currentStation()) setLiveState("", "PAUSED");
+    markActive();
+  });
+
+  els.audio.addEventListener("waiting", () => setLiveState("wait", "BUFFERING"));
+  els.audio.addEventListener("stalled", () => setLiveState("wait", "BUFFERING"));
+  els.audio.addEventListener("error", tryNextStream);
+
+  renderStations();
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  const savedIndex = Number(localStorage.getItem("coachdonxm-last-station"));
+  selectStation(Number.isInteger(savedIndex) && stations[savedIndex] ? savedIndex : 6, false);
 })();
