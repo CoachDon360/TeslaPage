@@ -1,11 +1,11 @@
-COACHDON RADIO — DISNEY KISS BUILD
+COACHDON RADIO — MUSIC STREAM FIX
 
 Upload these three files to the ROOT of the GitHub repository:
 - radio.html
-- radio-v6.js
-- radio-v6.css
+- radio-v7.js
+- radio-v7.css
 
-Replace radio.html. The new v6 filenames force a clean browser load.
-This build adds a clean text-only Disney menu with no station numbers,
-no source names, and descriptive right-panel copy.
-Disney stream URLs remain unassigned pending verification.
+Changes:
+- K-LOVE updated to the current EMF/K-LOVE AAC endpoint.
+- Cinema keeps its displayed name but now uses the Cinemix soundtrack feed.
+- New v7 filenames force a clean load in the Tesla browser.
