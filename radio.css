@@ -336,3 +336,25 @@ button,a,input{font:inherit}
   .mini-art{width:62px;height:62px}
   .volume{display:none}
 }
+
+
+/* =========================================================
+   v2.1 — cleaner right-panel hierarchy
+   ========================================================= */
+
+/* One clear line of breathing room below the channel descriptor. */
+.display-description{
+  margin-bottom:28px;
+}
+
+/* Begin Artist immediately after that gap instead of vertically centering metadata. */
+.metadata-main{
+  flex:0 1 auto;
+  justify-content:flex-start;
+  padding-top:0;
+}
+
+/* Station metadata block was removed from radio.html. */
+.station-meta{
+  display:none !important;
+}
