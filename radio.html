@@ -1,61 +1,39 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <meta name="theme-color" content="#050b12">
-  <title>CoachDonXM</title>
-  <link rel="stylesheet" href="styles.css?v=10.0.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#07111d">
+<title>CoachDonXM v11</title>
+<link rel="stylesheet" href="coachdon-v11.css?v=11.1.0">
 </head>
 <body>
-  <button id="home" type="button" aria-label="Return home">
-    <span class="homeicon">⌂</span>
-    <span class="hometext">HOME</span>
-  </button>
-
-  <header class="topbar">
-    <div>
-      <div class="brand">CoachDonXM</div>
-      <div class="tagline">MUSIC • DISNEY • TALK</div>
-    </div>
-    <div>
-      <div id="clock" class="clock">--:--</div>
-      <div id="date" class="date">Loading…</div>
-    </div>
-  </header>
-
-  <main>
-    <div id="stationList" class="list" aria-label="CoachDonXM stations"></div>
-  </main>
-
-  <footer class="player">
-    <div id="playerLogo" class="plogo">CD</div>
-
-    <div>
-      <div class="now">NOW PLAYING</div>
-      <div id="playerName" class="pname">Choose a station</div>
-      <div id="trackTitle" class="track">Tap a channel to begin</div>
-      <div id="artistName" class="artist">CoachDonXM</div>
-      <div id="liveBar" class="livebar">
-        <span class="live-dot"></span>
-        <span id="liveText">READY</span>
-        <span class="sep">•</span>
-        <span id="qualityText">—</span>
-      </div>
-    </div>
-
-    <div class="controls">
-      <button id="previousButton" class="ctl" type="button" aria-label="Previous station">◀</button>
-      <button id="playButton" class="ctl primary" type="button" aria-label="Play">▶</button>
-      <button id="nextButton" class="ctl" type="button" aria-label="Next station">▶</button>
-    </div>
-  </footer>
-
-  <div id="notice" class="notice" role="status"></div>
-  <audio id="audio" preload="none"></audio>
-
-  <script src="stations.js?v=10.0.0"></script>
-  <script src="metadata.js?v=10.0.0"></script>
-  <script src="app.js?v=10.0.0"></script>
+<button id="home" onclick="location.href='index.html'"><span class="homeicon">⌂</span><span class="hometext">HOME</span></button>
+<header class="topbar">
+  <div><div class="brand">Streaming Radio</div><div class="tagline">COACHDONXM • RELAY EDITION</div></div>
+  <div><div class="clock" id="clock">--:--</div><div class="date" id="date"></div></div>
+</header>
+<main><div class="list" id="stationList"></div></main>
+<div class="notice" id="notice"></div>
+<footer class="player">
+  <div class="plogo" id="plogo">’70s</div>
+  <div>
+    <div class="now">NOW PLAYING</div>
+    <div class="pname" id="pname">Super 70s</div>
+    <div class="artist" id="artist">SUPER 70s</div>
+    <div class="track" id="track">Tap play to begin</div>
+    <div class="livebar"><span id="metadataStatus">READY</span><span id="provider">181.FM</span><span id="quality">128 kbps</span></div>
+  </div>
+  <div class="controls">
+    <button class="ctl" id="prev" aria-label="Previous">‹</button>
+    <button class="ctl primary" id="play" aria-label="Play">▶</button>
+    <button class="ctl" id="next" aria-label="Next">›</button>
+  </div>
+  <button class="favorite" id="favorite" aria-label="Favorite">♡</button>
+</footer>
+<audio id="audio" preload="none"></audio>
+<script src="stations-v11.js?v=11.1.0"></script>
+<script src="metadata-relay-v11.js?v=11.1.0"></script>
+<script src="app-v11.js?v=11.1.0"></script>
 </body>
 </html>
