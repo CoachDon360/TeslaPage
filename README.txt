@@ -1,11 +1,14 @@
-COACHDON RADIO — MUSIC STREAM FIX
+COACHDON RADIO — SUPER 70s METADATA PREVIEW
 
-Upload these three files to the ROOT of the GitHub repository:
-- radio.html
-- radio-v7.js
-- radio-v7.css
+Upload to the ROOT of the GitHub repository:
+  radio.html
+  radio-v8.js
+  radio-v8.css
 
 Changes:
-- K-LOVE updated to the current EMF/K-LOVE AAC endpoint.
-- Cinema keeps its displayed name but now uses the Cinemix soundtrack feed.
-- New v7 filenames force a clean load in the Tesla browser.
+- Cinema deleted.
+- Super 70s gets the new artist/title Now Playing layout.
+- The app checks the official 181.FM player every 20 seconds.
+- If the browser cannot read the live metadata, it falls back cleanly
+  to SUPER 70s / Live on 181.FM rather than displaying an error.
+- New v8 filenames force a fresh load.
