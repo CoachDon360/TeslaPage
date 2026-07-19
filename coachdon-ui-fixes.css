@@ -1,0 +1,58 @@
+/*
+  CoachDonXM v9.0.1 — four approved UI fixes
+  Loaded after radio-v9.css so it changes only these items.
+*/
+
+/* 3. Right-side station name: approximately 30% smaller. */
+#stationTitle {
+  font-size: clamp(19px, 2.1vw, 31px) !important;
+  line-height: 1.15;
+}
+
+/* 4. Keep Safari metadata updates from resizing/reflowing the panel. */
+.metadata {
+  min-height: 285px;
+  align-self: center;
+}
+
+#metadataArtist {
+  min-height: 34px;
+  display: flex;
+  align-items: flex-end;
+}
+
+#trackTitle {
+  min-height: 108px;
+  display: flex;
+  align-items: flex-start;
+  overflow-wrap: anywhere;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+#stationTitle,
+#metadataArtist,
+#statusText,
+.accent-line {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Prevent font swapping and line-height changes from creating a Safari jump. */
+.metadata,
+.metadata * {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+@media (max-width: 900px) {
+  .metadata {
+    min-height: 235px;
+  }
+
+  #trackTitle {
+    min-height: 78px;
+  }
+}
