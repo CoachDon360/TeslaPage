@@ -1,10 +1,24 @@
-(()=>{const pages=document.getElementById('pages'),dots=[...document.querySelectorAll('.dot')],title=document.getElementById('pageTitle');let page=0,startX=0,dragging=false;
-function go(n){page=Math.max(0,Math.min(3,n));pages.style.transform=`translateX(-${page*25}%)`;dots.forEach((d,i)=>d.classList.toggle('active',i===page));title.textContent=document.querySelectorAll('.page')[page].dataset.title;}
-document.getElementById('prevBtn').onclick=()=>go(page-1);document.getElementById('nextBtn').onclick=()=>go(page+1);document.getElementById('homeBtn').onclick=()=>go(0);dots.forEach((d,i)=>d.onclick=()=>go(i));
-pages.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;dragging=true},{passive:true});pages.addEventListener('touchend',e=>{if(!dragging)return;let dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>55)go(page+(dx<0?1:-1));dragging=false},{passive:true});
-pages.addEventListener('mousedown',e=>{startX=e.clientX;dragging=true});window.addEventListener('mouseup',e=>{if(!dragging)return;let dx=e.clientX-startX;if(Math.abs(dx)>70)go(page+(dx<0?1:-1));dragging=false});
-function clock(){document.getElementById('clock').textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}clock();setInterval(clock,1000);
-const codeText=c=>c===0?'Clear':[1,2].includes(c)?'Partly cloudy':c===3?'Cloudy':[45,48].includes(c)?'Foggy':[51,53,55,61,63,65,80,81,82].includes(c)?'Rain':[71,73,75,77,85,86].includes(c)?'Snow':[95,96,99].includes(c)?'Storms':'Forecast';
-const codeIcon=(c,d)=>c===0?(d?'☀️':'🌙'):[1,2].includes(c)?'⛅':c===3?'☁️':[45,48].includes(c)?'🌫️':[51,53,55,61,63,65,80,81,82].includes(c)?'🌧️':[71,73,75,77,85,86].includes(c)?'❄️':[95,96,99].includes(c)?'⛈️':'🌤️';
-fetch('https://api.open-meteo.com/v1/forecast?latitude=38.2004&longitude=-84.8776&current=temperature_2m,weather_code,is_day&temperature_unit=fahrenheit&timezone=America%2FNew_York',{cache:'no-store'}).then(r=>r.json()).then(j=>{let c=j.current.weather_code;document.getElementById('weatherIcon').textContent=codeIcon(c,j.current.is_day);document.getElementById('temperature').textContent=Math.round(j.current.temperature_2m)+'° '+codeText(c)}).catch(()=>{});
-go(0);})();
+(() => {
+const C=window.COACHDON_STATIONS,$=id=>document.getElementById(id),app=$("app"),audio=$("audio"),play=$("play"),notice=$("notice");
+let current=-1,playing=false,streamIndex=0,metaTimer=null,lastMeta=0,ageTimer=null;
+const favorites=new Set(JSON.parse(localStorage.getItem("cdxm-favorites")||"[3,6,7,8]"));
+function row(c){const b=document.createElement("button");b.className="channel";b.dataset.n=c.n;b.innerHTML=`<div class="num">${String(c.n).padStart(2,"0")}</div><div class="logo ${c.lc}">${c.logo}</div><div class="info"><div class="name">${c.name}</div><div class="desc">${c.desc}</div></div><span class="fav ${favorites.has(c.n)?"on":""}" data-fav="${c.n}">${favorites.has(c.n)?"★":"☆"}</span><div class="health"><span class="dot"></span><span class="quality">${c.q}</span></div>`;b.onclick=e=>{if(e.target.dataset.fav){e.stopPropagation();toggleFav(c.n,e.target)}else select(C.indexOf(c),true)};return b}
+C.forEach(c=>app.append(row(c)));
+function toggleFav(n,el){favorites.has(n)?favorites.delete(n):favorites.add(n);localStorage.setItem("cdxm-favorites",JSON.stringify([...favorites]));el.classList.toggle("on",favorites.has(n));el.textContent=favorites.has(n)?"★":"☆"}
+function toast(t){notice.textContent=t;notice.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>notice.classList.remove("show"),2500)}
+function status(kind,label,age){const bar=$("livebar");bar.className="livebar "+kind;$("liveState").textContent=label;if(age)$("liveAge").textContent=age}
+function paint(){document.querySelectorAll(".channel").forEach(x=>{x.classList.toggle("active",+x.dataset.n===C[current]?.n);x.classList.toggle("live",playing&&+x.dataset.n===C[current]?.n)});if(current<0)return;const c=C[current];$("pname").textContent=c.name;$("plogo").textContent=c.logo;$("plogo").className="plogo logo "+c.lc;$("liveQuality").textContent=c.q==="AAC"?"AAC":c.q==="POD"?"POD":`${c.q} kbps`;play.textContent=playing?"❚❚":"▶"}
+async function refreshMeta(){if(current<0||!playing)return;const c=C[current],m=await CoachDonMetadata.fetch(c);if(m){$("track").textContent=m.title;$("artist").textContent=m.artist;lastMeta=Date.now();status("live","LIVE","Updated now")}else{status("wait","LIVE","Metadata unavailable");if(!$("track").textContent||$("track").textContent==="Connecting…")$("track").textContent=c.n===7?"Live on 181.FM":c.desc}}
+function beginMeta(){clearInterval(metaTimer);lastMeta=0;refreshMeta();metaTimer=setInterval(refreshMeta,20000)}
+function select(i,autoplay=false){current=(i+C.length)%C.length;streamIndex=0;const c=C[current];$("track").textContent=autoplay?"Connecting…":c.desc;$("artist").textContent="";status("wait","CONNECTING","Waiting for stream");paint();if(autoplay)start()}
+async function start(){const c=C[current];if(!c){select(0,true);return}if(c.podcast){toast("Podcast shortcut is not connected in this build.");return}const streams=c.streams||[];if(!streams.length){status("offline","OFFLINE","No stream configured");return}audio.src=streams[streamIndex];try{await audio.play()}catch(e){status("offline","OFFLINE","Tap station to reconnect")}}
+audio.addEventListener("playing",()=>{playing=true;status("live","LIVE","Checking metadata");paint();beginMeta()});
+audio.addEventListener("waiting",()=>status("wait","BUFFERING","Waiting for stream"));
+audio.addEventListener("stalled",()=>status("wait","BUFFERING","Waiting for stream"));
+audio.addEventListener("pause",()=>{playing=false;status("","PAUSED","Not updating");paint()});
+audio.addEventListener("error",()=>{const c=C[current];if(c?.streams&&streamIndex<c.streams.length-1){streamIndex++;status("wait","CONNECTING","Trying backup stream");start()}else{playing=false;status("offline","OFFLINE","Tap station to reconnect");paint()}});
+play.onclick=()=>{if(current<0)select(0,true);else if(audio.paused)start();else audio.pause()};
+$("prev").onclick=()=>select(current-1,true);$("next").onclick=()=>select(current+1,true);
+function tick(){const d=new Date();$("clock").textContent=d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});$("date").textContent=d.toLocaleDateString([],{weekday:"long",month:"short",day:"numeric"})}tick();setInterval(tick,1000);
+ageTimer=setInterval(()=>{if(!lastMeta)return;const s=Math.floor((Date.now()-lastMeta)/1000);$("liveAge").textContent=s<5?"Updated now":`Updated ${s} sec ago`},1000);
+})();

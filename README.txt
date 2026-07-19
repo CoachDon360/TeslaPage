@@ -1,19 +1,37 @@
-COACHDON RADIO — SUPER 70s METADATA WIRING FIX
+COACHDONXM — ORGANIZED MASTER BUILD
 
-Upload these three files to the ROOT of the GitHub repository:
+UPLOAD ALL SIX FILES TO THE ROOT OF YOUR GITHUB REPOSITORY:
+
+- index.html
 - radio.html
-- radio-v9.js
-- radio-v9.css
+- styles.css
+- stations.js
+- metadata.js
+- app.js
 
-Fixes:
-- Metadata now runs from the app's actual choose() function.
-- Initial station selection waits until the metadata engine is loaded.
-- Selecting Super 70s immediately displays 'Checking now playing...'.
-- Cinema remains deleted.
-- v9 filenames force a fresh Tesla/browser load.
+Do not upload only radio.html. These files work together.
 
-Expected test:
-1. Select Super 70s.
-2. The title should immediately say 'Checking now playing...'.
-3. It will either show live artist/title or fall back to
-   'SUPER 70s / Live on 181.FM' if 181.FM blocks browser access.
+WHAT EACH FILE DOES
+- index.html: Opens CoachDonXM and provides cache-busting.
+- radio.html: The clean page structure. It should rarely need editing.
+- styles.css: All layout, colors, typography, and responsive behavior.
+- stations.js: The entire channel lineup, stream URLs, names, descriptions, and bitrates.
+- metadata.js: Super 70s/181.FM and SomaFM metadata retrieval.
+- app.js: Playback, favorites, controls, status indicators, fallback streams, clock, and metadata timing.
+
+SUPER 70s
+- Channel 7 is now consistently named Super 70s.
+- Stream: 181-70s_128k.mp3
+- Metadata checks every 20 seconds.
+- Shows artist and song when 181.FM permits browser access.
+- Falls back to “Live on 181.FM” when metadata is blocked.
+
+STATUS DISPLAY
+- Green: LIVE
+- Yellow: CONNECTING or BUFFERING
+- Red: OFFLINE
+- Shows bitrate and metadata age.
+
+IMPORTANT
+This package preserves the 34-channel Road Trip lineup from the July 17 build.
+Some station endpoints were already placeholders or shared streams in that saved build. This reorganization preserves them rather than inventing replacements.
