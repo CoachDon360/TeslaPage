@@ -1,33 +1,37 @@
-COACHDONXM VERSION 1.0 — SPLIT-SCREEN RELAY EDITION
+LIVE RADIO v1.1 — LOCKED UI BUILD
 
-DESIGN
-- No channel numbers
-- No duplicate white station names
-- Colorful station name with its description directly underneath
-- Split-screen layout
-- Music, Disney and Podcasts categories
-- Current channel list from the uploaded split-screen build
-- WayFM removed
-- Working Super 70s relay metadata
-- Bottom Now Playing controls
+CHANGES FROM THE FIRST SPLIT-SCREEN BUILD
+
+1. Restored a clean text-only Now Playing panel.
+2. Removed album artwork.
+3. Removed hearts and stars.
+4. Removed the green status dot.
+5. Removed LIVE METADATA, 181.FM and stream-rate text.
+6. Changed the title from Streaming Radio to Live Radio.
+7. Removed CoachDonXM Relay Edition.
+8. Removed clip art from MUSIC, DISNEY and PODCASTS.
+9. Made section headings white and larger than station names.
+10. Reduced the visual weight of the small station tile in the player.
+11. Kept station title and description above the metadata.
+12. Kept the right panel as one open, undivided design.
+13. Reduced emphasis on the labels Artist, Song and Station.
 
 UPLOAD THESE THREE FILES
-- radio.html
-- coachdonxm-v1.css
-- coachdonxm-v1.js
 
-Upload them to the same GitHub folder that currently contains radio.html.
+radio.html
+live-radio-v1-1.css
+live-radio-v1-1.js
 
-TEST
-radio.html?v=1.0.0
+TEST URL
 
-SUPER 70s TEST
-1. Select Super 70s.
-2. Press Play.
-3. Artist and song should appear.
-4. Metadata refreshes every 20 seconds.
+radio.html?v=1.1.0
 
-NOTES
-- Podcast and Disney entries from the current list are preserved.
-- Entries without direct stream URLs display SETUP NEEDED instead of failing.
-- Only Super 70s uses relay metadata in this first deployment.
+SUPER 70s
+
+Super 70s continues to retrieve artist and song information through the
+working Cloudflare relay every 20 seconds.
+
+NEXT PHASE
+
+After this UI is approved, metadata can be added to the remaining compatible
+stations without redesigning the interface again.
