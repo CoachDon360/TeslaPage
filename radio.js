@@ -107,36 +107,62 @@ function normalizePodcastItem(item){
   };
 }
 
-async function fetchPodcastViaApple(station){
-  const lookupUrl = `https://itunes.apple.com/lookup?id=${encodeURIComponent(station.podcastId)}`;
-  const lookupResponse = await fetch(lookupUrl,{cache:"no-store"});
-  if(!lookupResponse.ok) throw new Error(`Apple lookup HTTP ${lookupResponse.status}`);
-  const lookup = await lookupResponse.json();
-  const feedUrl = lookup.results?.[0]?.feedUrl;
-  if(!feedUrl) throw new Error("Podcast feed not found");
+function fetchPodcastViaApple(station){
+  return new Promise((resolve,reject)=>{
+    const callbackName = `coachDonPodcast_${Date.now()}_${Math.floor(Math.random()*100000)}`;
+    const script = document.createElement("script");
+    const timeout = window.setTimeout(()=>{
+      cleanup();
+      reject(new Error("Apple podcast lookup timed out"));
+    },15000);
 
-  try{
-    const feedResponse = await fetch(feedUrl,{cache:"no-store"});
-    if(!feedResponse.ok) throw new Error(`RSS HTTP ${feedResponse.status}`);
-    const xmlText = await feedResponse.text();
-    const xml = new DOMParser().parseFromString(xmlText,"text/xml");
-    const item = xml.querySelector("item");
-    if(!item) throw new Error("No podcast episodes found");
-    return {
-      title: stripHtml(item.querySelector("title")?.textContent || "Latest Episode"),
-      audio: item.querySelector("enclosure")?.getAttribute("url") || "",
-      date: item.querySelector("pubDate")?.textContent || "",
-      duration: item.getElementsByTagName("itunes:duration")[0]?.textContent || "",
-      description: stripHtml(item.querySelector("description")?.textContent || "")
+    function cleanup(){
+      window.clearTimeout(timeout);
+      try{ delete window[callbackName]; }catch(_){ window[callbackName] = undefined; }
+      script.remove();
+    }
+
+    window[callbackName] = data=>{
+      cleanup();
+      try{
+        const episodes = (data.results || [])
+          .filter(item => item.kind === "podcast-episode" && item.episodeUrl)
+          .sort((a,b)=>new Date(b.releaseDate || 0)-new Date(a.releaseDate || 0));
+
+        const item = episodes[0];
+        if(!item) throw new Error("No playable Ramsey episodes returned");
+
+        resolve({
+          title: stripHtml(item.trackName || item.episodeTitle || "Latest Episode"),
+          audio: item.episodeUrl,
+          date: item.releaseDate || "",
+          duration: item.trackTimeMillis
+            ? Math.round(item.trackTimeMillis / 1000)
+            : "",
+          description: stripHtml(item.description || item.shortDescription || "")
+        });
+      }catch(error){
+        reject(error);
+      }
     };
-  }catch(directError){
-    const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-    const proxyResponse = await fetch(proxyUrl,{cache:"no-store"});
-    if(!proxyResponse.ok) throw directError;
-    const proxyData = await proxyResponse.json();
-    if(proxyData.status !== "ok" || !proxyData.items?.length) throw directError;
-    return normalizePodcastItem(proxyData.items[0]);
-  }
+
+    script.onerror = ()=>{
+      cleanup();
+      reject(new Error("Apple podcast lookup could not connect"));
+    };
+
+    const params = new URLSearchParams({
+      id: station.podcastId,
+      entity: "podcastEpisode",
+      limit: "25",
+      sort: "recent",
+      country: "US",
+      callback: callbackName
+    });
+
+    script.src = `https://itunes.apple.com/lookup?${params.toString()}`;
+    document.head.appendChild(script);
+  });
 }
 
 async function loadPodcast(station,autoplay=false){
@@ -155,7 +181,10 @@ async function loadPodcast(station,autoplay=false){
 
     station.stream = episode.audio;
     station.episodeTitle = episode.title;
-    const details = [formatPodcastDate(episode.date), episode.duration].filter(Boolean).join(" • ");
+    const durationText = typeof episode.duration === "number"
+      ? `${Math.floor(episode.duration/3600)}:${String(Math.floor((episode.duration%3600)/60)).padStart(2,"0")}:${String(episode.duration%60).padStart(2,"0")}`
+      : episode.duration;
+    const details = [formatPodcastDate(episode.date), durationText].filter(Boolean).join(" • ");
     document.getElementById("displayDescription").textContent =
       details || "Latest full episode";
     updateMetadata(station.name,episode.title);
@@ -165,7 +194,7 @@ async function loadPodcast(station,autoplay=false){
     if(token !== podcastLoadToken || stations[selected] !== station) return;
     updateMetadata(station.name,"Episode feed could not connect");
     document.getElementById("displayDescription").textContent =
-      "The Ramsey Show feed is temporarily unavailable.";
+      "The Ramsey Show episode list is temporarily unavailable.";
     console.warn("Podcast feed:",error);
   }
 }
