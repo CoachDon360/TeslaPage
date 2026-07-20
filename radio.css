@@ -439,13 +439,3 @@ button,a,input{font:inherit}
  .station-desc{font-size:19px !important;margin-top:9px !important}
  .player{grid-template-columns:1fr 230px !important}
 }
-
-
-/* Official web-player links */
-.web-mark{
-  display:inline-block;
-  margin-left:.45em;
-  font-size:.7em;
-  opacity:.72;
-  transform:translateY(-.05em);
-}
