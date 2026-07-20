@@ -1,21 +1,17 @@
-CoachDon Adventureland Test v4.7
+CoachDon Official Disney Lineup v4.8
 
 Upload only:
 - radio.html
 - radio.css
 - radio.js
 
-Main Street USA remains working.
+Changes:
+- Removed the fictional park-land station rows.
+- Added Sorcerer Radio's real public channel lineup:
+  Mocha, Rope Drop, Atmospheres, Loop'd, Seasons, and Spa Day.
+- Mocha remains the confirmed working direct stream.
+- The other five channels are marked COMING SOON and do not redirect.
 
-Adventureland is now activated as a second-button playback test using
-the same verified Sorcerer Radio Mocha stream as Main Street USA.
+This build keeps the app honest while we verify each direct stream endpoint.
 
-Important:
-This verifies that a second Disney row can play inside CoachDon Radio.
-It does NOT yet give Adventureland unique jungle/park audio.
-
-Expected:
-- Main Street USA plays
-- Adventureland also plays inside CoachDon Radio
-- No website redirect
-- Build stamp reads v4.7
+Confirm the corner reads v4.8 after deployment.
