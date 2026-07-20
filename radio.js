@@ -11,18 +11,18 @@ const stations = [
   {name:"The Breeze",group:"music",color:"#2ad1df",desc:"Relax. Unwind. Breathe.",quality:"128",stream:"https://listen.181fm.com/181-breeze_128k.mp3",relayId:"181-breeze"},
   {name:"Classical",group:"music",color:"#ddd1ff",desc:"Timeless masterworks.",quality:"128",stream:"https://listen.181fm.com/181-classical_128k.mp3",relayId:"181-classical"},
 
-  {name:"Main Street USA",group:"disney",color:"#d65cff",desc:"Classic park atmosphere.",quality:"",stream:""},
-  {name:"Adventureland",group:"disney",color:"#64d46d",desc:"Jungle rhythms and island music.",quality:"",stream:""},
-  {name:"Frontierland",group:"disney",color:"#e3a34d",desc:"Western classics and bluegrass.",quality:"",stream:""},
-  {name:"Tomorrowland",group:"disney",color:"#5bc4ff",desc:"Retro-futuristic atmosphere.",quality:"",stream:""},
-  {name:"Fantasyland",group:"disney",color:"#ff82c8",desc:"Classic melodies and storybook magic.",quality:"",stream:""},
-  {name:"Future World",group:"disney",color:"#7e8fff",desc:"Classic EPCOT optimism.",quality:"",stream:""},
-  {name:"World Showcase",group:"disney",color:"#52d6c8",desc:"Music from around the world.",quality:"",stream:""},
-  {name:"Hollywood Studios",group:"disney",color:"#ff6868",desc:"Movie magic and boulevard atmosphere.",quality:"",stream:""},
-  {name:"Animal Kingdom",group:"disney",color:"#8bcf72",desc:"Nature-inspired park ambience.",quality:"",stream:""},
-  {name:"Resort TV",group:"disney",color:"#7bc9ef",desc:"Resort loops and vacation atmosphere.",quality:"",stream:""},
-  {name:"Pixar",group:"disney",color:"#65a9ff",desc:"Music from Pixar films and lands.",quality:"",stream:""},
-  {name:"Villains",group:"disney",color:"#b95de3",desc:"Disney's darker side.",quality:"",stream:""},
+  {name:"DParkRadio Main",display:"DParkRadio Main",group:"disney",color:"#d65cff",desc:"Parades, attractions, fireworks and park favorites.",quality:"WEB",link:"https://dparkradio.com/music/"},
+  {name:"DParkRadio Background",display:"DParkRadio Background",group:"disney",color:"#64d46d",desc:"Disney park background-area music.",quality:"WEB",link:"https://dparkradio.com/music/"},
+  {name:"DParkRadio Main Street",display:"DParkRadio Main Street",group:"disney",color:"#e3a34d",desc:"Holiday and Main Street atmosphere.",quality:"WEB",link:"https://dparkradio.com/music/"},
+  {name:"DParkRadio Resort TV",display:"DParkRadio Resort TV",group:"disney",color:"#5bc4ff",desc:"Guest TV and resort-vacation atmosphere.",quality:"WEB",link:"https://dparkradio.com/music/"},
+  {name:"Sorcerer Radio",display:"Sorcerer Radio",group:"disney",color:"#ff82c8",desc:"All Disney music, all day long.",quality:"WEB",link:"https://srsounds.com/wp/listen/"},
+  {name:"Park Audio",display:"Park Audio",group:"disney",color:"#7e8fff",desc:"Disney park atmosphere and area audio.",quality:"WEB",link:"https://srsounds.com/wp/listen/"},
+  {name:"Disney Loops",display:"Disney Loops",group:"disney",color:"#52d6c8",desc:"Background loops from across Disney destinations.",quality:"WEB",link:"https://srsounds.com/wp/listen/"},
+  {name:"Ride Audio",display:"Ride Audio",group:"disney",color:"#ff6868",desc:"Attractions, rides and park experiences.",quality:"WEB",link:"https://srsounds.com/wp/listen/"},
+  {name:"Seasonal Disney",display:"Seasonal Disney",group:"disney",color:"#8bcf72",desc:"Disney holiday and seasonal music.",quality:"WEB",link:"https://srsounds.com/wp/listen/"},
+  {name:"Relaxing Disney",display:"Relaxing Disney",group:"disney",color:"#7bc9ef",desc:"Calm Disney park ambience and relaxing audio.",quality:"WEB",link:"https://srsounds.com/wp/listen/"},
+  {name:"Disney Coffeehouse",display:"Disney Coffeehouse",group:"disney",color:"#65a9ff",desc:"A softer coffeehouse take on Disney favorites.",quality:"WEB",link:"https://srsounds.com/wp/listen/"},
+  {name:"WDW Resort TV",display:"WDW Resort TV",group:"disney",color:"#b95de3",desc:"The official Sorcerer Radio Resort TV page.",quality:"WEB",link:"https://srsounds.com/wp/listen/"},
 
   {name:"The Ramsey Show",group:"podcasts",color:"#ffd02c",desc:"Money, work, and life.",quality:"",stream:""},
   {name:"Insight for Living",group:"podcasts",color:"#6bd8ff",desc:"Biblical teaching with Chuck Swindoll.",quality:"",stream:""},
@@ -52,7 +52,7 @@ function render(){
     row.style.setProperty("--station-color", station.color);
     row.innerHTML = `
       <span class="station-copy">
-        <span class="station-name"><span class="playing-mark">▶</span>${labelOf(station)}</span>
+        <span class="station-name"><span class="playing-mark">▶</span>${labelOf(station)}${station.link ? '<span class="web-mark">↗</span>' : ''}</span>
         <span class="station-desc">${station.desc}</span>
       </span>`;
     row.addEventListener("click",()=>choose(index,true));
@@ -72,12 +72,23 @@ function updateMetadata(artist,song){
 function choose(index,autoplay=false){
   selected = (index + stations.length) % stations.length;
   const station = stations[selected];
+
+  // Disney rows are dependable links to the stations' official web players.
+  // Stop local audio first so two sources cannot play at once.
+  if(autoplay && station.link){
+    audio.pause();
+    playing = false;
+    document.getElementById("playButton").textContent = "▶";
+    window.location.href = station.link;
+    return;
+  }
+
   document.documentElement.style.setProperty("--accent", station.color);
   document.getElementById("displayStation").textContent = labelOf(station);
   document.getElementById("displayDescription").textContent = station.desc;
   const stationMeta = document.getElementById("stationMeta");
   if (stationMeta) stationMeta.textContent = labelOf(station);
-    render();
+  render();
   startMetadata(station);
   if(autoplay) playSelected();
 }
