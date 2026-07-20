@@ -62,8 +62,6 @@
     el("displayStation").textContent = station.name;
     el("displayDescription").textContent = station.desc;
     el("displayStation").style.color = station.color;
-    el("miniArt").textContent = station.art;
-    el("miniArt").style.color = station.color;
     el("miniStation").textContent = station.name;
     artist.textContent = "—";
     song.textContent = station.group === "podcast" ? "Tap the station to open the latest episodes." : "Live stream";
