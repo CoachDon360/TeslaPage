@@ -1,174 +1,167 @@
-(() => {
-  "use strict";
+const stations = [
+  {name:"K-LOVE",group:"music",color:"#38b5ff",desc:"Positive. Encouraging.",quality:"AAC",stream:"https://maestro.emfcdn.com/stream_for/k-love/iheart/aac"},
+  {name:"Super 70s",display:"SUPER ’70s",group:"music",color:"#ff8b18",desc:"The soundtrack of the 70s.",quality:"128",stream:"https://listen.181fm.com/181-70s_128k.mp3",relayId:"181-70s"},
+  {name:"Awesome 80s",display:"AWESOME ’80s",group:"music",color:"#f14db8",desc:"Turn it up.",quality:"128",stream:"https://listen.181fm.com/181-awesome80s_128k.mp3",relayId:"181-awesome80s"},
+  {name:"Lite 80s",display:"LITE ’80s",group:"music",color:"#b87cff",desc:"The softer side of the 80s.",quality:"128",stream:"https://listen.181fm.com/181-lite80s_128k.mp3",relayId:"181-lite80s"},
+  {name:"Star 90s",display:"STAR ’90s",group:"music",color:"#8dd03a",desc:"The biggest hits of the 90s.",quality:"128",stream:"https://listen.181fm.com/181-star90s_128k.mp3",relayId:"181-star90s"},
+  {name:"Lite 90s",display:"LITE ’90s",group:"music",color:"#5ac6ff",desc:"Smooth 90s favorites.",quality:"128",stream:"https://listen.181fm.com/181-lite90s_128k.mp3",relayId:"181-lite90s"},
+  {name:"The Yacht",display:"The Yacht",group:"music",color:"#f0ad2d",desc:"Smooth. Soft. Sailing.",quality:"128",stream:"https://listen.181fm.com/181-yachtrock_128k.mp3",relayId:"181-yachtrock"},
+  {name:"Good Time Oldies",group:"music",color:"#ffd36f",desc:"More good times.",quality:"128",stream:"https://listen.181fm.com/181-goodtime_128k.mp3",relayId:"181-goodtime"},
+  {name:"Soul",display:"Soul",group:"music",color:"#a66cff",desc:"Classic soul. Timeless groove.",quality:"128",stream:"https://listen.181fm.com/181-soul_128k.mp3",relayId:"181-soul"},
+  {name:"The Breeze",group:"music",color:"#2ad1df",desc:"Relax. Unwind. Breathe.",quality:"128",stream:"https://listen.181fm.com/181-breeze_128k.mp3",relayId:"181-breeze"},
+  {name:"Classical",group:"music",color:"#ddd1ff",desc:"Timeless masterworks.",quality:"128",stream:"https://listen.181fm.com/181-classical_128k.mp3",relayId:"181-classical"},
 
-  const STATIONS = [
-    {id:"klove",group:"music",name:"K-LOVE",art:"K-LOVE",desc:"Positive & Encouraging",color:"#35aef3",streams:["https://maestro.emfcdn.com/stream_for/k-love/web/aac"]},
-    {id:"70s",group:"music",name:"Super 70s",art:"70s",desc:"The soundtrack of the 70s.",color:"#ff8b18",relay:"181-70s",streams:["https://listen.181fm.com/181-70s_128k.mp3"]},
-    {id:"80s",group:"music",name:"Awesome 80s",art:"80s",desc:"The biggest hits of the 80s.",color:"#ef4bb9",relay:"181-awesome80s",streams:["https://listen.181fm.com/181-awesome80s_128k.mp3"]},
-    {id:"lite80s",group:"music",name:"Lite 80s",art:"LITE 80s",desc:"The softer side of the 80s.",color:"#48bff5",streams:["https://listen.181fm.com/181-lite80s_128k.mp3"]},
-    {id:"90s",group:"music",name:"90s",art:"90s",desc:"The 90s are all that.",color:"#8dcc35",relay:"181-star90s",streams:["https://listen.181fm.com/181-star90s_128k.mp3"]},
-    {id:"lite90s",group:"music",name:"Lite 90s",art:"LITE 90s",desc:"The lighter side of the 90s.",color:"#9a74ff",streams:["https://listen.181fm.com/181-lite90s_128k.mp3"]},
-    {id:"yacht",group:"music",name:"Yacht Rock",art:"YACHT",desc:"Smooth sailing favorites.",color:"#f1ad27",relay:"181-yachtrock",streams:["https://listen.181fm.com/181-yachtrock_128k.mp3"]},
-    {id:"oldies",group:"music",name:"Good Time Oldies",art:"OLDIES",desc:"50s, 60s and 70s favorites.",color:"#f6c968",relay:"181-goodtime",streams:["https://listen.181fm.com/181-goodtime_128k.mp3","https://listen.181fm.com/181-greatoldies_128k.mp3"]},
-    {id:"soul",group:"music",name:"Soul",art:"SOUL",desc:"Classic soul favorites.",color:"#c56ff0",streams:["https://listen.181fm.com/181-soul_128k.mp3"]},
-    {id:"breeze",group:"music",name:"The Breeze",art:"BREEZE",desc:"Easy listening for the road.",color:"#23d3e5",streams:["https://listen.181fm.com/181-breeze_128k.mp3"]},
-    {id:"classical",group:"music",name:"Classical",art:"CLASSICAL",desc:"Timeless orchestral favorites.",color:"#e4d7ff",streams:["https://listen.181fm.com/181-classical_128k.mp3"]},
+  {name:"Main Street USA",group:"disney",color:"#d65cff",desc:"Classic park atmosphere.",quality:"",stream:""},
+  {name:"Adventureland",group:"disney",color:"#64d46d",desc:"Jungle rhythms and island music.",quality:"",stream:""},
+  {name:"Frontierland",group:"disney",color:"#e3a34d",desc:"Western classics and bluegrass.",quality:"",stream:""},
+  {name:"Tomorrowland",group:"disney",color:"#5bc4ff",desc:"Retro-futuristic atmosphere.",quality:"",stream:""},
+  {name:"Fantasyland",group:"disney",color:"#ff82c8",desc:"Classic melodies and storybook magic.",quality:"",stream:""},
+  {name:"Future World",group:"disney",color:"#7e8fff",desc:"Classic EPCOT optimism.",quality:"",stream:""},
+  {name:"World Showcase",group:"disney",color:"#52d6c8",desc:"Music from around the world.",quality:"",stream:""},
+  {name:"Hollywood Studios",group:"disney",color:"#ff6868",desc:"Movie magic and boulevard atmosphere.",quality:"",stream:""},
+  {name:"Animal Kingdom",group:"disney",color:"#8bcf72",desc:"Nature-inspired park ambience.",quality:"",stream:""},
+  {name:"Resort TV",group:"disney",color:"#7bc9ef",desc:"Resort loops and vacation atmosphere.",quality:"",stream:""},
+  {name:"Pixar",group:"disney",color:"#65a9ff",desc:"Music from Pixar films and lands.",quality:"",stream:""},
+  {name:"Villains",group:"disney",color:"#b95de3",desc:"Disney's darker side.",quality:"",stream:""},
 
-    {id:"dpark",group:"disney",name:"DParkRadio",art:"DPARK",desc:"Park music, attractions and shows.",color:"#f14c60",streams:["https://cheetah.streemlion.com/dparkradio"]},
-    {id:"sorcerer",group:"disney",name:"Sorcerer Radio",art:"SORCERER",desc:"All Disney music, all day.",color:"#7ed957",streams:["https://26343.live.streamtheworld.com/SP_R3765675_SC"]},
+  {name:"The Ramsey Show",group:"podcasts",color:"#ffd02c",desc:"Money, work, and life.",quality:"",stream:""},
+  {name:"Insight for Living",group:"podcasts",color:"#6bd8ff",desc:"Biblical teaching with Chuck Swindoll.",quality:"",stream:""},
+  {name:"Southeast Christian",group:"podcasts",color:"#70d979",desc:"Messages from Southeast Christian Church.",quality:"",stream:""},
+  {name:"Brian Buffini",group:"podcasts",color:"#ff9b52",desc:"Business, motivation, and real estate.",quality:"",stream:""}
+];
 
-    {id:"ramsey",group:"podcast",name:"The Ramsey Show",art:"RAMSEY",desc:"Money, debt and life.",color:"#24a6df",url:"https://www.ramseysolutions.com/shows/the-ramsey-show"},
-    {id:"insight",group:"podcast",name:"Insight for Living",art:"IFL",desc:"Bible teaching with Chuck Swindoll.",color:"#80b8e8",url:"https://insight.org/broadcasts"},
-    {id:"southeast",group:"podcast",name:"Southeast Christian",art:"SECC",desc:"Messages from Southeast Christian Church.",color:"#f1b949",url:"https://www.southeastchristian.org/messages"},
-    {id:"buffini",group:"podcast",name:"Brian Buffini",art:"BUFFINI",desc:"The Good Life podcast.",color:"#f07b35",url:"https://www.buffiniandcompany.com/podcast/"}
-  ];
+const RELAY = "https://coachdon-metadata.74p875syc7.workers.dev";
+const lists = {
+  music: document.getElementById("musicList"),
+  disney: document.getElementById("disneyList"),
+  podcasts: document.getElementById("podcastList")
+};
+const audio = document.getElementById("radioAudio");
+let selected = stations.findIndex(s => s.name === "Super 70s");
+let playing = false;
+let metadataTimer = null;
+let metadataToken = 0;
 
-  const el = id => document.getElementById(id);
-  const audio = el("radioAudio");
-  const playButton = el("playButton");
-  const artist = el("artist");
-  const song = el("song");
-  const miniSong = el("miniSong");
-  const miniArtist = el("miniArtist");
-  let currentIndex = 1;
-  let currentStreamIndex = 0;
-  let metadataTimer = null;
+function labelOf(station){ return station.display || station.name; }
 
-  function render() {
-    const groups = {music:el("musicList"), disney:el("disneyList"), podcast:el("podcastList")};
-    Object.values(groups).forEach(node => node.innerHTML = "");
-
-    STATIONS.forEach((station,index) => {
-      const button = document.createElement("button");
-      button.className = "station-row";
-      button.type = "button";
-      button.dataset.index = index;
-      button.style.setProperty("--station-color",station.color);
-      button.innerHTML = `<span class="station-name"><span class="playing-mark">▶</span>${station.name}</span>
-                          <span class="station-desc">${station.desc}</span>`;
-      button.addEventListener("click",() => selectStation(index,true));
-      groups[station.group].appendChild(button);
-    });
-    markActive();
-  }
-
-  function markActive() {
-    document.querySelectorAll(".station-row").forEach(row => {
-      row.classList.toggle("active",Number(row.dataset.index) === currentIndex);
-    });
-  }
-
-  function updateDisplay(station) {
-    el("displayStation").textContent = station.name;
-    el("displayDescription").textContent = station.desc;
-    el("displayStation").style.color = station.color;
-    el("miniStation").textContent = station.name;
-    artist.textContent = "—";
-    song.textContent = station.group === "podcast" ? "Tap the station to open the latest episodes." : "Live stream";
-    miniSong.textContent = station.group === "podcast" ? "Open latest episodes" : "Ready to play";
-    miniArtist.textContent = "—";
-  }
-
-  async function selectStation(index, autoplay=false) {
-    currentIndex = (index + STATIONS.length) % STATIONS.length;
-    currentStreamIndex = 0;
-    const station = STATIONS[currentIndex];
-    markActive();
-    updateDisplay(station);
-    stopMetadata();
-
-    if (station.url) {
-      audio.pause();
-      playButton.textContent = "▶";
-      if (autoplay) window.open(station.url,"_blank","noopener");
-      return;
-    }
-
-    audio.src = station.streams[0];
-    if (autoplay) await safePlay();
-    startMetadata(station);
-  }
-
-  async function safePlay() {
-    try {
-      await audio.play();
-      playButton.textContent = "❚❚";
-    } catch (error) {
-      miniSong.textContent = "Tap play to begin";
-      playButton.textContent = "▶";
-    }
-  }
-
-  function togglePlay() {
-    const station = STATIONS[currentIndex];
-    if (station.url) {
-      window.open(station.url,"_blank","noopener");
-      return;
-    }
-    if (audio.paused) safePlay();
-    else {
-      audio.pause();
-      playButton.textContent = "▶";
-    }
-  }
-
-  function nextStation(direction) {
-    selectStation(currentIndex + direction,true);
-  }
-
-  function stopMetadata() {
-    if (metadataTimer) clearInterval(metadataTimer);
-    metadataTimer = null;
-  }
-
-  async function fetchMetadata(station) {
-    if (!station.relay) return;
-    try {
-      const response = await fetch(`https://coachdon-metadata.netlify.app/.netlify/functions/metadata?station=${encodeURIComponent(station.relay)}`, {cache:"no-store"});
-      if (!response.ok) return;
-      const data = await response.json();
-      if (!data || !data.ok) return;
-      artist.textContent = data.artist || "—";
-      song.textContent = data.title || "Live stream";
-      miniSong.textContent = data.title || "Live stream";
-      miniArtist.textContent = data.artist || "—";
-    } catch (_) {
-      // Keep the stream playing even when metadata is temporarily unavailable.
-    }
-  }
-
-  function startMetadata(station) {
-    fetchMetadata(station);
-    if (station.relay) metadataTimer = setInterval(() => fetchMetadata(station),30000);
-  }
-
-  audio.addEventListener("play",() => playButton.textContent = "❚❚");
-  audio.addEventListener("pause",() => playButton.textContent = "▶");
-  audio.addEventListener("error",async () => {
-    const station = STATIONS[currentIndex];
-    if (!station.streams || currentStreamIndex + 1 >= station.streams.length) {
-      miniSong.textContent = "Station did not answer";
-      return;
-    }
-    currentStreamIndex += 1;
-    audio.src = station.streams[currentStreamIndex];
-    await safePlay();
+function render(){
+  Object.values(lists).forEach(el => el.innerHTML = "");
+  stations.forEach((station,index)=>{
+    const row = document.createElement("button");
+    row.className = "station-row" + (index === selected ? " active" : "");
+    row.style.setProperty("--station-color", station.color);
+    row.innerHTML = `
+      <span class="station-copy">
+        <span class="station-name"><span class="playing-mark">▶</span>${labelOf(station)}</span>
+        <span class="station-desc">${station.desc}</span>
+      </span>`;
+    row.addEventListener("click",()=>choose(index,true));
+    lists[station.group].appendChild(row);
   });
+}
 
-  playButton.addEventListener("click",togglePlay);
-  el("previousButton").addEventListener("click",() => nextStation(-1));
-  el("nextButton").addEventListener("click",() => nextStation(1));
-  el("volumeSlider").addEventListener("input",event => audio.volume = Number(event.target.value));
+function updateMetadata(artist,song){
+  document.getElementById("artist").textContent = artist || "";
+  document.getElementById("song").textContent = song || "";
+  document.getElementById("miniSong").textContent = song || "Live Radio";
+  document.getElementById("miniArtist").textContent = artist || "";
+  const miniStation = document.getElementById("miniStation");
+  if (miniStation) miniStation.textContent = labelOf(stations[selected]);
+}
 
-  function updateClock() {
-    const now = new Date();
-    el("clock").textContent = now.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
-    el("date").textContent = now.toLocaleDateString([], {weekday:"long",month:"long",day:"numeric"});
+function choose(index,autoplay=false){
+  selected = (index + stations.length) % stations.length;
+  const station = stations[selected];
+  document.documentElement.style.setProperty("--accent", station.color);
+  document.getElementById("displayStation").textContent = labelOf(station);
+  document.getElementById("displayDescription").textContent = station.desc;
+  const stationMeta = document.getElementById("stationMeta");
+  if (stationMeta) stationMeta.textContent = labelOf(station);
+    render();
+  startMetadata(station);
+  if(autoplay) playSelected();
+}
+
+async function fetchRelay(station,token){
+  try{
+    const response = await fetch(
+      `${RELAY}/metadata?station=${encodeURIComponent(station.relayId)}`,
+      {cache:"no-store"}
+    );
+    const data = await response.json();
+    if(!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
+    if(token !== metadataToken) return;
+    updateMetadata(data.artist || labelOf(station), data.title || "Live Radio");
+  }catch(error){
+    if(token !== metadataToken) return;
+    updateMetadata(labelOf(station),"Live Radio");
+    console.warn("CoachDon relay:",error);
   }
+}
 
-  render();
-  audio.volume = .75;
-  selectStation(currentIndex,false);
-  updateClock();
-  setInterval(updateClock,1000);
-})();
+function startMetadata(station){
+  metadataToken++;
+  const token = metadataToken;
+  if(metadataTimer) clearInterval(metadataTimer);
+  metadataTimer = null;
+
+  if(station.relayId){
+    updateMetadata("Checking now playing…","One moment…");
+    fetchRelay(station,token);
+    metadataTimer = setInterval(()=>fetchRelay(station,token),20000);
+  }else{
+    updateMetadata(
+      station.name === "K-LOVE" ? "K-LOVE" : labelOf(station),
+      station.stream ? "Live Radio" :
+      (station.group === "podcasts" ? "Podcast feed setup needed" : "Stream setup needed")
+    );
+  }
+}
+
+async function playSelected(){
+  const station = stations[selected];
+  if(!station.stream){
+    playing = false;
+    document.getElementById("playButton").textContent = "▶";
+    return;
+  }
+  if(audio.src !== station.stream) audio.src = station.stream;
+  try{
+    await audio.play();
+    playing = true;
+    document.getElementById("playButton").textContent = "Ⅱ";
+    render();
+  }catch(error){
+    playing = false;
+    document.getElementById("playButton").textContent = "▶";
+    console.warn("Station could not connect:",error);
+  }
+}
+
+document.getElementById("playButton").addEventListener("click",()=>{
+  if(playing){
+    audio.pause();
+    playing=false;
+    document.getElementById("playButton").textContent="▶";
+    render();
+  }else{
+    playSelected();
+  }
+});
+document.getElementById("previousButton").addEventListener("click",()=>choose(selected-1,true));
+document.getElementById("nextButton").addEventListener("click",()=>choose(selected+1,true));
+document.getElementById("volumeSlider").addEventListener("input",e=>audio.volume=Number(e.target.value));
+
+function updateClock(){
+  const now = new Date();
+  document.getElementById("clock").textContent =
+    now.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
+  document.getElementById("date").textContent =
+    now.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"});
+}
+
+audio.volume=.75;
+setInterval(updateClock,30000);
+updateClock();
+render();
+choose(selected,false);
