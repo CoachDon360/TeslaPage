@@ -1,17 +1,11 @@
-COACHDON LIVE RADIO v1.4
+CoachDon Streaming Radio v5.1 — Flat Upload Edition
 
-Built directly from the approved v1.3 interface.
+UPLOAD ALL FILES TO THE MAIN ROOT OF YOUR GITHUB REPOSITORY.
 
-CHANGES
-1. The Artist, Song, and Station metadata is firmly left-justified.
-2. Metadata values are approximately 20% smaller than the large station name.
-3. The waveform is aligned to the left with the metadata.
-4. All v1.3 station naming and Safari stability fixes remain intact.
-
-UPLOAD THESE THREE FILES TO THE REPOSITORY ROOT
+There is NO artwork folder in this edition.
+The PNG files belong on the same level as:
 - radio.html
-- live-radio-v1-4.css
-- live-radio-v1-4.js
+- radio.css
+- radio.js
 
-Replace radio.html when prompted. The older v1.3 files may remain in the repository.
-After deployment, use Command-Shift-R in Safari to force a fresh load.
+This edition was made specifically for GitHub's browser uploader.

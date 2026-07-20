@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#05070a">
 <title>Live Radio</title>
-<link rel="stylesheet" href="radio.css?v=4.0.0">
+<link rel="stylesheet" href="radio.css?v=5.0.0">
 </head>
 <body>
 <div class="shell">
   <header class="topbar">
     <a class="home" href="index.html" aria-label="Home"><span class="home-icon">⌂</span><span>HOME</span></a>
     <div class="brand-block">
-      <div class="brand">Live Radio <small class="build-stamp">v4.0</small></div>
+      <div class="brand">Live Radio <small class="build-stamp">v5.1</small></div>
     </div>
     <div class="datetime">
       <div id="clock" class="clock">--:--</div>
@@ -44,7 +44,11 @@
       <div id="displayStation" class="display-station">SUPER ’70s</div>
       <div id="displayDescription" class="display-description">The soundtrack of the 70s.</div>
 
-      <div class="metadata-main">
+      <div id="visualPanel" class="visual-panel" hidden>
+        <img id="stationArtwork" src="" alt="">
+      </div>
+
+      <div id="metadataMain" class="metadata-main">
         <div class="meta-block">
           <div class="label">Artist</div>
           <div id="artist" class="artist">—</div>
@@ -77,6 +81,6 @@
 
 <audio id="radioAudio" preload="none"></audio>
 
-<script src="radio.js?v=4.0.0"></script>
+<script src="radio.js?v=5.0.0"></script>
 </body>
 </html>
