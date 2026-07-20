@@ -439,35 +439,3 @@ button,a,input{font:inherit}
  .station-desc{font-size:19px !important;margin-top:9px !important}
  .player{grid-template-columns:1fr 230px !important}
 }
-
-
-/* =========================================================
-   v5.0 — Disney and podcast artwork
-   ========================================================= */
-.visual-panel{
-  width:min(100%,560px);
-  height:min(48vh,430px);
-  margin:26px 0 0;
-  border-radius:24px;
-  overflow:hidden;
-  background:#0b1724;
-  border:1px solid #2c4258;
-  box-shadow:0 22px 55px #0008;
-}
-.visual-panel[hidden]{display:none !important}
-.visual-panel img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-.now-pane.art-mode .metadata-main{display:none !important}
-.now-pane.art-mode .visual-panel{display:block}
-.now-pane.art-mode .display-description{max-width:560px}
-@media(max-width:900px){
-  .visual-panel{
-    height:min(42vh,330px);
-    margin-top:18px;
-    border-radius:18px;
-  }
-}
