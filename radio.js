@@ -11,7 +11,7 @@ const stations = [
   {name:"The Breeze",group:"music",color:"#2ad1df",desc:"Relax. Unwind. Breathe.",quality:"128",stream:"https://listen.181fm.com/181-breeze_128k.mp3",relayId:"181-breeze"},
   {name:"Classical",group:"music",color:"#ddd1ff",desc:"Timeless masterworks.",quality:"128",stream:"https://listen.181fm.com/181-classical_128k.mp3",relayId:"181-classical"},
 
-  {name:"Main Street USA",group:"disney",color:"#d65cff",desc:"DParkRadio Background Area test.",quality:"",stream:"https://str3.openstream.co/578"},
+  {name:"Main Street USA",group:"disney",color:"#d65cff",desc:"Classic park atmosphere.",quality:"",stream:""},
   {name:"Adventureland",group:"disney",color:"#64d46d",desc:"Jungle rhythms and island music.",quality:"",stream:""},
   {name:"Frontierland",group:"disney",color:"#e3a34d",desc:"Western classics and bluegrass.",quality:"",stream:""},
   {name:"Tomorrowland",group:"disney",color:"#5bc4ff",desc:"Retro-futuristic atmosphere.",quality:"",stream:""},

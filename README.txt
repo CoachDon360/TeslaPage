@@ -1,16 +1,22 @@
-CoachDon Disney One-Station Test v4.3
+CoachDon Live Radio — Clean Restore v4.4
 
 Upload only:
 - radio.html
 - radio.css
 - radio.js
 
-No PNG files or folders.
+This restores the last dependable music build.
 
-Main Street USA is temporarily connected to DParkRadio Channel 2
-(Background Area) using the published HTTPS direct stream:
-https://str3.openstream.co/578
+Included:
+- Working music stations
+- Music metadata relay
+- Existing clean interface
+- Disney and podcast rows retained as placeholders only
 
-This is an audio-connectivity test. If it works in Safari, the player
-and Disney section are confirmed and the remaining task is mapping
-the other direct DParkRadio channel streams.
+Removed:
+- PNG artwork
+- Artwork folders
+- Disney test stream URLs
+- Playlist/proxy experiments
+
+After deployment, verify that the upper-left build stamp reads v4.4.
