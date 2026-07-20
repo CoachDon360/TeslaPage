@@ -12,7 +12,7 @@ const stations = [
   {name:"Classical",group:"music",color:"#ddd1ff",desc:"Timeless masterworks.",quality:"128",stream:"https://listen.181fm.com/181-classical_128k.mp3",relayId:"181-classical"},
 
   {name:"Main Street USA",group:"disney",color:"#d65cff",desc:"Rope-drop test using Sorcerer Radio Mocha.",quality:"LIVE",stream:"https://samcloud.spacial.com/api/listen?sid=100903&m=sc&rid=177361"},
-  {name:"Adventureland",group:"disney",color:"#64d46d",desc:"Jungle rhythms and island music.",quality:"",stream:""},
+  {name:"Adventureland",group:"disney",color:"#64d46d",desc:"Adventureland button test using the verified Sorcerer Radio stream.",quality:"LIVE",stream:"https://samcloud.spacial.com/api/listen?sid=100903&m=sc&rid=177361"},
   {name:"Frontierland",group:"disney",color:"#e3a34d",desc:"Western classics and bluegrass.",quality:"",stream:""},
   {name:"Tomorrowland",group:"disney",color:"#5bc4ff",desc:"Retro-futuristic atmosphere.",quality:"",stream:""},
   {name:"Fantasyland",group:"disney",color:"#ff82c8",desc:"Classic melodies and storybook magic.",quality:"",stream:""},

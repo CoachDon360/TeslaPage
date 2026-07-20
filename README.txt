@@ -1,21 +1,21 @@
-CoachDon Rope Drop Test v4.6
+CoachDon Adventureland Test v4.7
 
 Upload only:
 - radio.html
 - radio.css
 - radio.js
 
-Built from stable v4.4.
+Main Street USA remains working.
 
-Only Main Street USA is activated for this test. It uses the exact
-Sorcerer Radio Mocha stream endpoint used in Sorcerer Radio's own
-HTML5 audio player.
+Adventureland is now activated as a second-button playback test using
+the same verified Sorcerer Radio Mocha stream as Main Street USA.
+
+Important:
+This verifies that a second Disney row can play inside CoachDon Radio.
+It does NOT yet give Adventureland unique jungle/park audio.
 
 Expected:
-- Tap Main Street USA
-- It highlights and plays inside CoachDon Live Radio
+- Main Street USA plays
+- Adventureland also plays inside CoachDon Radio
 - No website redirect
-
-All other Disney rows remain placeholders.
-
-Confirm the corner reads v4.6 after deployment.
+- Build stamp reads v4.7
