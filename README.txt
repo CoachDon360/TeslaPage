@@ -1,12 +1,11 @@
-CoachDon Disney One-Station Test v4.1
+CoachDon Disney One-Station Test v4.2
 
-Upload only:
+Upload:
 - radio.html
 - radio.css
 - radio.js
 
-No PNG files or folders are required.
+No PNG files.
 
-TEST:
-Tap Main Street USA. It is the only Disney row connected in this test.
-All other Disney and podcast rows remain unchanged.
+Main Street USA now uses the browser-oriented /stream endpoint instead of /;.
+Test Main Street USA after deployment.
