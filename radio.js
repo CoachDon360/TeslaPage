@@ -11,12 +11,12 @@ const stations = [
   {name:"The Breeze",group:"music",color:"#2ad1df",desc:"Relax. Unwind. Breathe.",quality:"128",stream:"https://listen.181fm.com/181-breeze_128k.mp3",relayId:"181-breeze"},
   {name:"Classical",group:"music",color:"#ddd1ff",desc:"Timeless masterworks.",quality:"128",stream:"https://listen.181fm.com/181-classical_128k.mp3",relayId:"181-classical"},
 
-  {name:"Mocha",group:"disney",color:"#b7794b",desc:"Coffeehouse-style Disney music.",quality:"LIVE",stream:"https://samcloud.spacial.com/api/listen?sid=100903&m=sc&rid=177361"},
-  {name:"Rope Drop",group:"disney",color:"#f4b942",desc:"Disney rides and attraction audio. Direct stream verification pending.",quality:"COMING SOON",stream:""},
-  {name:"Atmospheres",group:"disney",color:"#55b7d9",desc:"Disney park atmosphere and background audio. Direct stream verification pending.",quality:"COMING SOON",stream:""},
-  {name:"Loop'd",group:"disney",color:"#7b68ee",desc:"Disney park music loops. Direct stream verification pending.",quality:"COMING SOON",stream:""},
-  {name:"Seasons",group:"disney",color:"#d85c5c",desc:"Seasonal Disney music. Direct stream verification pending.",quality:"COMING SOON",stream:""},
-  {name:"Spa Day",group:"disney",color:"#64c7a5",desc:"Relaxing Disney audio. Direct stream verification pending.",quality:"COMING SOON",stream:""},
+  {name:"Mocha",group:"disney",color:"#b7794b",desc:"Relaxing lo-fi Disney music.",quality:"LIVE",stream:"https://playerservices.streamtheworld.com/api/livestream-redirect/SP_R2670862_SC"},
+  {name:"Rope Drop",group:"disney",color:"#f4b942",desc:"Disney rides, attractions, and show audio.",quality:"LIVE",stream:"https://playerservices.streamtheworld.com/api/livestream-redirect/SP_R3956488_SC"},
+  {name:"Atmospheres",group:"disney",color:"#55b7d9",desc:"Disney park background music and atmosphere.",quality:"LIVE",stream:"https://playerservices.streamtheworld.com/api/livestream-redirect/SP_R3956612_SC"},
+  {name:"Loop'd",group:"disney",color:"#7b68ee",desc:"Disney park music loops.",quality:"LIVE",stream:"https://playerservices.streamtheworld.com/api/livestream-redirect/SP_R4852369_SC"},
+  {name:"Seasons",group:"disney",color:"#d85c5c",desc:"Seasonal Disney music throughout the year.",quality:"LIVE",stream:"https://playerservices.streamtheworld.com/api/livestream-redirect/SP_R2809833_SC"},
+  {name:"Spa Day",group:"disney",color:"#64c7a5",desc:"Relaxing Disney music for unwinding.",quality:"LIVE",stream:"https://playerservices.streamtheworld.com/api/livestream-redirect/SP_R3956254_SC"},
 
   {name:"The Ramsey Show",group:"podcasts",color:"#ffd02c",desc:"Money, work, and life.",quality:"",stream:""},
   {name:"Insight for Living",group:"podcasts",color:"#6bd8ff",desc:"Biblical teaching with Chuck Swindoll.",quality:"",stream:""},
