@@ -439,3 +439,9 @@ button,a,input{font:inherit}
  .station-desc{font-size:19px !important;margin-top:9px !important}
  .player{grid-template-columns:1fr 230px !important}
 }
+
+
+/* v5.0 Ramsey podcast prototype */
+.station-row.active .station-name{
+  color:var(--station-color);
+}

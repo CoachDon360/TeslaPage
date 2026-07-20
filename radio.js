@@ -18,7 +18,7 @@ const stations = [
   {name:"Seasons",group:"disney",color:"#d85c5c",desc:"Seasonal Disney music throughout the year.",quality:"LIVE",stream:"https://playerservices.streamtheworld.com/api/livestream-redirect/SP_R2809833_SC"},
   {name:"Spa Day",group:"disney",color:"#64c7a5",desc:"Relaxing Disney music for unwinding.",quality:"LIVE",stream:"https://playerservices.streamtheworld.com/api/livestream-redirect/SP_R3956254_SC"},
 
-  {name:"The Ramsey Show",group:"podcasts",color:"#ffd02c",desc:"Money, work, and life.",quality:"",stream:""},
+  {name:"The Ramsey Show",group:"podcasts",color:"#ffd02c",desc:"Latest full episode.",quality:"PODCAST",stream:"",podcastId:"77001367"},
   {name:"Insight for Living",group:"podcasts",color:"#6bd8ff",desc:"Biblical teaching with Chuck Swindoll.",quality:"",stream:""},
   {name:"Southeast Christian",group:"podcasts",color:"#70d979",desc:"Messages from Southeast Christian Church.",quality:"",stream:""},
   {name:"Brian Buffini",group:"podcasts",color:"#ff9b52",desc:"Business, motivation, and real estate.",quality:"",stream:""}
@@ -35,6 +35,8 @@ let selected = stations.findIndex(s => s.name === "Super 70s");
 let playing = false;
 let metadataTimer = null;
 let metadataToken = 0;
+const podcastCache = new Map();
+let podcastLoadToken = 0;
 
 function labelOf(station){ return station.display || station.name; }
 
@@ -63,6 +65,111 @@ function updateMetadata(artist,song){
   if (miniStation) miniStation.textContent = labelOf(stations[selected]);
 }
 
+function setMetadataLabels(first,second){
+  const firstLabel = document.getElementById("artistLabel");
+  const secondLabel = document.getElementById("songLabel");
+  if(firstLabel) firstLabel.textContent = first;
+  if(secondLabel) secondLabel.textContent = second;
+}
+
+function stripHtml(value=""){
+  const el = document.createElement("div");
+  el.innerHTML = value;
+  return (el.textContent || "").replace(/\s+/g," ").trim();
+}
+
+function formatPodcastDate(value){
+  const date = new Date(value);
+  if(Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"});
+}
+
+function durationFromItem(item){
+  return item.itunes?.duration ||
+         item["itunes:duration"] ||
+         item.duration ||
+         "";
+}
+
+function normalizePodcastItem(item){
+  const enclosure =
+    item.enclosure?.url ||
+    item.enclosure?.link ||
+    item.enclosure ||
+    item.link ||
+    "";
+  return {
+    title: stripHtml(item.title || "Latest Episode"),
+    audio: typeof enclosure === "string" ? enclosure : "",
+    date: item.pubDate || item.isoDate || item.published || "",
+    duration: durationFromItem(item),
+    description: stripHtml(item.description || item.content || "")
+  };
+}
+
+async function fetchPodcastViaApple(station){
+  const lookupUrl = `https://itunes.apple.com/lookup?id=${encodeURIComponent(station.podcastId)}`;
+  const lookupResponse = await fetch(lookupUrl,{cache:"no-store"});
+  if(!lookupResponse.ok) throw new Error(`Apple lookup HTTP ${lookupResponse.status}`);
+  const lookup = await lookupResponse.json();
+  const feedUrl = lookup.results?.[0]?.feedUrl;
+  if(!feedUrl) throw new Error("Podcast feed not found");
+
+  try{
+    const feedResponse = await fetch(feedUrl,{cache:"no-store"});
+    if(!feedResponse.ok) throw new Error(`RSS HTTP ${feedResponse.status}`);
+    const xmlText = await feedResponse.text();
+    const xml = new DOMParser().parseFromString(xmlText,"text/xml");
+    const item = xml.querySelector("item");
+    if(!item) throw new Error("No podcast episodes found");
+    return {
+      title: stripHtml(item.querySelector("title")?.textContent || "Latest Episode"),
+      audio: item.querySelector("enclosure")?.getAttribute("url") || "",
+      date: item.querySelector("pubDate")?.textContent || "",
+      duration: item.getElementsByTagName("itunes:duration")[0]?.textContent || "",
+      description: stripHtml(item.querySelector("description")?.textContent || "")
+    };
+  }catch(directError){
+    const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+    const proxyResponse = await fetch(proxyUrl,{cache:"no-store"});
+    if(!proxyResponse.ok) throw directError;
+    const proxyData = await proxyResponse.json();
+    if(proxyData.status !== "ok" || !proxyData.items?.length) throw directError;
+    return normalizePodcastItem(proxyData.items[0]);
+  }
+}
+
+async function loadPodcast(station,autoplay=false){
+  const token = ++podcastLoadToken;
+  setMetadataLabels("Show","Latest Episode");
+  updateMetadata(station.name,"Loading newest episode…");
+
+  try{
+    let episode = podcastCache.get(station.podcastId);
+    if(!episode){
+      episode = await fetchPodcastViaApple(station);
+      if(!episode.audio) throw new Error("Episode audio URL missing");
+      podcastCache.set(station.podcastId,episode);
+    }
+    if(token !== podcastLoadToken || stations[selected] !== station) return;
+
+    station.stream = episode.audio;
+    station.episodeTitle = episode.title;
+    const details = [formatPodcastDate(episode.date), episode.duration].filter(Boolean).join(" • ");
+    document.getElementById("displayDescription").textContent =
+      details || "Latest full episode";
+    updateMetadata(station.name,episode.title);
+
+    if(autoplay) await playSelected();
+  }catch(error){
+    if(token !== podcastLoadToken || stations[selected] !== station) return;
+    updateMetadata(station.name,"Episode feed could not connect");
+    document.getElementById("displayDescription").textContent =
+      "The Ramsey Show feed is temporarily unavailable.";
+    console.warn("Podcast feed:",error);
+  }
+}
+
 function choose(index,autoplay=false){
   selected = (index + stations.length) % stations.length;
   const station = stations[selected];
@@ -71,7 +178,14 @@ function choose(index,autoplay=false){
   document.getElementById("displayDescription").textContent = station.desc;
   const stationMeta = document.getElementById("stationMeta");
   if (stationMeta) stationMeta.textContent = labelOf(station);
-    render();
+  render();
+
+  if(station.podcastId){
+    loadPodcast(station,autoplay);
+    return;
+  }
+
+  setMetadataLabels("Artist","Song");
   startMetadata(station);
   if(autoplay) playSelected();
 }
@@ -114,6 +228,10 @@ function startMetadata(station){
 
 async function playSelected(){
   const station = stations[selected];
+  if(station.podcastId && !station.stream){
+    await loadPodcast(station,true);
+    return;
+  }
   if(!station.stream){
     playing = false;
     document.getElementById("playButton").textContent = "▶";
