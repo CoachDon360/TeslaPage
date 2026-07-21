@@ -35,6 +35,7 @@ let selected = stations.findIndex(s => s.name === "Super 70s");
 let playing = false;
 let metadataTimer = null;
 let metadataToken = 0;
+let metadataController = null;
 const podcastCache = new Map();
 let podcastLoadToken = 0;
 
@@ -56,7 +57,8 @@ function render(){
   });
 }
 
-function updateMetadata(artist,song){
+function updateMetadata(artist,song,expectedStation=null){
+  if(expectedStation && stations[selected] !== expectedStation) return;
   document.getElementById("artist").textContent = artist || "";
   document.getElementById("song").textContent = song || "";
   document.getElementById("miniSong").textContent = song || "Live Radio";
@@ -168,7 +170,7 @@ function fetchPodcastViaApple(station){
 async function loadPodcast(station,autoplay=false){
   const token = ++podcastLoadToken;
   setMetadataLabels("Show","Latest Episode");
-  updateMetadata(station.name,"Loading newest episode…");
+  updateMetadata(station.name,"Loading newest episode…",station);
 
   try{
     let episode = podcastCache.get(station.podcastId);
@@ -187,12 +189,12 @@ async function loadPodcast(station,autoplay=false){
     const details = [formatPodcastDate(episode.date), durationText].filter(Boolean).join(" • ");
     document.getElementById("displayDescription").textContent =
       details || "Latest full episode";
-    updateMetadata(station.name,episode.title);
+    updateMetadata(station.name,episode.title,station);
 
     if(autoplay) await playSelected();
   }catch(error){
     if(token !== podcastLoadToken || stations[selected] !== station) return;
-    updateMetadata(station.name,"Episode feed could not connect");
+    updateMetadata(station.name,"Episode feed could not connect",station);
     document.getElementById("displayDescription").textContent =
       "The Ramsey Show episode list is temporarily unavailable.";
     console.warn("Podcast feed:",error);
@@ -200,6 +202,8 @@ async function loadPodcast(station,autoplay=false){
 }
 
 function choose(index,autoplay=false){
+  stopMetadata();
+  podcastLoadToken++;
   selected = (index + stations.length) % stations.length;
   const station = stations[selected];
   document.documentElement.style.setProperty("--accent", station.color);
@@ -210,6 +214,13 @@ function choose(index,autoplay=false){
   render();
 
   if(station.podcastId){
+    if(!audio.paused){
+      audio.pause();
+      playing = false;
+      document.getElementById("playButton").textContent = "▶";
+    }
+    audio.removeAttribute("src");
+    audio.load();
     loadPodcast(station,autoplay);
     return;
   }
@@ -219,40 +230,87 @@ function choose(index,autoplay=false){
   if(autoplay) playSelected();
 }
 
+function stopMetadata(){
+  metadataToken++;
+
+  if(metadataTimer){
+    clearInterval(metadataTimer);
+    metadataTimer = null;
+  }
+
+  if(metadataController){
+    metadataController.abort();
+    metadataController = null;
+  }
+}
+
 async function fetchRelay(station,token){
+  if(token !== metadataToken || stations[selected] !== station) return;
+
+  if(metadataController){
+    metadataController.abort();
+  }
+  const controller = new AbortController();
+  metadataController = controller;
+
   try{
     const response = await fetch(
       `${RELAY}/metadata?station=${encodeURIComponent(station.relayId)}`,
-      {cache:"no-store"}
+      {cache:"no-store", signal:controller.signal}
     );
     const data = await response.json();
-    if(!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
-    if(token !== metadataToken) return;
-    updateMetadata(data.artist || labelOf(station), data.title || "Live Radio");
+
+    if(!response.ok || !data.ok){
+      throw new Error(data.error || `HTTP ${response.status}`);
+    }
+
+    if(
+      controller.signal.aborted ||
+      token !== metadataToken ||
+      stations[selected] !== station
+    ) return;
+
+    updateMetadata(
+      data.artist || labelOf(station),
+      data.title || "Live Radio",
+      station
+    );
   }catch(error){
-    if(token !== metadataToken) return;
-    updateMetadata(labelOf(station),"Live Radio");
+    if(error?.name === "AbortError") return;
+    if(token !== metadataToken || stations[selected] !== station) return;
+
+    updateMetadata(labelOf(station),"Live Radio",station);
     console.warn("CoachDon relay:",error);
+  }finally{
+    if(metadataController === controller){
+      metadataController = null;
+    }
   }
 }
 
 function startMetadata(station){
-  metadataToken++;
+  stopMetadata();
   const token = metadataToken;
-  if(metadataTimer) clearInterval(metadataTimer);
-  metadataTimer = null;
 
   if(station.relayId){
-    updateMetadata("Checking now playing…","One moment…");
+    updateMetadata("Checking now playing…","One moment…",station);
     fetchRelay(station,token);
-    metadataTimer = setInterval(()=>fetchRelay(station,token),20000);
-  }else{
-    updateMetadata(
-      station.name === "K-LOVE" ? "K-LOVE" : labelOf(station),
-      station.stream ? "Live Radio" :
-      (station.group === "podcasts" ? "Podcast feed setup needed" : "Stream setup needed")
-    );
+    metadataTimer = setInterval(()=>{
+      if(token !== metadataToken || stations[selected] !== station){
+        stopMetadata();
+        return;
+      }
+      fetchRelay(station,token);
+    },20000);
+    return;
   }
+
+  updateMetadata(
+    station.name === "K-LOVE" ? "K-LOVE" : labelOf(station),
+    station.stream ? "Live Radio" :
+    (station.group === "podcasts" ? "Podcast feed setup needed" : "Stream setup needed"),
+    station
+  );
 }
 
 async function playSelected(){
