@@ -1,28 +1,29 @@
-ATMOUSEPHERES — OPTION #1 BUILD
+ATMOUSEPHERES — EXACT MOCKUP BUILD
+
+This version uses the exact uploaded artwork as the responsive visual surface.
+Transparent clickable hotspots are precisely layered over all eight tiles.
 
 FILES
-- disney.html
-- disney.css
-- disney.js
+- atmousepheres.html
+- atmousepheres.css
+- atmousepheres.js
+- atmousepheres-background.png
 
 DEPLOYMENT
-1. Unzip this package.
-2. Upload disney.html, disney.css, and disney.js to the ROOT of your GitHub Pages repository.
-3. Replace the older files with the same names.
-4. Commit the changes.
-5. Open disney.html on the published site.
-6. If Tesla or Safari still shows the old page, reload or clear the browser cache.
+1. Unzip the package.
+2. Upload all four files to the ROOT of the GitHub Pages repository.
+3. Link the Disney icon to:
+   atmousepheres.html
+4. Commit and deploy.
+5. Refresh Safari or the Tesla browser if an older page remains cached.
 
-WHAT IS INCLUDED
-- The chosen bright castle-and-clouds design.
-- AtMOUSEpheres wordmark with a contrasting “mouse” section.
-- Mouse ears integrated over the letter “o.”
-- “A little getaway for your ears” tagline.
-- Eight large themed destination tiles.
-- Day, evening, and night color changes based on the device clock.
-- Selection behavior, previous/next controls, and a visual play/pause button.
-- Home button linking to index.html.
+LINKING THE TILES
+Open atmousepheres.html and replace each href="#" with the final page or stream URL.
 
-AUDIO NOTE
-This is the visual/interface build. The play control is a preview until actual stream URLs
-or destination pages are assigned to the eight cards.
+Example:
+<a class="hotspot parks" href="around-the-parks.html" ...></a>
+
+WHY THIS VERSION MATCHES
+The uploaded image itself is used as the page artwork, so the castle, title,
+sunlight, clouds, landscaping, card art, icons, colors, spacing, and typography
+remain exactly as shown in the selected mockup.
