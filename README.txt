@@ -1,31 +1,43 @@
-ATMOUSEPHERES — LIVING PAGE PHASE 2
+ATMOUSEPHERES — FINAL ARTWORK CODE BUILD
 
-FILES
+CONTENTS
 - atmousepheres.html
 - atmousepheres.css
 - atmousepheres.js
-- atmousepheres-background.png
+- atmousepheres-final.png
 
-WHAT IS NEW
-- Exact original artwork remains the visual foundation.
-- Clouds drift slowly across the sky.
-- Sunlight gently pulses.
-- Automatic evening and nighttime tinting based on the device clock.
-- Castle lights appear at dusk and glow at night.
-- The Nighttime Spectaculars tile has subtle animated sparkles.
-- Tiles lift and brighten on hover/focus.
-- Tapping a tile opens a glassy slide-up player.
-- Previous, play/pause, next, and volume controls are included visually.
-- Home button links to index.html.
-- Reduced-motion accessibility support is included.
+WHAT THIS BUILD DOES
+- Uses the exact approved final artwork.
+- Adds responsive clickable hotspots to all eight cards.
+- Updates the lower player title and subtitle when a card is selected.
+- Makes previous, play/pause, next, volume, and home controls interactive.
+- Supports arrow keys, Enter, and Space on a keyboard.
+- Scales to Safari, Tesla Browser, tablets, and phones.
+- Includes visible focus and selection feedback.
 
 DEPLOYMENT
-1. Unzip.
-2. Upload all four main files to the ROOT of the GitHub Pages repository.
-3. Replace older files with the same names.
-4. Link the Disney icon to atmousepheres.html.
-5. Commit and refresh the browser.
+1. Unzip the package.
+2. Upload all four files to the ROOT of your GitHub Pages repository.
+3. Replace older AtMOUSEpheres files with these.
+4. Link your Disney icon to:
+   atmousepheres.html
+5. Commit the changes.
+6. Refresh Safari or clear the Tesla browser cache if an old version remains.
 
-AUDIO
-The player is visual in this phase. Final stream URLs can be attached next without
-changing the artwork or layout.
+ADDING STREAMS OR SUBPAGES
+Open atmousepheres.js and edit the destinations object.
+
+Example stream:
+"Classic Attractions": {
+  streamUrl: "https://example.com/live.mp3",
+  pageUrl: ""
+}
+
+Example category page:
+"Classic Attractions": {
+  streamUrl: "",
+  pageUrl: "classic-attractions.html"
+}
+
+The page is fully functional now; final live audio links can be added without
+changing the visual design.
