@@ -1,7 +1,4 @@
-ATMOUSEPHERES — EXACT MOCKUP BUILD
-
-This version uses the exact uploaded artwork as the responsive visual surface.
-Transparent clickable hotspots are precisely layered over all eight tiles.
+ATMOUSEPHERES — LIVING PAGE PHASE 2
 
 FILES
 - atmousepheres.html
@@ -9,21 +6,26 @@ FILES
 - atmousepheres.js
 - atmousepheres-background.png
 
+WHAT IS NEW
+- Exact original artwork remains the visual foundation.
+- Clouds drift slowly across the sky.
+- Sunlight gently pulses.
+- Automatic evening and nighttime tinting based on the device clock.
+- Castle lights appear at dusk and glow at night.
+- The Nighttime Spectaculars tile has subtle animated sparkles.
+- Tiles lift and brighten on hover/focus.
+- Tapping a tile opens a glassy slide-up player.
+- Previous, play/pause, next, and volume controls are included visually.
+- Home button links to index.html.
+- Reduced-motion accessibility support is included.
+
 DEPLOYMENT
-1. Unzip the package.
-2. Upload all four files to the ROOT of the GitHub Pages repository.
-3. Link the Disney icon to:
-   atmousepheres.html
-4. Commit and deploy.
-5. Refresh Safari or the Tesla browser if an older page remains cached.
+1. Unzip.
+2. Upload all four main files to the ROOT of the GitHub Pages repository.
+3. Replace older files with the same names.
+4. Link the Disney icon to atmousepheres.html.
+5. Commit and refresh the browser.
 
-LINKING THE TILES
-Open atmousepheres.html and replace each href="#" with the final page or stream URL.
-
-Example:
-<a class="hotspot parks" href="around-the-parks.html" ...></a>
-
-WHY THIS VERSION MATCHES
-The uploaded image itself is used as the page artwork, so the castle, title,
-sunlight, clouds, landscaping, card art, icons, colors, spacing, and typography
-remain exactly as shown in the selected mockup.
+AUDIO
+The player is visual in this phase. Final stream URLs can be attached next without
+changing the artwork or layout.

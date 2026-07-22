@@ -1,23 +1,45 @@
-const statusBox = document.getElementById("status");
-const hotspots = [...document.querySelectorAll(".hotspot")];
-let hideTimer;
+const cards = [...document.querySelectorAll('.hotspot')];
+const panel = document.getElementById('playerPanel');
+const title = document.getElementById('playerTitle');
+const subtitle = document.getElementById('playerSubtitle');
+const icon = document.getElementById('playerIcon');
+const play = document.getElementById('playButton');
+let currentIndex = 0;
+let playing = false;
 
-function showStatus(name) {
-  clearTimeout(hideTimer);
-  statusBox.textContent = `${name} selected`;
-  statusBox.classList.add("show");
-  hideTimer = setTimeout(() => statusBox.classList.remove("show"), 1500);
+function selectCard(index, openPanel = true) {
+  currentIndex = (index + cards.length) % cards.length;
+  cards.forEach((card, i) => card.classList.toggle('selected', i === currentIndex));
+  const card = cards[currentIndex];
+  title.textContent = card.dataset.name;
+  subtitle.textContent = card.dataset.subtitle;
+  icon.textContent = card.dataset.icon;
+  if (openPanel) panel.classList.add('open');
 }
 
-hotspots.forEach((hotspot) => {
-  hotspot.addEventListener("click", (event) => {
-    const href = hotspot.getAttribute("href");
-
-    // Until final page or stream links are assigned, keep the user on this page
-    // and confirm the tile selection.
-    if (!href || href === "#") {
-      event.preventDefault();
-      showStatus(hotspot.dataset.name);
-    }
-  });
+cards.forEach((card, index) => {
+  card.addEventListener('click', () => selectCard(index, true));
 });
+
+document.getElementById('closePlayer').addEventListener('click', () => {
+  panel.classList.remove('open');
+});
+
+document.getElementById('prevButton').addEventListener('click', () => selectCard(currentIndex - 1));
+document.getElementById('nextButton').addEventListener('click', () => selectCard(currentIndex + 1));
+
+play.addEventListener('click', () => {
+  playing = !playing;
+  play.textContent = playing ? 'Ⅱ' : '▶';
+  play.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+});
+
+function updateTheme() {
+  const hour = new Date().getHours();
+  document.body.classList.toggle('evening', hour >= 17 && hour < 20);
+  document.body.classList.toggle('night', hour >= 20 || hour < 6);
+}
+updateTheme();
+setInterval(updateTheme, 60000);
+
+selectCard(0, false);

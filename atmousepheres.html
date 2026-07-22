@@ -10,24 +10,65 @@
 <body>
   <main class="page">
     <section class="artboard" aria-label="AtMOUSEpheres Disney audio menu">
-      <img
-        class="background-art"
-        src="atmousepheres-background.png"
-        alt="AtMOUSEpheres with eight Disney-inspired audio categories"
-      >
+      <img class="background-art" src="atmousepheres-background.png"
+           alt="AtMOUSEpheres with eight Disney-inspired audio categories">
+
+      <div class="time-tint" aria-hidden="true"></div>
+      <div class="sun-pulse" aria-hidden="true"></div>
+
+      <div class="moving-cloud cloud-a" aria-hidden="true"></div>
+      <div class="moving-cloud cloud-b" aria-hidden="true"></div>
+      <div class="moving-cloud cloud-c" aria-hidden="true"></div>
+
+      <div class="castle-lights" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="firework-sparkles" aria-hidden="true">
+        <span class="spark s1">✦</span>
+        <span class="spark s2">✧</span>
+        <span class="spark s3">✦</span>
+      </div>
 
       <nav class="hotspots" aria-label="Audio categories">
-        <a class="hotspot parks" href="#" data-name="Around the Parks" aria-label="Around the Parks"></a>
-        <a class="hotspot resorts" href="#" data-name="Resort Collection" aria-label="Resort Collection"></a>
-        <a class="hotspot epcot" href="#" data-name="EPCOT Promenade" aria-label="EPCOT Promenade"></a>
-        <a class="hotspot atmospheres" href="#" data-name="Park Atmospheres" aria-label="Park Atmospheres"></a>
-        <a class="hotspot attractions" href="#" data-name="Attraction Adventures" aria-label="Attraction Adventures"></a>
-        <a class="hotspot loops" href="#" data-name="Disney Loops" aria-label="Disney Loops"></a>
-        <a class="hotspot nighttime" href="#" data-name="Nighttime Spectaculars" aria-label="Nighttime Spectaculars"></a>
-        <a class="hotspot seasonal" href="#" data-name="Seasonal Magic" aria-label="Seasonal Magic"></a>
+        <button class="hotspot parks" data-name="Around the Parks" data-icon="🚂"
+                data-subtitle="Music and ambience from all four parks"></button>
+        <button class="hotspot resorts" data-name="Resort Collection" data-icon="🌴"
+                data-subtitle="Relaxing music from Disney resort destinations"></button>
+        <button class="hotspot epcot" data-name="EPCOT Promenade" data-icon="◉"
+                data-subtitle="World Showcase and futuristic favorites"></button>
+        <button class="hotspot atmospheres" data-name="Park Atmospheres" data-icon="🌳"
+                data-subtitle="Immersive area loops from around the parks"></button>
+        <button class="hotspot attractions" data-name="Attraction Adventures" data-icon="🎢"
+                data-subtitle="Ride audio and queue-music favorites"></button>
+        <button class="hotspot loops" data-name="Disney Loops" data-icon="♫"
+                data-subtitle="Instrumental loops and background music"></button>
+        <button class="hotspot nighttime" data-name="Nighttime Spectaculars" data-icon="✦"
+                data-subtitle="Fireworks, shows and nighttime audio"></button>
+        <button class="hotspot seasonal" data-name="Seasonal Magic" data-icon="❄"
+                data-subtitle="Holiday and seasonal park music"></button>
       </nav>
 
-      <div class="status" id="status" aria-live="polite"></div>
+      <button class="home-button" aria-label="Return home" onclick="location.href='index.html'">⌂</button>
+
+      <aside class="player-panel" id="playerPanel" aria-live="polite">
+        <button class="close-player" id="closePlayer" aria-label="Close player">×</button>
+        <div class="player-icon" id="playerIcon">🚂</div>
+        <div class="player-copy">
+          <span>NOW SELECTED</span>
+          <strong id="playerTitle">Around the Parks</strong>
+          <small id="playerSubtitle">Music and ambience from all four parks</small>
+        </div>
+        <div class="controls">
+          <button id="prevButton" aria-label="Previous">◀</button>
+          <button id="playButton" class="play" aria-label="Play">▶</button>
+          <button id="nextButton" aria-label="Next">▶</button>
+        </div>
+        <label class="volume">
+          <span>🔊</span>
+          <input type="range" min="0" max="100" value="68" aria-label="Volume">
+        </label>
+      </aside>
     </section>
   </main>
 
