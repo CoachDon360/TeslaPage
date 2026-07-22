@@ -456,3 +456,17 @@ button, a, input {
 }
 
 .card-badge{display:none}.card-icon{font-size:0;background:rgba(255,255,255,.92);} .card-icon::before{content:'✦';font-size:28px;color:#1a5fb8;} .clock{gap:0}.signal{display:none}
+
+/* Revision 3: simplified time-of-day greeting */
+.hero {
+  min-height: 150px;
+  align-items: flex-start;
+}
+
+.hero h1 {
+  white-space: nowrap;
+}
+
+.subtitle {
+  display: none;
+}

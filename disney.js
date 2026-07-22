@@ -4,15 +4,30 @@ const nowSubtitle = document.getElementById("nowSubtitle");
 const playerStatus = document.getElementById("playerStatus");
 const playButton = document.getElementById("playButton");
 const clockTime = document.getElementById("clockTime");
+const greetingText = document.getElementById("greetingText");
+const greetingIcon = document.getElementById("greetingIcon");
 
 let previewPlaying = false;
 
-function updateClock() {
+function updateClockAndGreeting() {
   const now = new Date();
+  const hour = now.getHours();
+
   clockTime.textContent = now.toLocaleTimeString([], {
     hour: "numeric",
     minute: "2-digit"
   });
+
+  if (hour >= 4 && hour < 12) {
+    greetingText.textContent = "Good Morning";
+    greetingIcon.textContent = "☀";
+  } else if (hour >= 12 && hour < 18) {
+    greetingText.textContent = "Good Afternoon";
+    greetingIcon.textContent = "☀";
+  } else {
+    greetingText.textContent = "Good Evening";
+    greetingIcon.textContent = "☾";
+  }
 }
 
 cards.forEach((card) => {
@@ -37,5 +52,5 @@ playButton.addEventListener("click", () => {
     : "Phase 1 preview — audio feeds come next";
 });
 
-updateClock();
-setInterval(updateClock, 30000);
+updateClockAndGreeting();
+setInterval(updateClockAndGreeting, 30000);
