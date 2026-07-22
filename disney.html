@@ -2,148 +2,161 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#8fd6ff">
-  <title>Disney Music</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#8fd7ff">
+  <title>AtMOUSEpheres</title>
   <link rel="stylesheet" href="disney.css">
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="Primary navigation">
-      <a class="nav-item" href="index.html" aria-label="Home">
-        <span class="nav-icon">⌂</span><span>Home</span>
-      </a>
-      <a class="nav-item" href="radio.html" aria-label="Radio">
-        <span class="nav-icon">◉</span><span>Radio</span>
-      </a>
-      <a class="nav-item active" href="disney.html" aria-current="page" aria-label="Disney">
-        <span class="nav-icon">✦</span><span>Disney</span>
-      </a>
-      <a class="nav-item" href="bible.html" aria-label="Bible">
-        <span class="nav-icon">▤</span><span>Bible</span>
-      </a>
-      <a class="nav-item" href="audio.html" aria-label="Audio">
-        <span class="nav-icon"></span><span>Audio</span>
-      </a>
-      <a class="nav-item" href="restaurants.html" aria-label="Restaurants">
-        <span class="nav-icon">⌁</span><span>Food</span>
-      </a>
-      <a class="nav-item" href="realestate.html" aria-label="Real Estate">
-        <span class="nav-icon">⌂</span><span>Real Estate</span>
-      </a>
-      <a class="nav-item" href="maps.html" aria-label="Maps">
-        <span class="nav-icon">⌖</span><span>Maps</span>
-      </a>
-      <a class="nav-item" href="https://www.tesla.com" aria-label="Tesla">
-        <span class="nav-icon">▰</span><span>Tesla</span>
-      </a>
-    </aside>
+  <main class="page-shell">
+    <div class="sky-decor" aria-hidden="true">
+      <span class="cloud cloud-one"></span>
+      <span class="cloud cloud-two"></span>
+      <span class="cloud cloud-three"></span>
+      <span class="sparkle sparkle-one">✦</span>
+      <span class="sparkle sparkle-two">✧</span>
+    </div>
 
-    <main class="content">
-      <header class="hero">
-        <div>
-          <p class="eyebrow">A little getaway for your ears</p>
-          <h1 class="page-title">At<span>MOUSE</span>pheres</h1>
-        </div>
-        <div class="clock" aria-label="Current time">
-          <span id="clockTime">10:42 AM</span>
-          
-        </div>
-      </header>
+    <header class="hero">
+      <div class="brand">
+        <p class="tagline">A little getaway for your ears</p>
+        <h1 aria-label="AtMOUSEpheres">
+          <span>At</span><span class="mouse-word">m<span class="ear-o">o</span>use</span><span>pheres</span>
+        </h1>
+      </div>
 
-      <section class="destination-grid" aria-label="Music destinations">
-        <button class="destination-card card-parks selected" data-title="Around the Parks" data-subtitle="Music and ambience from all four parks">
-          
-          <span class="card-icon"></span>
-          <span class="card-copy">
-            <strong>Around the Parks</strong>
-            <small>Music &amp; ambience from all four parks</small>
-          </span>
-        </button>
+      <div class="castle" aria-hidden="true">
+        <span class="tower t1"><i></i></span>
+        <span class="tower t2"><i></i></span>
+        <span class="tower t3"><i></i></span>
+        <span class="tower t4"><i></i></span>
+        <span class="castle-base"></span>
+      </div>
 
-        <button class="destination-card card-resorts" data-title="Resort Collection" data-subtitle="Relaxing music from Disney resorts">
-          
-          <span class="card-icon"></span>
-          <span class="card-copy">
-            <strong>Resort Collection</strong>
-            <small>Relaxing music from resort destinations</small>
-          </span>
-        </button>
+      <div class="time-panel">
+        <span id="clock">--:--</span>
+        <a class="home-link" href="index.html" aria-label="Return home">⌂ Home</a>
+      </div>
+    </header>
 
-        <button class="destination-card card-promenade" data-title="EPCOT Promenade" data-subtitle="World Showcase and futuristic favorites">
-          
-          <span class="card-icon"></span>
-          <span class="card-copy">
-            <strong>EPCOT Promenade</strong>
-            <small>World Showcase &amp; futuristic favorites</small>
-          </span>
-        </button>
+    <section class="destination-grid" aria-label="Disney audio destinations">
+      <button class="destination-card parks selected"
+        data-title="Around the Parks"
+        data-subtitle="Music and ambience from all four parks"
+        data-icon="🚂">
+        <span class="scene scene-parks" aria-hidden="true">
+          <span class="station-building"></span>
+          <span class="train">🚂</span>
+        </span>
+        <span class="icon-badge">🚂</span>
+        <strong>Around<br>the Parks</strong>
+      </button>
 
-        <button class="destination-card card-atmospheres" data-title="Park Atmospheres" data-subtitle="Immersive area loops from around the parks">
-          
-          <span class="card-icon"></span>
-          <span class="card-copy">
-            <strong>Park Atmospheres</strong>
-            <small>Immersive area loops from around the parks</small>
-          </span>
-        </button>
+      <button class="destination-card resorts"
+        data-title="Resort Collection"
+        data-subtitle="Relaxing music from Disney resort destinations"
+        data-icon="🌴">
+        <span class="scene scene-resorts" aria-hidden="true">
+          <span class="resort-building"></span>
+          <span class="palm p1">🌴</span><span class="palm p2">🌴</span>
+          <span class="water"></span>
+        </span>
+        <span class="icon-badge">🌴</span>
+        <strong>Resort<br>Collection</strong>
+      </button>
 
-        <button class="destination-card card-attractions" data-title="Attraction Adventures" data-subtitle="Ride audio and queue music favorites">
-          
-          <span class="card-icon"></span>
-          <span class="card-copy">
-            <strong>Attraction Adventures</strong>
-            <small>Ride audio &amp; queue music favorites</small>
-          </span>
-        </button>
+      <button class="destination-card epcot"
+        data-title="EPCOT Promenade"
+        data-subtitle="World Showcase and futuristic favorites"
+        data-icon="◉">
+        <span class="scene scene-epcot" aria-hidden="true">
+          <span class="epcot-ball"></span>
+          <span class="fountain">⋰⋱</span>
+        </span>
+        <span class="icon-badge epcot-icon">◉</span>
+        <strong>EPCOT<br>Promenade</strong>
+      </button>
 
-        <button class="destination-card card-loops" data-title="Disney Loops" data-subtitle="Instrumental loops and park background music">
-          
-          <span class="card-icon"></span>
-          <span class="card-copy">
-            <strong>Disney Loops</strong>
-            <small>Instrumental loops &amp; park background music</small>
-          </span>
-        </button>
+      <button class="destination-card atmospheres"
+        data-title="Park Atmospheres"
+        data-subtitle="Immersive area loops from around the parks"
+        data-icon="🌳">
+        <span class="scene scene-atmospheres" aria-hidden="true">
+          <span class="life-tree">🌳</span>
+          <span class="falls"></span>
+        </span>
+        <span class="icon-badge">🌳</span>
+        <strong>Park<br>Atmospheres</strong>
+      </button>
 
-        <button class="destination-card card-night" data-title="Nighttime Spectaculars" data-subtitle="Fireworks, shows and nighttime audio">
-          
-          <span class="card-icon"></span>
-          <span class="card-copy">
-            <strong>Nighttime Spectaculars</strong>
-            <small>Fireworks, shows &amp; magical nighttime audio</small>
-          </span>
-        </button>
+      <button class="destination-card attractions"
+        data-title="Attraction Adventures"
+        data-subtitle="Ride audio and queue-music favorites"
+        data-icon="🎢">
+        <span class="scene scene-attractions" aria-hidden="true">
+          <span class="coaster">〰〰〰</span>
+          <span class="sun"></span>
+        </span>
+        <span class="icon-badge">🎢</span>
+        <strong>Attraction<br>Adventures</strong>
+      </button>
 
-        <button class="destination-card card-seasonal" data-title="Seasonal Magic" data-subtitle="Holiday and seasonal park music">
-          
-          <span class="card-icon"></span>
-          <span class="card-copy">
-            <strong>Seasonal Magic</strong>
-            <small>Holiday &amp; seasonal park music</small>
-          </span>
-        </button>
-      </section>
+      <button class="destination-card loops"
+        data-title="Disney Loops"
+        data-subtitle="Instrumental loops and park background music"
+        data-icon="♫">
+        <span class="scene scene-loops" aria-hidden="true">
+          <span class="notes">♪ ♫ ♬</span>
+          <span class="music-swoop"></span>
+        </span>
+        <span class="icon-badge">♫</span>
+        <strong>Disney<br>Loops</strong>
+      </button>
 
-      <section class="player" aria-label="Audio player">
-        <div class="now-playing-art" aria-hidden="true"></div>
-        <div class="now-playing-copy">
-          <strong id="nowTitle">Around the Parks</strong>
-          <span id="nowSubtitle">Music and ambience from all four parks</span>
-          <em id="playerStatus">Phase 1 preview — audio feeds come next</em>
-        </div>
-        <div class="transport" aria-label="Playback controls">
-          <button type="button" aria-label="Previous destination">◀</button>
-          <button id="playButton" class="play" type="button" aria-label="Preview play button">▶</button>
-          <button type="button" aria-label="Next destination">▶</button>
-        </div>
-        <div class="volume" aria-label="Volume preview">
-          <span>🔊</span>
-          <input type="range" min="0" max="100" value="62" aria-label="Volume">
-        </div>
-      </section>
-    </main>
-  </div>
+      <button class="destination-card nighttime"
+        data-title="Nighttime Spectaculars"
+        data-subtitle="Fireworks, shows and nighttime audio"
+        data-icon="✦">
+        <span class="scene scene-night" aria-hidden="true">
+          <span class="firework f1">✺</span>
+          <span class="firework f2">✹</span>
+          <span class="mini-castle">♜</span>
+        </span>
+        <span class="icon-badge">✦</span>
+        <strong>Nighttime<br>Spectaculars</strong>
+      </button>
+
+      <button class="destination-card seasonal"
+        data-title="Seasonal Magic"
+        data-subtitle="Holiday and seasonal park music"
+        data-icon="❄">
+        <span class="scene scene-seasonal" aria-hidden="true">
+          <span class="snowflakes">❄　❅　❆</span>
+          <span class="winter-village">⌂　⌂　⌂</span>
+        </span>
+        <span class="icon-badge">❄</span>
+        <strong>Seasonal<br>Magic</strong>
+      </button>
+    </section>
+
+    <section class="player" aria-label="Audio player">
+      <div class="album-art" id="albumArt">🚂</div>
+      <div class="now-playing">
+        <span class="now-label">Now selected</span>
+        <strong id="nowTitle">Around the Parks</strong>
+        <span id="nowSubtitle">Music and ambience from all four parks</span>
+      </div>
+      <div class="transport">
+        <button id="previousButton" aria-label="Previous destination">◀</button>
+        <button id="playButton" class="play" aria-label="Play">▶</button>
+        <button id="nextButton" aria-label="Next destination">▶</button>
+      </div>
+      <label class="volume">
+        <span>🔊</span>
+        <input type="range" min="0" max="100" value="65" aria-label="Volume">
+      </label>
+    </section>
+  </main>
 
   <script src="disney.js"></script>
 </body>
