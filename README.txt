@@ -1,5 +1,5 @@
-Revision 3
-- Removed the adventure question completely.
-- Greeting changes automatically: Good Morning, Good Afternoon, or Good Evening.
-- Morning begins at 4:00 AM, afternoon at noon, and evening at 6:00 PM.
+Revision 4
+- Removed the time-of-day greeting.
+- Added the permanent navy page title: AtMOUSEpheres.
+- Kept the line: A little getaway for your ears.
 - Root-level GitHub deployment convention retained.

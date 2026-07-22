@@ -470,3 +470,24 @@ button, a, input {
 .subtitle {
   display: none;
 }
+
+/* Revision 4: permanent AtMOUSEpheres page identity */
+.page-title {
+  margin: 0;
+  color: #12335f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(42px, 4.8vw, 66px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+  text-shadow: 0 2px 0 rgba(255,255,255,.72);
+}
+
+.page-title span {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.hero {
+  min-height: 155px;
+}
