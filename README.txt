@@ -1,17 +1,28 @@
-CoachDon Official Disney Lineup v4.8
+# Disney Music — Phase 1 Root-Level Build
 
-Upload only:
-- radio.html
-- radio.css
-- radio.js
+This package follows the repository convention with **no folders**.
 
-Changes:
-- Removed the fictional park-land station rows.
-- Added Sorcerer Radio's real public channel lineup:
-  Mocha, Rope Drop, Atmospheres, Loop'd, Seasons, and Spa Day.
-- Mocha remains the confirmed working direct stream.
-- The other five channels are marked COMING SOON and do not redirect.
+## Files
+- `disney.html`
+- `disney.css`
+- `disney.js`
 
-This build keeps the app honest while we verify each direct stream endpoint.
+## Upload
+Upload all three files directly into the root of the existing GitHub Pages repository.
 
-Confirm the corner reads v4.8 after deployment.
+Then link the Disney icon on the main page to:
+
+`disney.html`
+
+## Included
+- Bright white-to-sky-blue daytime design
+- Eight destination cards
+- Responsive Tesla-friendly layout
+- Sidebar navigation shell
+- Bottom player shell
+- Working card selection and live clock
+- No audio feeds yet
+
+## Important
+The sidebar links use root-level filenames such as `radio.html`, `bible.html`, and `realestate.html`.
+They can be adjusted later to match the exact filenames already present in the repository.
