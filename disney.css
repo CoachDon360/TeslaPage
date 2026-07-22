@@ -156,10 +156,10 @@ button, a, input {
   margin: 16px 0 0;
   max-width: 650px;
   font-family: "Comic Sans MS", "Bradley Hand", cursive;
-  font-size: clamp(24px, 2.8vw, 40px);
+  font-size: clamp(20px, 2.0vw, 30px);
   line-height: 1.12;
   color: #075cc8;
-  transform: rotate(-1deg);
+  transform: none;
 }
 
 .clock {
@@ -185,7 +185,7 @@ button, a, input {
 
 .destination-card {
   position: relative;
-  min-height: 245px;
+  min-height: 275px;
   padding: 0;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.7);
@@ -454,3 +454,5 @@ button, a, input {
     justify-content: center;
   }
 }
+
+.card-badge{display:none}.card-icon{font-size:0;background:rgba(255,255,255,.92);} .card-icon::before{content:'✦';font-size:28px;color:#1a5fb8;} .clock{gap:0}.signal{display:none}
