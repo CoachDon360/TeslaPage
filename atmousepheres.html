@@ -5,77 +5,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0a2f69">
   <title>AtMOUSEpheres</title>
-  <link rel="stylesheet" href="atmousepheres.css">
+  <link rel="stylesheet" href="atmousepheres.css?v=2.0.0">
 </head>
 <body>
   <main class="page-shell">
-    <section class="artboard" aria-label="AtMOUSEpheres Disney audio menu">
-      <img
-        class="artwork"
-        src="atmousepheres-final.png"
-        alt="AtMOUSEpheres Disney audio menu with eight themed categories"
-      >
+    <section class="artboard" aria-label="AtMOUSEpheres Disney audio menu" data-time-theme="day" data-season="summer">
+      <img id="artwork" class="artwork" src="atmousepheres-final.png" alt="AtMOUSEpheres Disney audio menu with eight themed categories">
+      <div class="time-treatment" aria-hidden="true"></div>
+      <div class="stars" aria-hidden="true"></div>
+      <div class="sun-glow" aria-hidden="true"></div>
 
       <nav class="card-links" aria-label="AtMOUSEpheres categories">
-        <button class="card card-parks"
-          data-title="Around the Parks"
-          data-subtitle="Music from around the Disney Parks"
-          data-icon="🚂"
-          aria-label="Around the Parks"></button>
-
-        <button class="card card-resorts"
-          data-title="Resort Collection"
-          data-subtitle="Relaxing music from Disney Resort Hotels"
-          data-icon="🌴"
-          aria-label="Resort Collection"></button>
-
-        <button class="card card-epcot"
-          data-title="EPCOT"
-          data-subtitle="Music and atmosphere from EPCOT"
-          data-icon="🌐"
-          aria-label="EPCOT"></button>
-
-        <button class="card card-atmospheres"
-          data-title="Park Atmospheres"
-          data-subtitle="Relaxing background music from the Parks"
-          data-icon="🌳"
-          aria-label="Park Atmospheres"></button>
-
-        <button class="card card-classic"
-          data-title="Classic Attractions"
-          data-subtitle="Classic Disney attraction audio including Space Mountain"
-          data-icon="🚀"
-          aria-label="Classic Attractions"></button>
-
-        <button class="card card-loops"
-          data-title="Disney Loops"
-          data-subtitle="Timeless Disney music and melodies"
-          data-icon="♫"
-          aria-label="Disney Loops"></button>
-
-        <button class="card card-night"
-          data-title="Nighttime Spectaculars"
-          data-subtitle="Fireworks, parades and nighttime magic"
-          data-icon="✦"
-          aria-label="Nighttime Spectaculars"></button>
-
-        <button class="card card-seasonal"
-          data-title="Seasonal Magic"
-          data-subtitle="Holiday music and seasonal celebration"
-          data-icon="❄"
-          aria-label="Seasonal Magic"></button>
+        <button class="card card-parks" data-title="Around the Parks" data-subtitle="Music from around the Disney Parks" aria-label="Around the Parks"></button>
+        <button class="card card-resorts" data-title="Resort Collection" data-subtitle="Relaxing music from Disney Resort Hotels" aria-label="Resort Collection"></button>
+        <button class="card card-epcot" data-title="EPCOT" data-subtitle="Music and atmosphere from EPCOT" aria-label="EPCOT"></button>
+        <button class="card card-atmospheres" data-title="Park Atmospheres" data-subtitle="Relaxing background music from the Parks" aria-label="Park Atmospheres"></button>
+        <button class="card card-classic" data-title="Classic Attractions" data-subtitle="Classic Disney attraction audio including Space Mountain" aria-label="Classic Attractions"></button>
+        <button class="card card-loops" data-title="Disney Loops" data-subtitle="Timeless Disney music and melodies" aria-label="Disney Loops"></button>
+        <button class="card card-night" data-title="Nighttime Spectaculars" data-subtitle="Fireworks, parades and nighttime magic" aria-label="Nighttime Spectaculars"></button>
+        <button id="seasonalCard" class="card card-seasonal" data-title="Seasonal Magic" data-subtitle="Seasonal Disney music and celebrations" aria-label="Seasonal Magic"></button>
       </nav>
+
+      <div class="seasonal-ribbon" aria-live="polite">
+        <span id="seasonIcon">☀️</span>
+        <span><strong id="seasonName">Summer Fun</strong><small id="seasonDates">June 1 – August 31</small></span>
+      </div>
 
       <section class="functional-player" aria-label="Audio player">
         <button id="previousButton" class="control previous" aria-label="Previous selection"></button>
         <button id="playButton" class="control play" aria-label="Play"></button>
         <button id="nextButton" class="control next" aria-label="Next selection"></button>
-
-        <label class="volume-hitbox">
-          <span class="sr-only">Volume</span>
-          <input id="volumeSlider" type="range" min="0" max="100" value="55" aria-label="Volume">
-        </label>
-
+        <label class="volume-hitbox"><span class="sr-only">Volume</span><input id="volumeSlider" type="range" min="0" max="100" value="55" aria-label="Volume"></label>
         <button id="homeButton" class="control home" aria-label="Return home"></button>
       </section>
 
@@ -85,13 +45,19 @@
         <small id="selectionSubtitle">Classic Disney attraction audio including Space Mountain</small>
       </div>
 
-      <div class="focus-ring" id="focusRing" aria-hidden="true"></div>
-      <div class="toast" id="toast" aria-live="polite"></div>
+      <button id="developerHotspot" class="developer-hotspot" aria-label="Open theme preview controls"></button>
+      <aside id="developerPanel" class="developer-panel" hidden aria-label="Theme preview controls">
+        <div class="developer-title"><strong>AtMOUSEpheres Preview</strong><button id="closeDeveloper" type="button" aria-label="Close preview controls">×</button></div>
+        <label>Time theme<select id="timePreview"><option value="auto">Auto</option><option value="morning">Morning</option><option value="day">Day</option><option value="night">Night</option></select></label>
+        <label>Season<select id="seasonPreview"><option value="auto">Auto</option><option value="cozy">Cozy Disney</option><option value="spring">Spring</option><option value="summer">Summer</option><option value="halloween">Halloween</option><option value="christmas">Christmas</option></select></label>
+        <label>Transition<select id="transitionPreview"><option value="500">0.5 seconds</option><option value="1000" selected>1 second</option><option value="2000">2 seconds</option></select></label>
+        <small>Triple-tap the upper-left corner to reopen.</small>
+      </aside>
 
+      <div class="toast" id="toast" aria-live="polite"></div>
       <audio id="audioPlayer" preload="none"></audio>
     </section>
   </main>
-
-  <script src="atmousepheres.js"></script>
+  <script src="atmousepheres.js?v=2.0.0"></script>
 </body>
 </html>
