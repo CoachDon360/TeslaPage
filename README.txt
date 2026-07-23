@@ -1,43 +1,22 @@
-ATMOUSEPHERES — FINAL ARTWORK CODE BUILD
+COACHDON CARPLAY — ATMOUSEPHERES HOME INTEGRATION
 
-CONTENTS
-- atmousepheres.html
-- atmousepheres.css
-- atmousepheres.js
-- atmousepheres-final.png
+HOME ROW 1
+Radio | AtMOUSEpheres | Bible | Ramsey
 
-WHAT THIS BUILD DOES
-- Uses the exact approved final artwork.
-- Adds responsive clickable hotspots to all eight cards.
-- Updates the lower player title and subtitle when a card is selected.
-- Makes previous, play/pause, next, volume, and home controls interactive.
-- Supports arrow keys, Enter, and Space on a keyboard.
-- Scales to Safari, Tesla Browser, tablets, and phones.
-- Includes visible focus and selection feedback.
+WHAT THIS PACKAGE DOES
+- Adds the approved AtMOUSEpheres icon to the Home page.
+- Links the icon to atmousepheres.html.
+- Keeps the AtMOUSEpheres Home button linked back to index.html.
+- Removes iHeartRadio from the Home page only.
+- Leaves the Entertainment page unchanged.
 
-DEPLOYMENT
-1. Unzip the package.
-2. Upload all four files to the ROOT of your GitHub Pages repository.
-3. Replace older AtMOUSEpheres files with these.
-4. Link your Disney icon to:
-   atmousepheres.html
-5. Commit the changes.
-6. Refresh Safari or clear the Tesla browser cache if an old version remains.
+UPLOAD ALL FILES IN THIS ZIP TO THE ROOT OF TESLAPAGES:
+index.html
+atmousepheres-icon.png
+atmousepheres.html
+atmousepheres.css
+atmousepheres.js
+atmousepheres-final.png
 
-ADDING STREAMS OR SUBPAGES
-Open atmousepheres.js and edit the destinations object.
-
-Example stream:
-"Classic Attractions": {
-  streamUrl: "https://example.com/live.mp3",
-  pageUrl: ""
-}
-
-Example category page:
-"Classic Attractions": {
-  streamUrl: "",
-  pageUrl: "classic-attractions.html"
-}
-
-The page is fully functional now; final live audio links can be added without
-changing the visual design.
+Keep your existing style.css, radio files, icons, and other repository files.
+This package is an update, not a full-repository replacement.
