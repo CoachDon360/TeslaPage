@@ -51,7 +51,13 @@
     artboard.dataset.timeTheme = theme;
   }
 
-  cards.forEach((card, index) => card.addEventListener("click", () => selectCard(index, true)));
+  cards.forEach((card, index) => card.addEventListener("click", () => {
+    if (card.classList.contains("card-parks")) {
+      window.location.href = "around-parks.html";
+      return;
+    }
+    selectCard(index, true);
+  }));
   previousButton.addEventListener("click", () => selectCard(currentIndex - 1));
   nextButton.addEventListener("click", () => selectCard(currentIndex + 1));
 

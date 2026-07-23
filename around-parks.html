@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#061f4d">
+  <title>Around the Parks • AtMOUSEpheres</title>
+  <link rel="stylesheet" href="around-parks.css?v=2.5.0">
+</head>
+<body>
+  <main class="park-shell">
+    <header class="hero">
+      <img src="around-parks-hero.png?v=2.5.0" alt="" class="hero-image">
+      <div class="hero-shade"></div>
+      <button id="backButton" class="back-button" type="button" aria-label="Back to AtMOUSEpheres">‹</button>
+      <div class="hero-copy">
+        <p class="brand">AtMOUSEpheres</p>
+        <h1>Around the Parks</h1>
+        <p>Choose a land and take a little getaway for your ears.</p>
+      </div>
+      <div class="clock" aria-label="Current time">
+        <strong id="time">--:--</strong>
+        <span id="date"></span>
+      </div>
+    </header>
+
+    <section class="destinations" aria-label="Magic Kingdom lands">
+      <button class="destination main-street selected" type="button"
+        data-title="Main Street, U.S.A."
+        data-subtitle="Welcome music, turn-of-the-century melodies and the sound of arriving at the Magic Kingdom."
+        data-feed="">
+        <span class="destination-symbol" aria-hidden="true">🏛️</span>
+        <span class="destination-copy"><strong>Main Street, U.S.A.</strong><small>The welcome mat</small></span>
+      </button>
+
+      <button class="destination adventureland" type="button"
+        data-title="Adventureland"
+        data-subtitle="Tropical rhythms, jungle atmosphere and adventurous park-area music."
+        data-feed="">
+        <span class="destination-symbol" aria-hidden="true">🌴</span>
+        <span class="destination-copy"><strong>Adventureland</strong><small>Tropical adventure</small></span>
+      </button>
+
+      <button class="destination frontierland" type="button"
+        data-title="Frontierland"
+        data-subtitle="Western melodies, riverfront atmosphere and music from the American frontier."
+        data-feed="">
+        <span class="destination-symbol" aria-hidden="true">🤠</span>
+        <span class="destination-copy"><strong>Frontierland</strong><small>The wild frontier</small></span>
+      </button>
+
+      <button class="destination liberty-square" type="button"
+        data-title="Liberty Square"
+        data-subtitle="Colonial American music and quiet atmosphere along the Rivers of America."
+        data-feed="">
+        <span class="destination-symbol" aria-hidden="true">🔔</span>
+        <span class="destination-copy"><strong>Liberty Square</strong><small>American heritage</small></span>
+      </button>
+
+      <button class="destination fantasyland" type="button"
+        data-title="Fantasyland"
+        data-subtitle="Storybook melodies and classic Disney magic from beyond the castle walls."
+        data-feed="">
+        <span class="destination-symbol" aria-hidden="true">🏰</span>
+        <span class="destination-copy"><strong>Fantasyland</strong><small>Storybook magic</small></span>
+      </button>
+
+      <button class="destination tomorrowland" type="button"
+        data-title="Tomorrowland"
+        data-subtitle="Optimistic electronic music and the kinetic atmosphere of a great big beautiful tomorrow."
+        data-feed="">
+        <span class="destination-symbol" aria-hidden="true">🚀</span>
+        <span class="destination-copy"><strong>Tomorrowland</strong><small>The future that never was</small></span>
+      </button>
+    </section>
+
+    <section class="player" aria-label="Around the Parks audio player">
+      <div class="now-playing-art" aria-hidden="true">
+        <img src="around-parks-hero.png?v=2.5.0" alt="">
+      </div>
+      <div class="now-playing-copy" aria-live="polite">
+        <span>NOW ENTERING...</span>
+        <strong id="selectionTitle">Main Street, U.S.A.</strong>
+        <small id="selectionSubtitle">Welcome music, turn-of-the-century melodies and the sound of arriving at the Magic Kingdom.</small>
+      </div>
+      <div class="transport">
+        <button id="previousButton" type="button" aria-label="Previous land">|◀</button>
+        <button id="playButton" class="play-button" type="button" aria-label="Play">▶</button>
+        <button id="nextButton" type="button" aria-label="Next land">▶|</button>
+      </div>
+      <label class="volume">
+        <span aria-hidden="true">🔊</span>
+        <input id="volumeSlider" type="range" min="0" max="100" value="60" aria-label="Volume">
+      </label>
+      <button id="homeButton" class="home-button" type="button" aria-label="CoachDon CarPlay Home">⌂ <span>HOME</span></button>
+    </section>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+    <audio id="audioPlayer" preload="none"></audio>
+  </main>
+  <script src="around-parks.js?v=2.5.0"></script>
+</body>
+</html>
