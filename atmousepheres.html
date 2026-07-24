@@ -2,63 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#04142f">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a2f69">
   <title>AtMOUSEpheres</title>
-  <link rel="stylesheet" href="atmousepheres-v2.css?v=3.0.0">
+  <link rel="stylesheet" href="atmousepheres.css?v=2.5.0">
 </head>
 <body>
-  <main class="app-shell">
-    <section class="launcher-panel" aria-label="Disney radio channels">
-      <header class="brand-lockup">
-        <h1><span>At</span><strong>mouse</strong><span>pheres</span></h1>
-        <p>A little getaway for your ears</p>
-      </header>
+  <main class="page-shell">
+    <section class="artboard" aria-label="AtMOUSEpheres Disney audio menu" data-time-theme="day">
+      <img class="artwork" src="atmousepheres-final.png?v=2.5.0" alt="AtMOUSEpheres Disney audio menu with eight themed categories">
 
-      <div class="station-grid" id="stationGrid"></div>
-    </section>
+      <nav class="card-links" aria-label="AtMOUSEpheres categories">
+        <button class="card card-parks" data-title="Around the Parks" data-subtitle="Music from around the Disney Parks" aria-label="Around the Parks"></button>
+        <button class="card card-resorts" data-title="Resort Collection" data-subtitle="Relaxing music from Disney Resort Hotels" aria-label="Resort Collection"></button>
+        <button class="card card-epcot" data-title="EPCOT" data-subtitle="Music and atmosphere from EPCOT" aria-label="EPCOT"></button>
+        <button class="card card-atmospheres" data-title="Park Atmospheres" data-subtitle="Relaxing background music from the Parks" aria-label="Park Atmospheres"></button>
+        <button class="card card-classic" data-title="Classic Attractions" data-subtitle="Classic Disney attraction audio including Space Mountain" aria-label="Classic Attractions"></button>
+        <button class="card card-loops" data-title="Disney Loops" data-subtitle="Timeless Disney music and melodies" aria-label="Disney Loops"></button>
+        <button class="card card-night" data-title="Nighttime Spectaculars" data-subtitle="Fireworks, parades and nighttime magic" aria-label="Nighttime Spectaculars"></button>
+        <button class="card card-seasonal" data-title="Seasonal Magic" data-subtitle="Holiday music and seasonal celebration" aria-label="Seasonal Magic"></button>
+      </nav>
 
-    <section class="player-panel" aria-label="Now playing">
-      <div class="epcot-scene" aria-hidden="true">
-        <div class="stars"></div>
-        <div class="horizon-glow"></div>
-        <div class="spaceship-earth">
-          <div class="sphere-grid"></div>
-        </div>
-        <div class="land"></div>
-        <div class="water"></div>
-      </div>
-
-      <header class="player-header">
-        <span class="live-pill"><b></b> LIVE</span>
-        <img id="networkLogo" src="sorcerer-radio-icon.png" alt="Sorcerer Radio">
-      </header>
-
-      <div class="station-heading">
-        <h2 id="stationTitle">Sorcerer Radio</h2>
-        <p id="stationDescription">Disney Parks music and more</p>
-      </div>
-
-      <section class="now-playing-card">
-        <div>
-          <span class="eyebrow">NOW PLAYING</span>
-          <strong id="trackTitle">Live radio stream</strong>
-          <small id="trackSubtitle">Tap Play to begin</small>
-        </div>
-        <div class="album-art" aria-hidden="true">♫</div>
+      <section class="functional-player" aria-label="Audio player">
+        <button id="previousButton" class="control previous" aria-label="Previous selection"></button>
+        <button id="playButton" class="control play" aria-label="Play"></button>
+        <button id="nextButton" class="control next" aria-label="Next selection"></button>
+        <label class="volume-hitbox">
+          <span class="sr-only">Volume</span>
+          <input id="volumeSlider" type="range" min="0" max="100" value="55" aria-label="Volume">
+        </label>
+        <button id="homeButton" class="control home" aria-label="Return home"></button>
       </section>
 
-      <div class="transport">
-        <button id="previousButton" type="button" aria-label="Previous station">|◀</button>
-        <button id="playButton" class="play-button" type="button" aria-label="Play">▶</button>
-        <button id="nextButton" type="button" aria-label="Next station">▶|</button>
+      <!-- This panel completely covers the wording baked into the artwork. -->
+      <div class="selection-mask" aria-hidden="true"></div>
+      <div class="selection-overlay" aria-live="polite">
+        <span class="eyebrow">NOW ENTERING...</span>
+        <strong id="selectionTitle">Classic Attractions</strong>
+        <small id="selectionSubtitle">Classic Disney attraction audio including Space Mountain</small>
       </div>
 
-      <div id="statusMessage" class="status-message" aria-live="polite"></div>
+      <button id="developerHotspot" class="developer-hotspot" type="button" aria-label="Open preview controls"></button>
+      <aside id="developerPanel" class="developer-panel" hidden aria-label="Preview controls">
+        <div class="developer-title">
+          <strong>AtMOUSEpheres Preview</strong>
+          <button id="closeDeveloper" type="button" aria-label="Close preview controls">×</button>
+        </div>
+        <label>Lighting preview
+          <select id="timePreview">
+            <option value="auto">Auto</option>
+            <option value="morning">Morning tint</option>
+            <option value="day">Approved daytime</option>
+            <option value="night">Night tint</option>
+          </select>
+        </label>
+        <small>These are lighting previews only. Dedicated morning and nighttime artwork will be added in the next artwork phase.</small>
+      </aside>
+
+      <div class="time-treatment" aria-hidden="true"></div>
+      <div class="toast" id="toast" aria-live="polite"></div>
       <audio id="audioPlayer" preload="none"></audio>
     </section>
   </main>
-
-  <script src="atmousepheres-v2.js?v=3.0.0"></script>
+  <script src="atmousepheres.js?v=2.5.0"></script>
 </body>
 </html>
