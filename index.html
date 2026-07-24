@@ -1,87 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#03142e">
-  <title>AtMOUSEpheres</title>
-  <link rel="stylesheet" href="styles.css?v=1.0.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#05070a">
+<title>CoachDon CarPlay</title>
+<link rel="stylesheet" href="style.css?v=12.0.0">
 </head>
 <body>
-  <main class="app-shell">
-    <section class="launcher-panel" aria-label="Disney radio channels">
-      <header class="brand-lockup">
-        <h1><span>At</span><strong>m<span class="mouse-o">o</span>use</strong><span>pheres</span></h1>
-        <p><i>✦</i> A little getaway for your ears <i>✦</i></p>
-      </header>
+<div class="shell">
+<header class="top">
+  <div><div class="brand">CoachDon CarPlay</div><div id="pageName" class="page-name">Home</div></div>
+  <div class="datetime"><div id="time">--:--</div><small id="date"></small></div>
+</header>
 
-      <div class="station-grid" id="stationGrid"></div>
+<main id="carousel" class="carousel">
+<section class="page" data-name="Home">
+  <a class="app" href="radio.html?v=300"><div class="icon radio">♫</div><span>Radio</span></a>
+  <a class="app" href="atmousepheres.html?v=300"><div class="icon mouse">A</div><span>AtMOUSEpheres</span></a>
+  <a class="app" href="https://www.bible.com/" target="_blank"><div class="icon bible">✝</div><span>Bible</span></a>
+  <a class="app" href="https://www.ramseysolutions.com/" target="_blank"><div class="icon ramsey">R</div><span>Ramsey</span></a>
+  <a class="app" href="https://maps.google.com/" target="_blank"><div class="icon maps">⌖</div><span>Google Maps</span></a>
+  <a class="app" href="https://earth.google.com/web/" target="_blank"><div class="icon earth">◉</div><span>Google Earth</span></a>
+  <a class="app" href="https://www.rightnowmedia.org/" target="_blank"><div class="icon rightnow">▶</div><span>RightNow Media</span></a>
+  <a class="app" href="https://www.tesla.com/" target="_blank"><div class="icon tesla">T</div><span>Tesla</span></a>
+</section>
 
-      <footer class="left-footer">
-        <a class="home-button" href="index.html" aria-label="Home">
-          <span aria-hidden="true">⌂</span>
-          <small>HOME</small>
-        </a>
-        <div class="footer-message">
-          <strong>Tap any channel</strong>
-          <span>to start listening</span>
-        </div>
-        <time id="clock">--:--</time>
-      </footer>
-    </section>
+<section class="page" data-name="Entertainment">
+  <a class="app" href="https://www.disneyplus.com/" target="_blank"><div class="icon disney">D+</div><span>Disney+</span></a>
+  <a class="app" href="https://www.netflix.com/" target="_blank"><div class="icon netflix">N</div><span>Netflix</span></a>
+  <a class="app" href="https://www.amazon.com/gp/video/storefront" target="_blank"><div class="icon prime">prime</div><span>Prime Video</span></a>
+  <a class="app" href="https://www.youtube.com/" target="_blank"><div class="icon youtube">▶</div><span>YouTube</span></a>
+  <a class="app" href="https://dparkradio.com/" target="_blank"><div class="icon dpark">DP</div><span>DParkRadio</span></a>
+  <a class="app" href="https://srsounds.com/" target="_blank"><div class="icon sorcerer">SR</div><span>Sorcerer Radio</span></a>
+  <a class="app" href="https://www.hoopladigital.com/" target="_blank"><div class="icon hoopla">h</div><span>Hoopla</span></a>
+  <a class="app" href="https://libbyapp.com/" target="_blank"><div class="icon libby">L</div><span>Libby</span></a>
+</section>
 
-    <section class="player-panel" aria-label="Now playing">
-      <div class="scene scene-atmospheres" id="scene">
-        <div class="stars"></div>
-        <div class="castle" aria-hidden="true">
-          <span class="tower t1"></span>
-          <span class="tower t2"></span>
-          <span class="tower t3"></span>
-          <span class="tower t4"></span>
-          <span class="tower t5"></span>
-          <span class="keep"></span>
-          <span class="arch"></span>
-        </div>
-        <div class="reflection"></div>
-      </div>
-
-      <header class="player-header">
-        <span class="live-pill"><b></b> LIVE</span>
-        <img id="networkLogo" src="sorcerer-radio-icon.png" alt="Sorcerer Radio">
-      </header>
-
-      <div class="station-heading">
-        <h2 id="stationTitle">Atmospheres</h2>
-        <p id="stationDescription">Relaxing Disney park music</p>
-      </div>
-
-      <section class="now-playing-card">
-        <div>
-          <span class="eyebrow">NOW PLAYING</span>
-          <strong id="trackTitle">Live radio stream</strong>
-          <small id="trackSubtitle">Tap Play to begin</small>
-        </div>
-        <div class="album-art" aria-hidden="true">✦</div>
-      </section>
-
-      <div class="transport">
-        <button id="previousButton" type="button" aria-label="Previous station">|◀</button>
-        <button id="playButton" class="play-button" type="button" aria-label="Play">▶</button>
-        <button id="nextButton" type="button" aria-label="Next station">▶|</button>
-      </div>
-
-      <nav class="player-tabs" aria-label="Player options">
-        <button class="active" type="button"><span>♫</span>Now Playing</button>
-        <button type="button"><span>ⓘ</span>Info</button>
-        <button type="button"><span>▦</span>Schedule</button>
-        <button type="button"><span>☆</span>Favorite</button>
-      </nav>
-
-      <div id="statusMessage" class="status-message" aria-live="polite"></div>
-      <audio id="audioPlayer" preload="none"></audio>
-    </section>
-  </main>
-
-  <script src="app.js?v=1.0.0"></script>
-</body>
-</html>
+<section class="page" data-name="Real Estate">
+  <a class="app" href="https://imagine.flexmls.com/" target="_blank"><div class="icon flex">F</div><span>FlexMLS</span></a>
+  <a class="app" href="https://www.showingtime.com/" target="_blank"><div class="icon showing">S</div><span>ShowingTime</span></a>
+  <a class="app" href="https://www.dotloop.com/" target="_blank"><div class="icon dotloop">d</div><span>Dotloop</span></a>
+  <a class="app" href="https://www.forewarn.com/" target="_blank"><div class="icon forewarn">FW</div><span>Forewarn</span></a>
+  <a class="app" href="https://www.zillow.com/" target="_blank"><div class="icon zillow">Z</div><span>Zillow</span></a>
+  <a class="app" href="https://be.exitrealty.com/" target="_blank"><div class="icon exit">EXIT</div><span>Exit Connect</span></a>
+</section>
+</main>
+<nav id="dots" class="dots"></nav>
+<div class="hint">Swipe for more</div>
+</div>
+<script src="app.js?v=12.0.0"></script>
+</body></html>

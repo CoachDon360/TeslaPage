@@ -1,23 +1,27 @@
-AtMOUSEpheres Split-Screen — Corrected Deployment
-=================================================
+COACHDON CARPLAY — CLEAN PRODUCTION PACKAGE
+Version 12.0 / cache tag 300
 
-THE ISSUE IN THE FIRST PACKAGE
-The first ZIP called the new page index.html and used generic styles.css/app.js.
-That could overwrite or conflict with the existing TeslaPages home page, while
-your current Disney icon likely still links to atmousepheres.html. Therefore
-you could upload the files successfully and still continue seeing the old page.
+UPLOAD:
+Upload every loose file in this ZIP directly into the ROOT of the TeslaPage GitHub repository.
 
-USE THESE FILES
-- atmousepheres.html
-- atmousepheres-split.css
-- atmousepheres-split.js
-- sorcerer-radio-icon.png
-- dparkradio-icon.png
+FILES:
+index.html
+style.css
+app.js
+radio.html
+radio.css
+radio.js
+atmousepheres.html
+atmousepheres.css
+atmousepheres.js
 
-UPLOAD all five files to the ROOT of TeslaPages. Replace the existing
-atmousepheres.html when GitHub asks.
+IMPORTANT:
+1. Replace files with the same names.
+2. Do not upload the enclosing folder.
+3. Keep unrelated image files in the repository; this package does not require them.
+4. Test:
+   .../TeslaPage/index.html?v=300
+5. The AtMOUSEpheres tile opens:
+   atmousepheres.html?v=300
 
-Your existing main index.html is intentionally NOT included and will remain
-untouched.
-
-Cache-busting version: 1.0.1
+This clean build removes dependence on duplicate split/v2 files.
