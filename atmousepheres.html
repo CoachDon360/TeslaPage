@@ -1,3 +1,64 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>AtMOUSEpheres</title><link rel="stylesheet" href="atmousepheres.css?v=300"></head><body>
-<main><section class="left"><header><h1>At<span>mouse</span>pheres</h1><p>A little getaway for your ears</p></header><div id="grid" class="grid"></div></section>
-<section class="right"><div class="epcot"><div class="stars"></div><div class="sphere">◉</div></div><div class="info"><span>LIVE DISNEY AUDIO</span><h2 id="stationTitle">Sorcerer Radio</h2><p id="stationDesc">Disney Parks music and more</p><div class="controls"><button id="prev">◀</button><button id="play">▶</button><button id="next">▶</button></div><div id="status">Tap Play to begin</div></div></section></main><audio id="audio" preload="none"></audio><script src="atmousepheres.js?v=300"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04142f">
+  <title>AtMOUSEpheres</title>
+  <link rel="stylesheet" href="atmousepheres-v2.css?v=3.0.0">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="launcher-panel" aria-label="Disney radio channels">
+      <header class="brand-lockup">
+        <h1><span>At</span><strong>mouse</strong><span>pheres</span></h1>
+        <p>A little getaway for your ears</p>
+      </header>
+
+      <div class="station-grid" id="stationGrid"></div>
+    </section>
+
+    <section class="player-panel" aria-label="Now playing">
+      <div class="epcot-scene" aria-hidden="true">
+        <div class="stars"></div>
+        <div class="horizon-glow"></div>
+        <div class="spaceship-earth">
+          <div class="sphere-grid"></div>
+        </div>
+        <div class="land"></div>
+        <div class="water"></div>
+      </div>
+
+      <header class="player-header">
+        <span class="live-pill"><b></b> LIVE</span>
+        <img id="networkLogo" src="sorcerer-radio-icon.png" alt="Sorcerer Radio">
+      </header>
+
+      <div class="station-heading">
+        <h2 id="stationTitle">Sorcerer Radio</h2>
+        <p id="stationDescription">Disney Parks music and more</p>
+      </div>
+
+      <section class="now-playing-card">
+        <div>
+          <span class="eyebrow">NOW PLAYING</span>
+          <strong id="trackTitle">Live radio stream</strong>
+          <small id="trackSubtitle">Tap Play to begin</small>
+        </div>
+        <div class="album-art" aria-hidden="true">♫</div>
+      </section>
+
+      <div class="transport">
+        <button id="previousButton" type="button" aria-label="Previous station">|◀</button>
+        <button id="playButton" class="play-button" type="button" aria-label="Play">▶</button>
+        <button id="nextButton" type="button" aria-label="Next station">▶|</button>
+      </div>
+
+      <div id="statusMessage" class="status-message" aria-live="polite"></div>
+      <audio id="audioPlayer" preload="none"></audio>
+    </section>
+  </main>
+
+  <script src="atmousepheres-v2.js?v=3.0.0"></script>
+</body>
+</html>

@@ -1,27 +1,29 @@
-COACHDON CARPLAY — CLEAN PRODUCTION PACKAGE
-Version 12.0 / cache tag 300
+ATMOUSEPHERES RESTORED — v3
 
-UPLOAD:
-Upload every loose file in this ZIP directly into the ROOT of the TeslaPage GitHub repository.
+Upload ONLY these three loose files to the ROOT of the TeslaPage repository:
 
-FILES:
-index.html
-style.css
-app.js
-radio.html
-radio.css
-radio.js
-atmousepheres.html
-atmousepheres.css
-atmousepheres.js
+1. atmousepheres.html
+2. atmousepheres-v2.css
+3. atmousepheres-v2.js
 
-IMPORTANT:
-1. Replace files with the same names.
-2. Do not upload the enclosing folder.
-3. Keep unrelated image files in the repository; this package does not require them.
-4. Test:
-   .../TeslaPage/index.html?v=300
-5. The AtMOUSEpheres tile opens:
-   atmousepheres.html?v=300
+Replace files with those exact names.
 
-This clean build removes dependence on duplicate split/v2 files.
+KEEP these existing image assets in the repository:
+- sorcerer-radio-icon.png
+- dpark-radio-icon.png
+
+DO NOT upload index.html, style.css, app.js, radio files, or the prior v12 package.
+
+Test after GitHub Pages deploys:
+https://coachdon360.github.io/TeslaPage/atmousepheres.html?v=300
+
+Restored design:
+- Four verified stations
+- Sorcerer and authentic DPark icons
+- Spacious 2x2 station grid
+- Left-aligned Atmousepheres heading
+- Blue “mouse” text with no ears
+- Spaceship Earth evening scene
+- No Home button
+- No footer instruction
+- No bottom navigation tabs
