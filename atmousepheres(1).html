@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#03142e">
   <title>Atmousepheres</title>
-  <link rel="stylesheet" href="atmousepheres-split.css?v=1.2.0">
+  <link rel="stylesheet" href="atmousepheres-v2.css?v=2.0.0">
 </head>
 <body>
   <main class="app-shell">
-    <section class="launcher-panel" aria-label="Disney radio channels">
+    <section class="launcher-panel" aria-label="Disney radio stations">
       <header class="brand-lockup">
         <h1><span>At</span><strong>mouse</strong><span>pheres</span></h1>
         <p>A little getaway for your ears</p>
@@ -23,14 +23,16 @@
     </section>
 
     <section class="player-panel" aria-label="Now playing">
-      <div class="scene" id="scene" aria-hidden="true">
+      <div class="epcot-scene" aria-hidden="true">
         <div class="stars"></div>
-        <div class="epcot-glow"></div>
         <div class="spaceship-earth">
           <div class="sphere-facets"></div>
         </div>
-        <div class="monorail-beam"></div>
-        <div class="reflection"></div>
+        <div class="supports">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="monorail"></div>
+        <div class="lagoon"></div>
       </div>
 
       <header class="player-header">
@@ -44,12 +46,12 @@
       </div>
 
       <section class="now-playing-card">
-        <div>
+        <div class="now-playing-text">
           <span class="eyebrow">NOW PLAYING</span>
           <strong id="trackTitle">Sorcerer Radio</strong>
           <small id="trackSubtitle">Tap Play to begin</small>
         </div>
-        <img id="albumArt" class="album-art" src="sorcerer-radio-icon.png" alt="">
+        <img id="albumArt" src="sorcerer-radio-icon.png" alt="">
       </section>
 
       <div class="transport">
@@ -63,6 +65,6 @@
     </section>
   </main>
 
-  <script src="atmousepheres-split.js?v=1.2.0"></script>
+  <script src="atmousepheres-v2.js?v=2.0.0"></script>
 </body>
 </html>

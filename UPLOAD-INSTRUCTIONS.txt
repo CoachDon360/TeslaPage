@@ -1,0 +1,16 @@
+ATMOUSEPHERES V2 REBUILD
+
+Upload these files directly to the ROOT of the TeslaPage GitHub repository:
+- atmousepheres.html
+- atmousepheres(1).html
+- atmousepheres-v2.css
+- atmousepheres-v2.js
+
+Keep these existing image files in the same root folder:
+- sorcerer-radio-icon.png
+- dparkradio-icon.png
+
+The CSS and JavaScript use brand-new v2 filenames so the Tesla browser cannot keep loading the old split files.
+
+Test URL:
+atmousepheres.html?v=2.0
