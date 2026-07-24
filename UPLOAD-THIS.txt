@@ -1,0 +1,16 @@
+UPLOAD THESE FILES DIRECTLY TO THE ROOT OF YOUR TeslaPage REPOSITORY:
+
+atmousepheres.html
+atmousepheres(1).html
+atmousepheres-split.css
+atmousepheres-split.js
+
+Do NOT upload the enclosing folder. Replace the existing files when GitHub asks.
+Keep these existing icon files in the repository root:
+- sorcerer-radio-icon.png
+- dparkradio-icon.png
+
+Test with:
+/atmousepheres.html?v=1.2
+
+The prior ZIP accidentally placed the files inside an atmousepheres-v1-1 folder. GitHub therefore left the old root files active, which is why the UI did not change.

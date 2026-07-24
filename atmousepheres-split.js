@@ -1,73 +1,30 @@
 (() => {
   "use strict";
 
-  // Direct browser-playable streams confirmed from the stations' public listings.
-  // Live radio URLs can change; edit only this array if a provider migrates a stream.
   const stations = [
     {
       title: "Sorcerer Radio",
-      network: "sorcerer",
       icon: "sorcerer-radio-icon.png",
       description: "All Disney music, all day long",
-      stream: "https://streaming.live365.com/a89268",
-      scene: "scene-atmospheres"
-    },
-    {
-      title: "Atmospheres",
-      network: "sorcerer",
-      icon: "sorcerer-radio-icon.png",
-      description: "Relaxing Disney park music",
-      stream: "https://streaming.live365.com/a60346",
-      scene: "scene-atmospheres"
-    },
-    {
-      title: "Loop’d",
-      network: "sorcerer",
-      icon: "sorcerer-radio-icon.png",
-      description: "Disney park and resort loops",
-      stream: "",
-      officialPage: "https://srsounds.com/wp/player/",
-      scene: "scene-loop"
-    },
-    {
-      title: "Rope Drop",
-      network: "sorcerer",
-      icon: "sorcerer-radio-icon.png",
-      description: "Rides and attraction audio",
-      stream: "https://streaming.live365.com/a81480",
-      scene: "scene-rope"
+      stream: "https://streaming.live365.com/a89268"
     },
     {
       title: "DPark Main",
-      network: "dpark",
       icon: "dparkradio-icon.png",
       description: "Disney theme park music",
-      stream: "https://str3.openstream.co/805",
-      scene: "scene-dpark"
+      stream: "https://str3.openstream.co/805"
     },
     {
-      title: "Background",
-      network: "dpark",
+      title: "DPark Background",
       icon: "dparkradio-icon.png",
       description: "Background area music",
-      stream: "https://listen.openstream.co/7421/audio",
-      scene: "scene-loop"
+      stream: "https://listen.openstream.co/7421/audio"
     },
     {
-      title: "Guest TV (Resort TV)",
-      network: "dpark",
-      icon: "dparkradio-icon.png",
-      description: "Classic Disney resort television audio",
-      stream: "https://cheetah.streemlion.com:2340/;",
-      scene: "scene-dpark"
-    },
-    {
-      title: "Holiday / Main Street",
-      network: "dpark",
+      title: "DPark Holiday",
       icon: "dparkradio-icon.png",
       description: "Holiday and Main Street programming",
-      stream: "https://listen.openstream.co/4287/audio",
-      scene: "scene-rope"
+      stream: "https://listen.openstream.co/4287/audio"
     }
   ];
 
@@ -79,18 +36,18 @@
   const stationTitle = document.getElementById("stationTitle");
   const stationDescription = document.getElementById("stationDescription");
   const networkLogo = document.getElementById("networkLogo");
+  const albumArt = document.getElementById("albumArt");
   const trackTitle = document.getElementById("trackTitle");
   const trackSubtitle = document.getElementById("trackSubtitle");
-  const scene = document.getElementById("scene");
   const statusMessage = document.getElementById("statusMessage");
-  let currentIndex = 1;
+  let currentIndex = 0;
   let statusTimer;
 
   function showStatus(message) {
     clearTimeout(statusTimer);
     statusMessage.textContent = message;
     statusMessage.classList.add("show");
-    statusTimer = setTimeout(() => statusMessage.classList.remove("show"), 2200);
+    statusTimer = setTimeout(() => statusMessage.classList.remove("show"), 2600);
   }
 
   function renderStations() {
@@ -98,7 +55,6 @@
       const button = document.createElement("button");
       button.type = "button";
       button.className = "station-button";
-      button.dataset.index = index;
       button.setAttribute("aria-label", `Play ${station.title}`);
       button.innerHTML = `
         <span class="icon-wrap"><img src="${station.icon}" alt=""></span>
@@ -120,34 +76,27 @@
     stationTitle.textContent = station.title;
     stationDescription.textContent = station.description;
     networkLogo.src = station.icon;
-    networkLogo.alt = station.network === "sorcerer" ? "Sorcerer Radio" : "DParkRadio";
-    scene.className = `scene ${station.scene}`;
+    networkLogo.alt = station.title.startsWith("DPark") ? "DParkRadio" : "Sorcerer Radio";
+    albumArt.src = station.icon;
     trackTitle.textContent = station.title;
     trackSubtitle.textContent = "Live radio stream";
 
     audio.pause();
+    audio.src = station.stream;
+    audio.load();
     playButton.textContent = "▶";
     playButton.setAttribute("aria-label", "Play");
 
-    if (station.stream) {
-      audio.src = station.stream;
-      audio.load();
-      if (autoplay) {
-        audio.play().catch(() => showStatus("Tap Play to begin this stream"));
-      }
-    } else {
-      audio.removeAttribute("src");
-      audio.load();
-      showStatus("Loop’d direct stream address needs provider confirmation");
+    if (autoplay) {
+      trackSubtitle.textContent = "Connecting…";
+      audio.play().catch(() => {
+        trackSubtitle.textContent = "Tap Play to begin";
+        showStatus("Tap Play to begin this stream");
+      });
     }
   }
 
   function togglePlayback() {
-    const station = stations[currentIndex];
-    if (!station.stream) {
-      showStatus("This provider has not published a stable direct stream URL");
-      return;
-    }
     if (audio.paused) {
       trackSubtitle.textContent = "Connecting…";
       audio.play().catch(() => {
@@ -190,7 +139,7 @@
   }
 
   renderStations();
-  selectStation(currentIndex, false);
+  selectStation(0, false);
   updateClock();
   setInterval(updateClock, 30000);
 })();
