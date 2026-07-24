@@ -1,277 +1,196 @@
 (() => {
   "use strict";
 
-  const stations = Array.isArray(window.COACHDON_STATIONS)
-    ? window.COACHDON_STATIONS
-    : [];
+  // Direct browser-playable streams confirmed from the stations' public listings.
+  // Live radio URLs can change; edit only this array if a provider migrates a stream.
+  const stations = [
+    {
+      title: "Sorcerer Radio",
+      network: "sorcerer",
+      icon: "sorcerer-radio-icon.png",
+      description: "All Disney music, all day long",
+      stream: "https://streaming.live365.com/a89268",
+      scene: "scene-atmospheres"
+    },
+    {
+      title: "Atmospheres",
+      network: "sorcerer",
+      icon: "sorcerer-radio-icon.png",
+      description: "Relaxing Disney park music",
+      stream: "https://streaming.live365.com/a60346",
+      scene: "scene-atmospheres"
+    },
+    {
+      title: "Loop’d",
+      network: "sorcerer",
+      icon: "sorcerer-radio-icon.png",
+      description: "Disney park and resort loops",
+      stream: "",
+      officialPage: "https://srsounds.com/wp/player/",
+      scene: "scene-loop"
+    },
+    {
+      title: "Rope Drop",
+      network: "sorcerer",
+      icon: "sorcerer-radio-icon.png",
+      description: "Rides and attraction audio",
+      stream: "https://streaming.live365.com/a81480",
+      scene: "scene-rope"
+    },
+    {
+      title: "DPark Main",
+      network: "dpark",
+      icon: "dparkradio-icon.png",
+      description: "Disney theme park music",
+      stream: "https://str3.openstream.co/805",
+      scene: "scene-dpark"
+    },
+    {
+      title: "Background",
+      network: "dpark",
+      icon: "dparkradio-icon.png",
+      description: "Background area music",
+      stream: "https://listen.openstream.co/7421/audio",
+      scene: "scene-loop"
+    },
+    {
+      title: "Guest TV (Resort TV)",
+      network: "dpark",
+      icon: "dparkradio-icon.png",
+      description: "Classic Disney resort television audio",
+      stream: "https://cheetah.streemlion.com:2340/;",
+      scene: "scene-dpark"
+    },
+    {
+      title: "Holiday / Main Street",
+      network: "dpark",
+      icon: "dparkradio-icon.png",
+      description: "Holiday and Main Street programming",
+      stream: "https://listen.openstream.co/4287/audio",
+      scene: "scene-rope"
+    }
+  ];
 
-  const els = {
-    home: document.getElementById("home"),
-    list: document.getElementById("stationList"),
-    audio: document.getElementById("audio"),
-    play: document.getElementById("playButton"),
-    previous: document.getElementById("previousButton"),
-    next: document.getElementById("nextButton"),
-    playerLogo: document.getElementById("playerLogo"),
-    playerName: document.getElementById("playerName"),
-    track: document.getElementById("trackTitle"),
-    artist: document.getElementById("artistName"),
-    liveBar: document.getElementById("liveBar"),
-    liveText: document.getElementById("liveText"),
-    quality: document.getElementById("qualityText"),
-    clock: document.getElementById("clock"),
-    date: document.getElementById("date"),
-    notice: document.getElementById("notice")
-  };
+  const grid = document.getElementById("stationGrid");
+  const audio = document.getElementById("audioPlayer");
+  const playButton = document.getElementById("playButton");
+  const previousButton = document.getElementById("previousButton");
+  const nextButton = document.getElementById("nextButton");
+  const stationTitle = document.getElementById("stationTitle");
+  const stationDescription = document.getElementById("stationDescription");
+  const networkLogo = document.getElementById("networkLogo");
+  const trackTitle = document.getElementById("trackTitle");
+  const trackSubtitle = document.getElementById("trackSubtitle");
+  const scene = document.getElementById("scene");
+  const statusMessage = document.getElementById("statusMessage");
+  let currentIndex = 1;
+  let statusTimer;
 
-  let currentIndex = -1;
-  let streamIndex = 0;
-  let metadataTimer = null;
-  let metadataRequest = 0;
-  const favorites = new Set(JSON.parse(localStorage.getItem("coachdonxm-favorites") || "[]"));
-
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
+  function showStatus(message) {
+    clearTimeout(statusTimer);
+    statusMessage.textContent = message;
+    statusMessage.classList.add("show");
+    statusTimer = setTimeout(() => statusMessage.classList.remove("show"), 2200);
   }
 
   function renderStations() {
-    els.list.innerHTML = stations.map((station, index) => `
-      <button class="channel" type="button" data-index="${index}" aria-label="Play channel ${station.n}, ${escapeHtml(station.name)}">
-        <span class="num">${station.n}</span>
-        <span class="logo ${escapeHtml(station.lc || "")}">${escapeHtml(station.logo || station.name)}</span>
-        <span class="info">
-          <span class="name">${escapeHtml(station.name)}</span>
-          <span class="desc">${escapeHtml(station.desc || "")}</span>
-        </span>
-        <span class="health"><span class="dot"></span></span>
-        <span class="quality">${escapeHtml(station.q || "")}</span>
-      </button>
-    `).join("");
-
-    els.list.querySelectorAll(".channel").forEach(button => {
-      button.addEventListener("click", () => selectStation(Number(button.dataset.index), true));
+    stations.forEach((station, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "station-button";
+      button.dataset.index = index;
+      button.setAttribute("aria-label", `Play ${station.title}`);
+      button.innerHTML = `
+        <span class="icon-wrap"><img src="${station.icon}" alt=""></span>
+        <strong>${station.title}</strong>
+      `;
+      button.addEventListener("click", () => selectStation(index, true));
+      grid.appendChild(button);
     });
-  }
-
-  function stationButton(index) {
-    return els.list.querySelector(`.channel[data-index="${index}"]`);
-  }
-
-  function markActive() {
-    els.list.querySelectorAll(".channel").forEach((button, index) => {
-      button.classList.toggle("active", index === currentIndex);
-      button.classList.toggle("live", index === currentIndex && !els.audio.paused);
-    });
-  }
-
-  function currentStation() {
-    return stations[currentIndex] || null;
-  }
-
-  function setLiveState(state, text) {
-    els.liveBar.classList.remove("live", "wait", "offline");
-    if (state) els.liveBar.classList.add(state);
-    els.liveText.textContent = text;
-  }
-
-  function updatePlayer(station) {
-    els.playerLogo.textContent = station.logo || station.name;
-    els.playerLogo.className = `plogo ${station.lc || ""}`;
-    els.playerName.textContent = station.name;
-    els.track.textContent = station.mount || station.meta
-      ? "Checking now playing…"
-      : station.desc || "Live radio";
-    els.artist.textContent = station.mount || station.meta
-      ? "Metadata ready"
-      : "Live broadcast";
-    els.quality.textContent = station.q ? `${station.q} kbps` : "LIVE";
-  }
-
-  function stopMetadata() {
-    if (metadataTimer) clearInterval(metadataTimer);
-    metadataTimer = null;
-    metadataRequest++;
-  }
-
-  async function refreshMetadata() {
-    const station = currentStation();
-    if (!station || els.audio.paused || (!station.mount && !station.meta)) return;
-
-    const requestId = ++metadataRequest;
-    setLiveState("wait", "LIVE • CHECKING METADATA");
-
-    try {
-      const metadata = await window.COACHDON_METADATA.get(station);
-      if (requestId !== metadataRequest || station !== currentStation()) return;
-
-      if (metadata?.title) {
-        els.track.textContent = metadata.title;
-        els.artist.textContent = metadata.artist || station.name;
-        setLiveState("live", "LIVE • METADATA RECEIVED");
-      } else {
-        els.track.textContent = station.name === "Super 70s"
-          ? "Live on 181.FM"
-          : station.desc || "Live radio";
-        els.artist.textContent = station.name;
-        setLiveState("live", "LIVE • METADATA UNAVAILABLE");
-      }
-    } catch (error) {
-      if (requestId !== metadataRequest) return;
-      console.warn("Metadata refresh failed:", error);
-      els.track.textContent = station.name === "Super 70s"
-        ? "Live on 181.FM"
-        : station.desc || "Live radio";
-      els.artist.textContent = station.name;
-      setLiveState("live", "LIVE • METADATA UNAVAILABLE");
-    }
-  }
-
-  function beginMetadata() {
-    stopMetadata();
-    refreshMetadata();
-    metadataTimer = setInterval(refreshMetadata, 20000);
-  }
-
-  function playCurrent() {
-    const station = currentStation();
-    if (!station) {
-      selectStation(0, true);
-      return;
-    }
-
-    if (station.podcast) {
-      showNotice(`${station.podcast} opens as a podcast channel.`);
-      return;
-    }
-
-    const streams = station.streams || [];
-    if (!streams.length) {
-      setLiveState("offline", "OFFLINE");
-      return;
-    }
-
-    if (!els.audio.src) {
-      els.audio.src = streams[streamIndex] || streams[0];
-    }
-
-    setLiveState("wait", "CONNECTING");
-    els.audio.play().catch(error => {
-      console.warn("Playback failed:", error);
-      tryNextStream();
-    });
-  }
-
-  function tryNextStream() {
-    const station = currentStation();
-    const streams = station?.streams || [];
-
-    if (streamIndex + 1 < streams.length) {
-      streamIndex++;
-      els.audio.src = streams[streamIndex];
-      els.audio.load();
-      playCurrent();
-      return;
-    }
-
-    setLiveState("offline", "OFFLINE");
-    els.play.textContent = "▶";
-    markActive();
   }
 
   function selectStation(index, autoplay = false) {
-    if (!stations[index]) return;
+    currentIndex = (index + stations.length) % stations.length;
+    const station = stations[currentIndex];
 
-    stopMetadata();
-    currentIndex = index;
-    streamIndex = 0;
-    const station = stations[index];
+    document.querySelectorAll(".station-button").forEach((button, i) => {
+      button.classList.toggle("selected", i === currentIndex);
+    });
 
-    els.audio.pause();
-    els.audio.removeAttribute("src");
-    els.audio.load();
+    stationTitle.textContent = station.title;
+    stationDescription.textContent = station.description;
+    networkLogo.src = station.icon;
+    networkLogo.alt = station.network === "sorcerer" ? "Sorcerer Radio" : "DParkRadio";
+    scene.className = `scene ${station.scene}`;
+    trackTitle.textContent = station.title;
+    trackSubtitle.textContent = "Live radio stream";
 
-    updatePlayer(station);
-    markActive();
-    stationButton(index)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    audio.pause();
+    playButton.textContent = "▶";
+    playButton.setAttribute("aria-label", "Play");
 
-    localStorage.setItem("coachdonxm-last-station", String(index));
-
-    if (autoplay && !station.podcast) {
-      els.audio.src = station.streams?.[0] || "";
-      playCurrent();
+    if (station.stream) {
+      audio.src = station.stream;
+      audio.load();
+      if (autoplay) {
+        audio.play().catch(() => showStatus("Tap Play to begin this stream"));
+      }
+    } else {
+      audio.removeAttribute("src");
+      audio.load();
+      showStatus("Loop’d direct stream address needs provider confirmation");
     }
   }
 
-  function move(direction) {
-    if (!stations.length) return;
-    const start = currentIndex < 0 ? 0 : currentIndex;
-    let next = (start + direction + stations.length) % stations.length;
-
-    for (let tries = 0; tries < stations.length; tries++) {
-      if (!stations[next].podcast) break;
-      next = (next + direction + stations.length) % stations.length;
+  function togglePlayback() {
+    const station = stations[currentIndex];
+    if (!station.stream) {
+      showStatus("This provider has not published a stable direct stream URL");
+      return;
     }
-    selectStation(next, true);
+    if (audio.paused) {
+      trackSubtitle.textContent = "Connecting…";
+      audio.play().catch(() => {
+        trackSubtitle.textContent = "Stream could not start";
+        showStatus("The station may be temporarily unavailable");
+      });
+    } else {
+      audio.pause();
+    }
   }
 
-  function showNotice(message) {
-    els.notice.textContent = message;
-    els.notice.classList.add("show");
-    setTimeout(() => els.notice.classList.remove("show"), 2600);
-  }
+  audio.addEventListener("playing", () => {
+    playButton.textContent = "Ⅱ";
+    playButton.setAttribute("aria-label", "Pause");
+    trackSubtitle.textContent = "Live now";
+  });
+
+  audio.addEventListener("pause", () => {
+    playButton.textContent = "▶";
+    playButton.setAttribute("aria-label", "Play");
+    if (audio.currentSrc) trackSubtitle.textContent = "Paused";
+  });
+
+  audio.addEventListener("waiting", () => {
+    trackSubtitle.textContent = "Buffering…";
+  });
+
+  audio.addEventListener("error", () => {
+    trackSubtitle.textContent = "Stream unavailable";
+    showStatus("This station did not answer. Try again shortly.");
+  });
+
+  playButton.addEventListener("click", togglePlayback);
+  previousButton.addEventListener("click", () => selectStation(currentIndex - 1, true));
+  nextButton.addEventListener("click", () => selectStation(currentIndex + 1, true));
 
   function updateClock() {
-    const now = new Date();
-    els.clock.textContent = now.toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit"
-    });
-    els.date.textContent = now.toLocaleDateString([], {
-      weekday: "long",
-      month: "short",
-      day: "numeric"
-    });
+    document.getElementById("clock").textContent =
+      new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
   }
 
-  els.home.addEventListener("click", () => {
-    window.location.href = "index.html?v=10.0.0";
-  });
-
-  els.play.addEventListener("click", () => {
-    if (els.audio.paused) playCurrent();
-    else els.audio.pause();
-  });
-
-  els.previous.addEventListener("click", () => move(-1));
-  els.next.addEventListener("click", () => move(1));
-
-  els.audio.addEventListener("playing", () => {
-    els.play.textContent = "❚❚";
-    setLiveState("live", "LIVE");
-    markActive();
-    beginMetadata();
-  });
-
-  els.audio.addEventListener("pause", () => {
-    els.play.textContent = "▶";
-    stopMetadata();
-    if (currentStation()) setLiveState("", "PAUSED");
-    markActive();
-  });
-
-  els.audio.addEventListener("waiting", () => setLiveState("wait", "BUFFERING"));
-  els.audio.addEventListener("stalled", () => setLiveState("wait", "BUFFERING"));
-  els.audio.addEventListener("error", tryNextStream);
-
   renderStations();
+  selectStation(currentIndex, false);
   updateClock();
   setInterval(updateClock, 30000);
-
-  const savedIndex = Number(localStorage.getItem("coachdonxm-last-station"));
-  selectStation(Number.isInteger(savedIndex) && stations[savedIndex] ? savedIndex : 6, false);
 })();
